@@ -5,7 +5,7 @@ using PhoneCompany.Model.Entities;
 
 namespace PhoneCompany.Services;
 
-public class ConversationService : InteractionService
+public class ConversationService : InteractionService, IConversationService
 {
     public async Task<IEnumerable<Conversation>> GetDataAsync()
     {

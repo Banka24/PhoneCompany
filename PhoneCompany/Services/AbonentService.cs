@@ -5,7 +5,7 @@ using PhoneCompany.Model.Entities;
 
 namespace PhoneCompany.Services;
 
-public class AbonentService : InteractionService
+public class AbonentService : InteractionService, IAbonentService
 {
     public async Task<IEnumerable<Abonent>> GetDataAsync()
     {

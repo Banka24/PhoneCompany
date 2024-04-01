@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using PhoneCompany.Model.Entities;
-using PhoneCompany.Services;
 
 namespace PhoneCompany.ViewModel;
 
@@ -16,13 +16,12 @@ public class CityPageViewModel : PageViewModelBase
 
     protected override async Task EnterDataListAsync()
     {
-        var cityService = new CityService();
-        var cities = await cityService.GetDataAsync();
+        var cities = await CityService.GetDataAsync();
 
         foreach (var city in cities) CitiesList.Add(city);
     }
 
-    protected override async void UpdatePageAsync(object sender)
+    protected override async void UpdatePageAsync(Button sender)
     {
         CitiesList.Clear();
         await EnterDataListAsync();

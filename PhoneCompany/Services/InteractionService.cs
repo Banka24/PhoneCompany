@@ -1,6 +1,6 @@
 ﻿namespace PhoneCompany.Services;
 
-public class InteractionService
+public abstract class InteractionService
 {
-    protected readonly CompanyDbContext Context = new();
+    protected CompanyDbContext Context = new();
 }

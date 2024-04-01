@@ -3,16 +3,18 @@ using System.Windows.Input;
 
 namespace PhoneCompany.Services;
 
-public class RelayCommand(Action<object> execute, Func<object, bool> canExecute = null) : ICommand
+public class RelayCommand<T>(Action<T> execute, Func<T, bool> canExecute = null) : ICommand
 {
+    private readonly Action<T> _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+
     public bool CanExecute(object parameter)
     {
-        return canExecute == null || canExecute(parameter);
+        return canExecute?.Invoke((T)parameter) ?? true;
     }
 
     public void Execute(object parameter)
     {
-        execute(parameter);
+        _execute((T)parameter);
     }
 
     public event EventHandler CanExecuteChanged

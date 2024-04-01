@@ -16,12 +16,10 @@ public class MainWindowViewModel(Frame frame)
     };
 
     private ICommand _changePageCommand;
-    public ICommand ChangePageCommand => _changePageCommand ??= new RelayCommand(ChangePage);
+    public ICommand ChangePageCommand => _changePageCommand ??= new RelayCommand<Button>(ChangePage);
 
-
-    private void ChangePage(object sender)
+    private void ChangePage(Button sender)
     {
-        if (sender is not Button button) return;
-        frame.Content = Pages[button.Name];
+        frame.Content = Pages[sender.Name];
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using PhoneCompany.Model.Entities;
-using PhoneCompany.Services;
 
 namespace PhoneCompany.ViewModel;
 
@@ -16,13 +16,12 @@ public sealed class AbonentPageViewModel : PageViewModelBase
 
     protected override async Task EnterDataListAsync()
     {
-        var abonentService = new AbonentService();
-        var abonents = await abonentService.GetDataAsync();
+        var abonents = await AbonentService.GetDataAsync();
 
         foreach (var abonent in abonents) AbonentsList.Add(abonent);
     }
 
-    protected override async void UpdatePageAsync(object sender)
+    protected override async void UpdatePageAsync(Button sender)
     {
         AbonentsList.Clear();
         await EnterDataListAsync();

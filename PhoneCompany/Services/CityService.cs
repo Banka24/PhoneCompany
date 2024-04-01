@@ -5,7 +5,7 @@ using PhoneCompany.Model.Entities;
 
 namespace PhoneCompany.Services;
 
-public class CityService : InteractionService
+public class CityService : InteractionService, ICityService
 {
     public async Task<IEnumerable<City>> GetDataAsync()
     {
@@ -16,4 +16,5 @@ public class CityService : InteractionService
         var city = await Context.Cities.FirstOrDefaultAsync(i => i.Id == conversation.CityId);
         return conversation.TimeOfDayId == 1 ? city!.TariffDay : city!.TariffNight;
     }
+
 }

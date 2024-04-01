@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using PhoneCompany.Model.Entities;
-using PhoneCompany.Services;
 
 namespace PhoneCompany.ViewModel;
 
@@ -16,8 +16,7 @@ public class ConversationPageViewModel : PageViewModelBase
 
     protected override async Task EnterDataListAsync()
     {
-        var conversationService = new ConversationService();
-        var conversations = await conversationService.GetDataAsync();
+        var conversations = await ConversationService.GetDataAsync();
 
         foreach (var conversation in conversations)
         {
@@ -26,14 +25,13 @@ public class ConversationPageViewModel : PageViewModelBase
         }
     }
 
-    public static async Task<decimal> SetPriceAsync(Conversation conversation)
+    public async Task<decimal> SetPriceAsync(Conversation conversation)
     {
-        var cityService = new CityService();
-        var tariff = await cityService.GetTariffAsync(conversation);
+        var tariff = await CityService.GetTariffAsync(conversation);
         return conversation.NumberOfMinutes * tariff;
     }
 
-    protected override async void UpdatePageAsync(object sender)
+    protected override async void UpdatePageAsync(Button sender)
     {
         ConversationsList.Clear();
         await EnterDataListAsync();
