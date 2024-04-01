@@ -20,6 +20,7 @@ public class MainWindowViewModel(Frame frame)
 
     private void ChangePage(Button sender)
     {
-        frame.Content = Pages[sender.Name];
+        frame.NavigationService.Navigate(Pages[sender.Name]);
+        frame.NavigationService.RemoveBackEntry();
     }
 }
