@@ -1,26 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
-using PhoneCompany.View.Pages;
 
 namespace PhoneCompany.ViewModel;
 
-public class MainWindowViewModel(Frame frame)
+public class MainWindowViewModel : INotifyPropertyChanged
 {
-    private static readonly Dictionary<string, Page> Pages = new()
-    {
-        { "ConversationPage", new ConversationPage() },
-        { "AbonentPage", new AbonentPage() },
-        { "CityPage", new CityPage() }
-    };
-
     private ICommand _changePageCommand;
     public ICommand ChangePageCommand => _changePageCommand ??= new RelayCommand<Button>(ChangePage);
 
+    private Page _currentPage;
+    public Page CurrentPage
+    {
+        get => _currentPage;
+        private set
+        {
+            _currentPage = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
     private void ChangePage(Button sender)
     {
-        frame.NavigationService.Navigate(Pages[sender.Name]);
-        frame.NavigationService.RemoveBackEntry();
+        CurrentPage = PageDictionaryHolder.GetPage(sender.Name);
     }
 }
