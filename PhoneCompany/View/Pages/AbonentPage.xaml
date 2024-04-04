@@ -11,21 +11,20 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="AddAbonentPage" Command="{Binding GoEditorCommand}" CommandParameter="{Binding ElementName=AddAbonentPage}" Content="Добавить"/>
-            <Button HorizontalAlignment="Left" Command="{Binding UpdateCommand}">
-                <Image Source="/Resources/Update.png" />
-            </Button>
-        </StackPanel>
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding AbonentsList}">
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding AbonentsList}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Номер телефона" Width="640" Binding="{Binding PhoneNumber  }" />
                 <DataGridTextColumn Header="ИНН" Width="640" Binding="{Binding Inn}" />
                 <DataGridTextColumn Header="Адрес" Width="640" Binding="{Binding Address}" />
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button HorizontalAlignment="Left" Command="{Binding UpdateCommand}">
+                <Image Source="/Resources/Update.png" />
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>
