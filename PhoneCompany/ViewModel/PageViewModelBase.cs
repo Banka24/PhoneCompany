@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
+using PhoneCompany.View.Windows;
 
 namespace PhoneCompany.ViewModel;
 
@@ -12,7 +13,10 @@ public abstract class PageViewModelBase
     protected readonly IConversationService ConversationService = new ConversationService();
 
     private ICommand _updateCommand;
-    public virtual ICommand UpdateCommand => _updateCommand ??= new RelayCommand<Button>(UpdatePageAsync);
+    public ICommand UpdateCommand => _updateCommand ??= new RelayCommand<Button>(UpdatePageAsync);
+
+    private ICommand _goEditorCommand;
+    public ICommand GoEditorCommand => _goEditorCommand ??= new RelayCommand<Button>(GoToEditor);
 
     protected virtual Task EnterDataListAsync()
     {
@@ -21,5 +25,10 @@ public abstract class PageViewModelBase
 
     protected virtual void UpdatePageAsync(Button sender)
     {
+    }
+    protected static void GoToEditor(Button sender)
+    {
+        var window = new Editor(PageDictionaryHolder.GetPage(sender.Name));
+        window.ShowDialog();
     }
 }

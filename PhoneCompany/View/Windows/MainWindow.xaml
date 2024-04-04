@@ -19,6 +19,8 @@
                     CommandParameter="{Binding ElementName=AbonentPage}" />
             <Button Name="CityPage" Content="Города" Command="{Binding ChangePageCommand}"
                     CommandParameter="{Binding ElementName=CityPage}" />
+            <Button Content="Добавить" Command="{Binding OpenEditorCommand}"
+                    CommandParameter="{Binding ElementName=CityPage}" />
         </StackPanel>
         <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
     </Grid>

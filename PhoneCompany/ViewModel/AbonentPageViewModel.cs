@@ -26,4 +26,5 @@ public sealed class AbonentPageViewModel : PageViewModelBase
         AbonentsList.Clear();
         await EnterDataListAsync();
     }
+    
 }

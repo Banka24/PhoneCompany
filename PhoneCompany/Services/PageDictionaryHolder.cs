@@ -10,7 +10,8 @@ public static class PageDictionaryHolder
     {
         { "ConversationPage", new ConversationPage() },
         { "AbonentPage", new AbonentPage() },
-        { "CityPage", new CityPage() }
+        { "CityPage", new CityPage() },
+        { "AddAbonentPage", new AddAbonentPage() }
     };
 
     public static Page GetPage(string namePage)
