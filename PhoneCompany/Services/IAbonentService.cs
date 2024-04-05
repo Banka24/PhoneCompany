@@ -7,4 +7,5 @@ namespace PhoneCompany.Services;
 public interface IAbonentService
 {
    Task<IEnumerable<Abonent>> GetDataAsync();
+   Task<bool> AddAbonent(string phoneNumber, string inn, string address);
 }
