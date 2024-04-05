@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using PhoneCompany.View.Pages;
+using PhoneCompany.View.Editor.Pages;
+using PhoneCompany.View.Main.Pages;
 
 namespace PhoneCompany.Services;
 
