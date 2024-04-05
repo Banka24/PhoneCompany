@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
@@ -7,23 +8,22 @@ namespace PhoneCompany.ViewModel;
 
 public class AddAbonentViewModel : EditorPageViewModelBase
 {
-    public override bool HasErrors => !string.IsNullOrWhiteSpace(NumberPhone) || (NumberPhone!.Length != 16 && NumberPhone![..3] is not "+7(") || !string.IsNullOrWhiteSpace(Inn) ||
-                                      Inn!.Length != 10 || !string.IsNullOrWhiteSpace(Address);
+    public override bool HasErrors => string.IsNullOrWhiteSpace(NumberPhone) || NumberPhone!.Length != 16 || !NumberPhone.StartsWith("+7(") ||
+                                      string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address);
 
-    private bool _work;
+    private string _numberPhone = "+7(9__)___-__-__";
 
-    public bool Work
+    private string _errorMessage;
+
+    public string ErrorMessage
     {
-        get => _work;
+        get => _errorMessage;
         set
         {
-            _work = value;
-            _work = HasErrors;
+            _errorMessage = value;
             OnPropertyChanged();
         }
     }
-
-    private string _numberPhone = "+7(9__)___-__-__";
 
     public string NumberPhone
     {
@@ -64,36 +64,53 @@ public class AddAbonentViewModel : EditorPageViewModelBase
 
     private ICommand _addAbonentCommand;
     public ICommand AddAbonentCommand => _addAbonentCommand ??= new RelayCommand<Button>(AddAbonent);
+
     public override IEnumerable GetErrors(string propertyName)
     {
         if (propertyName is nameof(NumberPhone))
         {
             if (string.IsNullOrWhiteSpace(NumberPhone))
+            {
                 yield return "Это поле обязательно";
+            }
 
-            else if (NumberPhone!.Length != 16 && NumberPhone![..3] is not "+7(") yield return "Длина должна быть 11 символов и начинаться на +7";
+            else if (NumberPhone!.Length != 16 && NumberPhone![..3] is not "+7(")
+            {
+                yield return "Длина должна быть 11 символов и начинаться на +7";
+            }
         }
         else if (propertyName is nameof(Inn))
         {
             if (string.IsNullOrWhiteSpace(Inn))
+            {
                 yield return "Это поле обязательно";
-            else if (Inn!.Length != 10) yield return "Длина должна быть 10 символов";
+            }
+            else if (Inn!.Length != 10)
+            {
+                yield return "Длина должна быть 10 символов";
+            }
         }
         else if (propertyName is nameof(Address))
         {
-            if (string.IsNullOrWhiteSpace(Address)) yield return "Это поле обязательно";
+            if (string.IsNullOrWhiteSpace(Address))
+            {
+                yield return "Это поле обязательно";
+            }
         }
     }
 
     private async void AddAbonent(Button sender)
     {
-        if ( await AbonentService.AddAbonent(NumberPhone, Inn, Address))
+        if (HasErrors)
         {
-            NumberPhone = "Успешно";
+            ErrorMessage = "Заполните поля правильно";
+            return;
         }
-        else
-        {
-            NumberPhone = "Неуспешно";
-        }
+        await AddAbonentAsync();
+    }
+
+    private async Task AddAbonentAsync()
+    {
+        ErrorMessage = await AbonentService.AddAbonent(NumberPhone, Inn, Address) ? "Успешно" : "Неуспешно";
     }
 }
