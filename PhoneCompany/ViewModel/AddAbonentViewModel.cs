@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,10 +8,20 @@ namespace PhoneCompany.ViewModel;
 
 public class AddAbonentViewModel : EditorPageViewModelBase
 {
-    public override bool HasErrors => string.IsNullOrWhiteSpace(NumberPhone) || NumberPhone!.Length != 16 || !NumberPhone.StartsWith("+7(") ||
+    public override bool HasErrors => string.IsNullOrWhiteSpace(NumberPhone) || NumberPhone!.Length != 11 || !NumberPhone.StartsWith('7') ||
                                       string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address);
 
-    private string _numberPhone = "+7(9__)___-__-__";
+    private string _numberPhone = "79";
+    public string NumberPhone
+    {
+        get => _numberPhone;
+        set
+        {
+            _numberPhone = value;
+            ValidateProperty();
+            OnPropertyChanged();
+        }
+    }
 
     private string _errorMessage;
 
@@ -21,17 +31,6 @@ public class AddAbonentViewModel : EditorPageViewModelBase
         set
         {
             _errorMessage = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public string NumberPhone
-    {
-        get => _numberPhone;
-        set
-        {
-            _numberPhone = value;
-            ValidateProperty();
             OnPropertyChanged();
         }
     }
@@ -65,7 +64,7 @@ public class AddAbonentViewModel : EditorPageViewModelBase
     private ICommand _addAbonentCommand;
     public ICommand AddAbonentCommand => _addAbonentCommand ??= new RelayCommand<Button>(AddAbonent);
 
-    public override IEnumerable GetErrors(string propertyName)
+    public override IEnumerable<string> GetErrors(string propertyName)
     {
         if (propertyName is nameof(NumberPhone))
         {
@@ -74,10 +73,11 @@ public class AddAbonentViewModel : EditorPageViewModelBase
                 yield return "Это поле обязательно";
             }
 
-            else if (NumberPhone!.Length != 16 && NumberPhone![..3] is not "+7(")
+            else if (NumberPhone!.Length != 11 || NumberPhone![0] is not '7')
             {
-                yield return "Длина должна быть 11 символов и начинаться на +7";
+                yield return "Длина должна быть 11 символов и начинаться на 7";
             }
+
         }
         else if (propertyName is nameof(Inn))
         {
@@ -111,6 +111,7 @@ public class AddAbonentViewModel : EditorPageViewModelBase
 
     private async Task AddAbonentAsync()
     {
+        NumberPhone = $"+{NumberPhone[0]}({NumberPhone[1..4]}){NumberPhone[4..7]}-{NumberPhone[7..9]}-{NumberPhone[9..]}";
         ErrorMessage = await AbonentService.AddAbonent(NumberPhone, Inn, Address) ? "Успешно" : "Неуспешно";
     }
 }

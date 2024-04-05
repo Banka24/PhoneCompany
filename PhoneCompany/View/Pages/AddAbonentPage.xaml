@@ -15,14 +15,17 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"/>
-        <TextBlock Grid.Row="1" Text="Введите номер телефона" />
+        <StackPanel VerticalAlignment="Center" Grid.Row="1">
+            <TextBlock Text="Введите номер телефона"/>
+            <TextBlock Foreground="Gray" Text="Например - 79000000000"/>
+        </StackPanel>
         <TextBlock Grid.Row="2" Text="Введите ИНН" />
         <TextBlock Grid.Row="3" Text="Введите адрес" />
         <StackPanel Grid.Row="1" Grid.Column="1">
