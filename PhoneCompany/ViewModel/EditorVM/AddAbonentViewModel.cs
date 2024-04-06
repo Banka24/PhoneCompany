@@ -22,19 +22,7 @@ public class AddAbonentViewModel : EditorPageViewModelBase
             OnPropertyChanged();
         }
     }
-
-    private string _errorMessage;
-
-    public string ErrorMessage
-    {
-        get => _errorMessage;
-        set
-        {
-            _errorMessage = value;
-            OnPropertyChanged();
-        }
-    }
-
+    
     private string _inn;
 
     public string Inn
@@ -66,35 +54,37 @@ public class AddAbonentViewModel : EditorPageViewModelBase
 
     public override IEnumerable<string> GetErrors(string propertyName)
     {
-        if (propertyName is nameof(NumberPhone))
+        switch (propertyName)
         {
-            if (string.IsNullOrWhiteSpace(NumberPhone))
+            case nameof(NumberPhone):
             {
-                yield return "Это поле обязательно";
-            }
+                if (string.IsNullOrWhiteSpace(NumberPhone))
+                {
+                    yield return "Это поле обязательно";
+                }
+                else if (NumberPhone!.Length != 11 || NumberPhone![0] is not '7')
+                {
+                    yield return "Длина должна быть 11 символов и начинаться на 7";
+                }
 
-            else if (NumberPhone!.Length != 11 || NumberPhone![0] is not '7')
-            {
-                yield return "Длина должна быть 11 символов и начинаться на 7";
+                break;
             }
-
-        }
-        else if (propertyName is nameof(Inn))
-        {
-            if (string.IsNullOrWhiteSpace(Inn))
+            case nameof(Inn):
             {
-                yield return "Это поле обязательно";
+                if (string.IsNullOrWhiteSpace(Inn))
+                {
+                    yield return "Это поле обязательно";
+                }
+                else if (Inn!.Length != 10)
+                {
+                    yield return "Длина должна быть 10 символов";
+                }
+                break;
             }
-            else if (Inn!.Length != 10)
+            case nameof(Address):
             {
-                yield return "Длина должна быть 10 символов";
-            }
-        }
-        else if (propertyName is nameof(Address))
-        {
-            if (string.IsNullOrWhiteSpace(Address))
-            {
-                yield return "Это поле обязательно";
+                if (string.IsNullOrWhiteSpace(Address)) yield return "Это поле обязательно";
+                break;
             }
         }
     }
@@ -112,6 +102,6 @@ public class AddAbonentViewModel : EditorPageViewModelBase
     private async Task AddAbonentAsync()
     {
         NumberPhone = $"+{NumberPhone[0]}({NumberPhone[1..4]}){NumberPhone[4..7]}-{NumberPhone[7..9]}-{NumberPhone[9..]}";
-        ErrorMessage = await AbonentService.AddAbonent(NumberPhone, Inn, Address) ? "Успешно" : "Неуспешно";
+        ErrorMessage = await AbonentService.AddAbonentAsync(NumberPhone, Inn, Address) ? "Успешно" : "Неуспешно";
     }
 }

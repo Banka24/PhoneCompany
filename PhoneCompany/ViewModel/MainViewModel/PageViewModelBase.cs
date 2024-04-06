@@ -14,14 +14,9 @@ public abstract class PageViewModelBase : ViewModelBase
     private ICommand _goEditorCommand;
     public ICommand GoEditorCommand => _goEditorCommand ??= new RelayCommand<Button>(GoToEditor);
 
-    protected virtual Task EnterDataListAsync()
-    {
-        return Task.CompletedTask;
-    }
+    protected abstract Task EnterDataListAsync();
 
-    protected virtual void UpdatePageAsync(Button sender)
-    {
-    }
+    protected abstract void UpdatePageAsync(Button sender);
     protected static void GoToEditor(Button sender)
     {
         var window = new Editor(PageDictionaryHolder.GetPage(sender.Name));

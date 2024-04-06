@@ -16,5 +16,9 @@ public class CityService : InteractionService, ICityService
         var city = await Context.Cities.FirstOrDefaultAsync(i => i.Id == conversation.CityId);
         return conversation.TimeOfDayId == 1 ? city!.TariffDay : city!.TariffNight;
     }
-
+    public async Task<bool> AddCityAsync(string title, decimal tariffDay, decimal tariffNight)
+    {
+        Context.Cities.Add(new City{ Title = title, TariffDay = tariffDay, TariffNight = tariffNight});
+        return await Context.TrySaveChangeAsync();
+    }
 }

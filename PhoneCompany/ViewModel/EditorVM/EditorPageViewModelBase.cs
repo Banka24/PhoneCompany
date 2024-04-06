@@ -11,6 +11,18 @@ public abstract class EditorPageViewModelBase : ViewModelBase, INotifyPropertyCh
     public virtual bool HasErrors { get; }
     public event PropertyChangedEventHandler PropertyChanged;
 
+    private string _errorMessage;
+
+    public string ErrorMessage
+    {
+        get => _errorMessage;
+        set
+        {
+            _errorMessage = value;
+            OnPropertyChanged();
+        }
+    }
+
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -20,8 +32,6 @@ public abstract class EditorPageViewModelBase : ViewModelBase, INotifyPropertyCh
     {
         ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
     }
-    public virtual IEnumerable GetErrors(string propertyName)
-    {
-        return null!;
-    }
+
+    public abstract IEnumerable GetErrors(string propertyName);
 }

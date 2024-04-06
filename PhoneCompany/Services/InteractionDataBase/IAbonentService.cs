@@ -7,5 +7,5 @@ namespace PhoneCompany.Services.InteractionDataBase;
 public interface IAbonentService
 {
    Task<IEnumerable<Abonent>> GetDataAsync();
-   Task<bool> AddAbonent(string phoneNumber, string inn, string address);
+   Task<bool> AddAbonentAsync(string phoneNumber, string inn, string address);
 }

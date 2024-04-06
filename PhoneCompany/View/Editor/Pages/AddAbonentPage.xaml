@@ -31,17 +31,17 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PhoneNumber}" Foreground="Red" />
             <TextBox Name="PhoneNumber"
-                     Text="{Binding NumberPhone, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                     Text="{Binding NumberPhone, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=InnNumber}" Foreground="Red" />
             <TextBox Name="InnNumber"
-                     Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                     Text="{Binding Inn, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=AddressNumber}" Foreground="Red" />
             <TextBox Name="AddressNumber"
-                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                     Text="{Binding Address, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddAbonentCommand}" />
     </Grid>

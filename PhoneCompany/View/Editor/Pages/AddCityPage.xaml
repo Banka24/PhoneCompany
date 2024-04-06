@@ -3,11 +3,43 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:editorVm="clr-namespace:PhoneCompany.ViewModel.EditorVM"
+      d:DataContext="{d:DesignInstance Type=editorVm:AddCityViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddCityPage">
 
-    <Grid>
-        
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"/>
+        <TextBlock Grid.Row="1" Text="Введите название города"/>
+        <TextBlock Grid.Row="2" Text="Введите дневной тариф" />
+        <TextBlock Grid.Row="3" Text="Введите ночной тариф" />
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Title}" Foreground="Red" />
+            <TextBox Name="Title"
+                     Text="{Binding Title, ValidatesOnDataErrors=True}" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TariffDay}" Foreground="Red" />
+            <TextBox Name="TariffDay"
+                     Text="{Binding TariffDay, ValidatesOnDataErrors=True}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TariffNight}" Foreground="Red" />
+            <TextBox Name="TariffNight"
+                     Text="{Binding TariffNight, ValidatesOnDataErrors=True}" />
+        </StackPanel>
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddCityCommand}" />
     </Grid>
 </Page>
