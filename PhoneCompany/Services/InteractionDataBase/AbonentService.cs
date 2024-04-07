@@ -11,13 +11,19 @@ public class AbonentService(CompanyDbContext context)
 {
     public async Task<IEnumerable<Abonent>> GetDataAsync()
     {
-        return await context.Abonents.ToListAsync();
+        using (context)
+        {
+            return await context.Abonents.ToListAsync();
+        }
     }
 
     public async Task<bool> AddAbonentAsync(string phoneNumber, string inn, string address)
     {
-        context.Abonents.Add(new Abonent { PhoneNumber = phoneNumber, Inn = inn, Address = address });
-        return await context.TrySaveChangeAsync();
+        using (context)
+        {
+            context.Abonents.Add(new Abonent { PhoneNumber = phoneNumber, Inn = inn, Address = address });
+            return await context.TrySaveChangeAsync();
+        }
     }
 
     public Task<bool> EditAbonentAsync(string phoneNumber)
@@ -27,9 +33,11 @@ public class AbonentService(CompanyDbContext context)
 
     public async Task<bool> DeleteAbonentAsync(string phoneNumber)
     {
-        var abonent = await context.Abonents.Where(i => i.PhoneNumber == phoneNumber).FirstOrDefaultAsync() ?? throw new Exception("Такого элемента нет");
-        context.Abonents.Remove(abonent);
-        return await context.TrySaveChangeAsync();
+        using (context)
+        {
+            var abonent = await context.Abonents.Where(i => i.PhoneNumber == phoneNumber).FirstOrDefaultAsync() ?? throw new Exception("Такого элемента нет");
+            context.Abonents.Remove(abonent);
+            return await context.TrySaveChangeAsync();
+        }
     }
-
 }

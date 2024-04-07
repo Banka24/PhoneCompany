@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using PhoneCompany.Model.Entities;
 using PhoneCompany.Services.InteractionDataBase;
-using PhoneCompany.Services;
 
 namespace PhoneCompany.ViewModel.MainViewModel;
 
@@ -18,7 +17,8 @@ public class CityPageViewModel : PageViewModelBase
 
     protected override async Task EnterDataListAsync()
     {
-        var service = new CityService(new CompanyDbContext());
+        using var context = new CompanyDbContext();
+        var service = new CityService(context);
         var cities = await service.GetDataAsync();
 
         foreach (var city in cities) CitiesList.Add(city);

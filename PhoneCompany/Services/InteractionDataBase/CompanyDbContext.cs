@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using PhoneCompany.Model.Entities;
 
-namespace PhoneCompany.Services;
+namespace PhoneCompany.Services.InteractionDataBase;
 
 public class CompanyDbContext() : DbContext("PhoneCompany")
 {

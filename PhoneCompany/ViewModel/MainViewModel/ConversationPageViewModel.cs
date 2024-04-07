@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using PhoneCompany.Model.Entities;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModel.MainViewModel;
