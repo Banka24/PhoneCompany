@@ -7,7 +7,7 @@ using PhoneCompany.Model.Entities;
 
 namespace PhoneCompany.Services.InteractionDataBase;
 
-public class CityService : InteractionService, ICityService
+public class CityService : InteractionService
 {
     public async Task<IEnumerable<City>> GetDataAsync()
     {

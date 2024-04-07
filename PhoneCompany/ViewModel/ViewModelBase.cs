@@ -4,7 +4,7 @@ namespace PhoneCompany.ViewModel;
 
 public abstract class ViewModelBase
 {
-    protected readonly IAbonentService AbonentService = new AbonentService();
-    protected readonly ICityService CityService = new CityService();
-    protected readonly IConversationService ConversationService = new ConversationService();
+    protected readonly AbonentService AbonentService = new();
+    protected readonly CityService CityService = new();
+    protected readonly ConversationService ConversationService = new();
 }
