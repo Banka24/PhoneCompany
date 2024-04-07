@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
-using PhoneCompany.View.Editor.Windows;
 
 namespace PhoneCompany.ViewModel.MainViewModel;
 
@@ -36,12 +34,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         CurrentPage = PageDictionaryHolder.GetPage(sender.Name);
     }
-
+    
     private void OpenEditor(Button sender)
     {
         if (CurrentPage is null) return;
-        var sb = new StringBuilder(sender.Name);
-        var window = new Editor(PageDictionaryHolder.GetPage($"{sb.Append(CurrentPage.Title)}"));
-        window.ShowDialog();
+        WindowManager.OpenWindow(sender.Name, CurrentPage.Title);
     }
 }
