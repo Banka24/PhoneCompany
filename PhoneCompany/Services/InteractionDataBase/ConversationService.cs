@@ -5,10 +5,10 @@ using PhoneCompany.Model.Entities;
 
 namespace PhoneCompany.Services.InteractionDataBase;
 
-public class ConversationService : InteractionService
+public class ConversationService(CompanyDbContext context)
 {
     public async Task<IEnumerable<Conversation>> GetDataAsync()
     {
-        return await Context.Conversations.ToListAsync();
+        return await context.Conversations.ToListAsync();
     }
 }

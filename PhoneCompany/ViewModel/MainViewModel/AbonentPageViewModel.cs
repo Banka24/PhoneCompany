@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using PhoneCompany.Model.Entities;
+using PhoneCompany.Services;
+using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModel.MainViewModel;
 
@@ -16,7 +18,8 @@ public sealed class AbonentPageViewModel : PageViewModelBase
 
     protected override async Task EnterDataListAsync()
     {
-        var abonents = await AbonentService.GetDataAsync();
+        var service = new AbonentService(new CompanyDbContext());
+        var abonents = await service.GetDataAsync();
 
         foreach (var abonent in abonents) AbonentsList.Add(abonent);
     }

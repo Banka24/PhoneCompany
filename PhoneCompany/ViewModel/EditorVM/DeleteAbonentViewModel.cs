@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
@@ -54,6 +55,7 @@ internal class DeleteAbonentViewModel : EditorPageViewModelBase
 
     private async Task DeleteAbonentAsync()
     {
-        ErrorMessage = await AbonentService.DeleteAbonentAsync(NumberPhone) ? "Успешно" : "Неуспешно";
+        var service = new AbonentService(new CompanyDbContext());
+        ErrorMessage = await service.DeleteAbonentAsync(NumberPhone) ? "Успешно" : "Неуспешно";
     }
 }

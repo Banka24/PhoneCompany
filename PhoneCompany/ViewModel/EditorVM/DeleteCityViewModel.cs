@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
+using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
@@ -55,6 +56,7 @@ public class DeleteCityViewModel : EditorPageViewModelBase
 
     private async Task DeleteCityAsync()
     {
-        ErrorMessage = await CityService.DeleteCityAsync(Title) ? "Успешно" : "Неуспешно";
+        var service = new CityService(new CompanyDbContext());
+        ErrorMessage = await service.DeleteCityAsync(Title) ? "Успешно" : "Неуспешно";
     }
 }

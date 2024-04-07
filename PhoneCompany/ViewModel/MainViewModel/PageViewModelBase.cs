@@ -5,7 +5,7 @@ using PhoneCompany.Services;
 
 namespace PhoneCompany.ViewModel.MainViewModel;
 
-public abstract class PageViewModelBase : ViewModelBase
+public abstract class PageViewModelBase
 {
     private ICommand _updateCommand;
     public ICommand UpdateCommand => _updateCommand ??= new RelayCommand<Button>(UpdatePageAsync);

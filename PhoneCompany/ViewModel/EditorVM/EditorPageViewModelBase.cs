@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
-public abstract class EditorPageViewModelBase : ViewModelBase, INotifyPropertyChanged, INotifyDataErrorInfo
+public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
 {
     public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
     public virtual bool HasErrors { get; }

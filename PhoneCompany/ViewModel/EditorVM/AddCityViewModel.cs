@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
@@ -97,6 +98,7 @@ public class AddCityViewModel : EditorPageViewModelBase
 
     private async Task AddAbonentAsync()
     {
-        ErrorMessage = await CityService.AddCityAsync(Title, decimal.Parse(TariffDay), decimal.Parse(TariffNight)) ? "Успешно" : "Неуспешно";
+        var service = new CityService(new CompanyDbContext());
+        ErrorMessage = await service.AddCityAsync(Title, decimal.Parse(TariffDay), decimal.Parse(TariffNight)) ? "Успешно" : "Неуспешно";
     }
 }

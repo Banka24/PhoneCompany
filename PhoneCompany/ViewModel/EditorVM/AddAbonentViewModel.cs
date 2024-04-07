@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
+using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
@@ -102,6 +103,7 @@ public class AddAbonentViewModel : EditorPageViewModelBase
     private async Task AddAbonentAsync()
     {
         NumberPhone = $"+{NumberPhone[0]}({NumberPhone[1..4]}){NumberPhone[4..7]}-{NumberPhone[7..9]}-{NumberPhone[9..]}";
-        ErrorMessage = await AbonentService.AddAbonentAsync(NumberPhone, Inn, Address) ? "Успешно" : "Неуспешно";
+        var service = new AbonentService(new CompanyDbContext());
+        ErrorMessage = await service.AddAbonentAsync(NumberPhone, Inn, Address) ? "Успешно" : "Неуспешно";
     }
 }
