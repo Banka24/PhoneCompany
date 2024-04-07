@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using PhoneCompany.ViewModel.EditorVM;
 
 namespace PhoneCompany.View.Editor.Pages
 {
@@ -10,6 +11,7 @@ namespace PhoneCompany.View.Editor.Pages
         public DeleteAbonentPage()
         {
             InitializeComponent();
+            DataContext = new DeleteAbonentViewModel();
         }
     }
 }

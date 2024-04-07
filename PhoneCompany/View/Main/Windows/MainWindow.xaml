@@ -6,7 +6,7 @@
         xmlns:mainViewModel="clr-namespace:PhoneCompany.ViewModel.MainViewModel"
         d:DataContext="{d:DesignInstance Type=mainViewModel:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Телефонная компания" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -19,8 +19,9 @@
                     CommandParameter="{Binding ElementName=AbonentPage}" />
             <Button Name="CityPage" Content="Города" Command="{Binding ChangePageCommand}"
                     CommandParameter="{Binding ElementName=CityPage}" />
-            <Button Content="Добавить" Command="{Binding OpenEditorCommand}"
-                    CommandParameter="{Binding ElementName=CityPage}" />
+            <Button Name="Add" Content="Добавить" Command="{Binding OpenEditorCommand}" CommandParameter="{Binding ElementName=Add}"/>
+            <Button Name="Edit" Content="Редактировать"/>
+            <Button Name="Delete" Content="Удалить" Command="{Binding OpenEditorCommand}" CommandParameter="{Binding ElementName=Delete}"/>
         </StackPanel>
         <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
     </Grid>

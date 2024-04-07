@@ -40,7 +40,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     private void OpenEditor(Button sender)
     {
         if (CurrentPage is null) return;
-        var sb = new StringBuilder("Add");
+        var sb = new StringBuilder(sender.Name);
         var window = new Editor(PageDictionaryHolder.GetPage($"{sb.Append(CurrentPage.Title)}"));
         window.ShowDialog();
     }

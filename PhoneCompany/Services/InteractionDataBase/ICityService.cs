@@ -10,5 +10,5 @@ public interface ICityService
     Task<decimal> GetTariffAsync(Conversation conversation);
     Task<bool> AddCityAsync(string title, decimal tariffDay, decimal tariffNight);
     Task<bool> EditCityAsync(string title);
-    Task<bool> DeleteAbonentAsync(string title);
+    Task<bool> DeleteCityAsync(string title);
 }

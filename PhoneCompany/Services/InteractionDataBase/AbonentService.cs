@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using PhoneCompany.Model.Entities;
 
@@ -17,4 +19,17 @@ public class AbonentService : InteractionService, IAbonentService
         Context.Abonents.Add(new Abonent { PhoneNumber = phoneNumber, Inn = inn, Address = address });
         return await Context.TrySaveChangeAsync();
     }
+
+    public Task<bool> EditAbonentAsync(string phoneNumber)
+    {
+        return null;
+    }
+
+    public async Task<bool> DeleteAbonentAsync(string phoneNumber)
+    {
+        var abonent = await Context.Abonents.Where(i => i.PhoneNumber == phoneNumber).FirstOrDefaultAsync() ?? throw new Exception("Такого элемента нет");
+        Context.Abonents.Remove(abonent);
+        return await Context.TrySaveChangeAsync();
+    }
+
 }

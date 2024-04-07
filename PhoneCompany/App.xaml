@@ -5,7 +5,7 @@
     <Application.Resources>
 
         <Style TargetType="Button">
-            <Setter Property="Width" Value="100" />
+            <Setter Property="Width" Value="120" />
             <Setter Property="Margin" Value="25, 5" />
         </Style>
 
@@ -20,6 +20,16 @@
             <Setter Property="Height" Value="60"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="RowBackground" Value="Gray"/>
+            <Setter Property="AlternatingRowBackground" Value="DarkGray"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
         </Style>
 
     </Application.Resources>
