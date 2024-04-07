@@ -17,8 +17,7 @@ public sealed class AbonentPageViewModel : PageViewModelBase
 
     protected override async Task EnterDataListAsync()
     {
-        using var context = new CompanyDbContext();
-        var service = new AbonentService(context);
+        var service = new AbonentService(new CompanyDbContext());
         var abonents = await service.GetDataAsync();
         foreach (var abonent in abonents) AbonentsList.Add(abonent);
     }

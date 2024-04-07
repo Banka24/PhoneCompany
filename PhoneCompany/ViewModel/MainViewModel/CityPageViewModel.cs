@@ -17,8 +17,7 @@ public class CityPageViewModel : PageViewModelBase
 
     protected override async Task EnterDataListAsync()
     {
-        using var context = new CompanyDbContext();
-        var service = new CityService(context);
+        var service = new CityService(new CompanyDbContext());
         var cities = await service.GetDataAsync();
 
         foreach (var city in cities) CitiesList.Add(city);
