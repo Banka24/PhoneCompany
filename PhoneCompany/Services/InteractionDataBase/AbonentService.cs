@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using PhoneCompany.Model.Entities;
 
@@ -9,7 +8,9 @@ namespace PhoneCompany.Services.InteractionDataBase;
 
 public class AbonentService(CompanyDbContext context)
 {
-    public async Task<IEnumerable<Abonent>> GetDataAsync()
+    private static Abonent _lastFoundAbonent;
+
+    public async Task<List<Abonent>> GetDataAsync()
     {
         using (context)
         {
@@ -26,16 +27,32 @@ public class AbonentService(CompanyDbContext context)
         }
     }
 
-    public Task<bool> EditAbonentAsync(string phoneNumber)
+    public async Task<Abonent> GetAbonent(string phoneNumber)
     {
-        return null;
+        using (context)
+        {
+            _lastFoundAbonent = await context.Abonents.FirstOrDefaultAsync(i => i.PhoneNumber == phoneNumber) ?? throw new Exception("Такого номера нет");
+            return _lastFoundAbonent;
+        }
+    }
+
+    public async Task<bool> EditAbonentAsync(string phoneNumber, string inn, string address)
+    {
+        using (context)
+        {
+            context.Abonents.Attach(_lastFoundAbonent);
+            _lastFoundAbonent.PhoneNumber = phoneNumber;
+            _lastFoundAbonent.Inn = inn;
+            _lastFoundAbonent.Address = address;
+            return await context.TrySaveChangeAsync();
+        }
     }
 
     public async Task<bool> DeleteAbonentAsync(string phoneNumber)
     {
         using (context)
         {
-            var abonent = await context.Abonents.Where(i => i.PhoneNumber == phoneNumber).FirstOrDefaultAsync() ?? throw new Exception("Такого элемента нет");
+            var abonent = await context.Abonents.FirstOrDefaultAsync(i => i.PhoneNumber == phoneNumber) ?? throw new Exception("Такого элемента нет");
             context.Abonents.Remove(abonent);
             return await context.TrySaveChangeAsync();
         }

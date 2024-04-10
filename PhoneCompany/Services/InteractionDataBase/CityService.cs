@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using PhoneCompany.Model.Entities;
 
@@ -9,6 +8,8 @@ namespace PhoneCompany.Services.InteractionDataBase;
 
 public class CityService(CompanyDbContext context)
 {
+    private static City _lastFoundCity;
+
     public async Task<IEnumerable<City>> GetDataAsync()
     {
         using (context)
@@ -33,16 +34,32 @@ public class CityService(CompanyDbContext context)
         }
     }
 
-    public Task<bool> EditCityAsync(string title)
+    public async Task<City> GetCity(string title)
     {
-        return null;
+        using (context)
+        {
+            _lastFoundCity = await context.Cities.FirstOrDefaultAsync(city => city.Title == title);
+            return _lastFoundCity;
+        }
+    }
+
+    public async Task<bool> EditCityAsync(string title, decimal tariffDay, decimal tariffNight)
+    {
+        using (context)
+        {
+            context.Cities.Attach(_lastFoundCity);
+            _lastFoundCity.Title = title;
+            _lastFoundCity.TariffDay = tariffDay;
+            _lastFoundCity.TariffNight = tariffNight;
+            return await context.TrySaveChangeAsync();
+        }
     }
 
     public async Task<bool> DeleteCityAsync(string title)
     {
         using (context)
         {
-            var city = await context.Cities.Where(i => i.Title == title).FirstOrDefaultAsync() ?? throw new Exception("Такого элемента нет");
+            var city = await context.Cities.FirstOrDefaultAsync(i => i.Title == title) ?? throw new Exception("Такого элемента нет");
             context.Cities.Remove(city);
             return await context.TrySaveChangeAsync();
         }
