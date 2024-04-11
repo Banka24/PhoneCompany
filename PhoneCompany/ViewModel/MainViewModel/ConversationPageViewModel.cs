@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.VisualBasic;
 using PhoneCompany.Model.Entities;
 using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
@@ -29,9 +30,10 @@ public class ConversationPageViewModel : PageViewModelBase
         var service = new ConversationService(new CompanyDbContext());
         var conversationFilterList = await service.GetDataAsync(PhoneNumber);
         ConversationsList.Clear();
-        foreach (var item in conversationFilterList)
+        foreach (var conversation in conversationFilterList)
         {
-            ConversationsList.Add(item);
+            conversation.Price = await SetPriceAsync(conversation);
+            ConversationsList.Add(conversation);
         }
     }
 
