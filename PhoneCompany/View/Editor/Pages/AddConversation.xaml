@@ -38,7 +38,7 @@
             <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time}"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="1"  >
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PhoneNumber}" Foreground="Red" />
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NumberOfMinutes}" Foreground="Red" />
             <TextBox Name="NumberOfMinutes" Text="{Binding NumberOfMinutes, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding TimeOfDayList}" Text="{Binding TimeOfDay}"/>

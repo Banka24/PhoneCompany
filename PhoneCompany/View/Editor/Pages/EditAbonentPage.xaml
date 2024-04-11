@@ -6,7 +6,7 @@
       xmlns:editorVm="clr-namespace:PhoneCompany.ViewModel.EditorVM"
       d:DataContext="{d:DesignInstance Type=editorVm:EditAbonentViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="EditAbonentPage">
 
     <Grid Background="White">
@@ -19,7 +19,7 @@
             <RowDefinition Height="150" />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"/>
         <StackPanel VerticalAlignment="Center" Grid.Row="1">
@@ -36,12 +36,12 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=InnNumber}" Foreground="Red" />
-            <TextBox Name="InnNumber"
+            <TextBox Name="InnNumber" Margin="10, 40"
                      Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=AddressNumber}" Foreground="Red" />
-            <TextBox Name="AddressNumber"
+            <TextBox Name="AddressNumber" Margin="10, 40"
                      Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Принять изменение" Command="{Binding EditAbonentCommand}" />

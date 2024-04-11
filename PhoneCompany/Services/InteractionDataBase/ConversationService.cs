@@ -10,7 +10,6 @@ namespace PhoneCompany.Services.InteractionDataBase;
 public class ConversationService(CompanyDbContext context)
 {
     private static Conversation _lastFoundConversation;
-
     public async Task<IEnumerable<Conversation>> GetDataAsync()
     {
         var conversation = await context.Conversations.ToListAsync();
@@ -27,30 +26,34 @@ public class ConversationService(CompanyDbContext context)
         }
     }
 
-    public async Task<Conversation> GetConversationAsync(string phoneNumber)
+    public async Task GetConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
     {
-        using (context)
-        {
-            _lastFoundConversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber) ?? throw new Exception("Такого номера нет");
-            return _lastFoundConversation;
-        }
+       _lastFoundConversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime)
+               ?? throw new Exception("Такого номера нет");
     }
 
     public async Task<bool> EditConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         using (context)
         {
+            await GetConversationAsync(phoneNumber, title, date);
+
             context.Conversations.Attach(_lastFoundConversation);
-            _lastFoundConversation = await MakeConversation(phoneNumber, title, date, numberOfMinutes, timeOfDay);
+            var newConversation = await MakeConversation(phoneNumber, title, date, numberOfMinutes, timeOfDay);
+
+            (_lastFoundConversation.AbonentId, _lastFoundConversation.CityId, _lastFoundConversation.Date, _lastFoundConversation.NumberOfMinutes, _lastFoundConversation.TimeOfDayId) =
+                (newConversation.AbonentId, newConversation.CityId, newConversation.Date, newConversation.NumberOfMinutes, newConversation.TimeOfDayId);
+
             return await context.TrySaveChangeAsync();
         }
     }
 
-    public async Task<bool> DeleteConversationAsync(string phoneNumber)
+    public async Task<bool> DeleteConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
     {
         using (context)
         {
-            var conversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber) ?? throw new Exception("Такого элемента нет");
+            var conversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime) 
+                               ?? throw new Exception("Такого элемента нет");
             context.Conversations.Remove(conversation);
             return await context.TrySaveChangeAsync();
         }

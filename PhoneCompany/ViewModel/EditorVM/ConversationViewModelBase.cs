@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PhoneCompany.Model.Entities;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
 public class ConversationViewModelBase : EditorPageViewModelBase
 {
-    //public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith("79");
-    //                                   string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address);
+    public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeOnly.MinValue;
 
     public IEnumerable<string> PhoneNumberList { get; set; } = [];
     public IEnumerable<string> CityTitleList { get; set; } = [];
+    public IEnumerable<string> TimeOfDayList { get; set; } = ["День", "Ночь"];
 
     public ConversationViewModelBase()
     {
@@ -25,13 +24,13 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         CityTitleList = await GetCityTitleAsync();
     }
 
-    private async Task<List<string>> GetPhoneNumbersAsync()
+    private static async Task<IEnumerable<string>> GetPhoneNumbersAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
         return await service.GetPhoneNumbersAsync();
     }
 
-    private async Task<List<string>> GetCityTitleAsync()
+    private static async Task<IEnumerable<string>> GetCityTitleAsync()
     {
         var service = new CityService(new CompanyDbContext());
         return await service.GetCityTitleAsync();
@@ -121,39 +120,14 @@ public class ConversationViewModelBase : EditorPageViewModelBase
 
     public override IEnumerable<string> GetErrors(string propertyName)
     {
-        yield break;
-        //switch (propertyName)
-        //{
-        //    case nameof(PhoneNumber):
-        //        {
-        //            if (string.IsNullOrWhiteSpace(PhoneNumber))
-        //            {
-        //                yield return "Это поле обязательно";
-        //            }
-        //            else if (PhoneNumber!.Length != 11 || PhoneNumber![0] is not '7')
-        //            {
-        //                yield return "Длина должна быть 11 символов и начинаться на 7";
-        //            }
+        if (propertyName is nameof(NumberOfMinutes) && NumberOfMinutes < 0)
+        {
+            yield return "Вызов не может длиться меньше 0 минут";
+        }
 
-        //            break;
-        //        }
-        //    case nameof(Inn):
-        //        {
-        //            if (string.IsNullOrWhiteSpace(Inn))
-        //            {
-        //                yield return "Это поле обязательно";
-        //            }
-        //            else if (Inn!.Length != 10)
-        //            {
-        //                yield return "Длина должна быть 10 символов";
-        //            }
-        //            break;
-        //        }
-        //    case nameof(Address):
-        //        {
-        //            if (string.IsNullOrWhiteSpace(Address)) yield return "Это поле обязательно";
-        //            break;
-        //        }
-        //}
+        else if (propertyName is nameof(Time) && Time < TimeOnly.MinValue)
+        {
+            yield return "Проверьте данн";
+        }
     }
 }

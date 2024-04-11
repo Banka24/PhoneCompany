@@ -42,7 +42,8 @@ public class AbonentService(CompanyDbContext context)
         using (context)
         {
             context.Abonents.Attach(_lastFoundAbonent);
-            _lastFoundAbonent = MakeAbonent(phoneNumber, inn, address);
+            var newAbonent = MakeAbonent(phoneNumber, inn, address);
+            (_lastFoundAbonent.PhoneNumber, _lastFoundAbonent.Inn, _lastFoundAbonent.Address) = (newAbonent.PhoneNumber, newAbonent.Inn, newAbonent.Address);
             return await context.TrySaveChangeAsync();
         }
     }
@@ -64,6 +65,7 @@ public class AbonentService(CompanyDbContext context)
             return await context.Abonents.Select(i => i.PhoneNumber).ToListAsync();
         }
     }
+
     private static Abonent MakeAbonent(in string phoneNumber, in string inn, in string address)
     {
         return new Abonent { PhoneNumber = phoneNumber, Inn = inn, Address = address };

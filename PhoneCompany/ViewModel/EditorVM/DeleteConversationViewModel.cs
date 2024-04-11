@@ -1,12 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using PhoneCompany.Services.InteractionDataBase;
+using PhoneCompany.Services;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 
-namespace PhoneCompany.ViewModel.EditorVM
+namespace PhoneCompany.ViewModel.EditorVM;
+
+public class DeleteConversationViewModel : ConversationViewModelBase
 {
-    internal class DeleteConversationViewModel
+    private ICommand _saveConversationCommand;
+    public ICommand SaveConversationCommand => _saveConversationCommand ??= new RelayCommand<Button>(DeleteCommand);
+
+    private async void DeleteCommand(Button button)
     {
+        if (HasErrors)
+        {
+            ErrorMessage = "Заполните поля правильно";
+            return;
+        }
+
+        await DeleteConversationAsync();
+    }
+
+    private async Task DeleteConversationAsync()
+    {
+        var service = new ConversationService(new CompanyDbContext());
+        ErrorMessage = await service.DeleteConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat()) ? "Успешно" : "Неуспешно";
     }
 }

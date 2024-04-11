@@ -6,7 +6,7 @@
       xmlns:editorVm="clr-namespace:PhoneCompany.ViewModel.EditorVM"
       d:DataContext="{d:DesignInstance Type=editorVm:EditCityViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="EditCityPage">
 
     <Grid Background="White">
@@ -19,7 +19,7 @@
             <RowDefinition Height="150" />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}" />
         <TextBlock Grid.Row="1" Text="Введите название города" />
@@ -33,12 +33,12 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TariffDay}" Foreground="Red" />
-            <TextBox Name="TariffDay"
+            <TextBox Name="TariffDay" Margin="10, 40"
                      Text="{Binding TariffDay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TariffNight}" Foreground="Red" />
-            <TextBox Name="TariffNight"
+            <TextBox Name="TariffNight" Margin="10, 40" 
                      Text="{Binding TariffNight, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding EditCityCommand}" />

@@ -6,7 +6,7 @@
       xmlns:editorVm="clr-namespace:PhoneCompany.ViewModel.EditorVM"
       d:DataContext="{d:DesignInstance Type=editorVm:DeleteCityViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="DeleteCityPage">
 
     <Grid Background="White">
@@ -16,14 +16,14 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="240"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding ErrorMessage}" Grid.ColumnSpan="2"/>
         <TextBlock Grid.Row="1" Text="Введите название города"/>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TitleBox}" Foreground="Red" />
-            <TextBox Name="TitleBox"
+            <TextBox Name="TitleBox" Margin="30, 70"
                      Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <Button Grid.Row="2" Grid.ColumnSpan="2" Height="60" Content="Удалить" Command="{Binding DeleteCommand}"/>

@@ -58,7 +58,8 @@ public class CityService(CompanyDbContext context)
         using (context)
         {
             context.Cities.Attach(_lastFoundCity);
-            _lastFoundCity = MakeCity(title, tariffDay, tariffNight);
+            var newCity = MakeCity(title, tariffDay, tariffNight);
+            (_lastFoundCity.Title, _lastFoundCity.TariffDay, _lastFoundCity.TariffNight) = (newCity.Title, newCity.TariffDay, newCity.TariffNight);
             return await context.TrySaveChangeAsync();
         }
     }

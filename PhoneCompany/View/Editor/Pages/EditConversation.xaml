@@ -39,6 +39,6 @@
         </StackPanel>
         <TextBox Name="NumberOfMinutes" Grid.Row="4" Grid.Column="1" Text="{Binding NumberOfMinutes}" />
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding TimeOfDayList}" Text="{Binding TimeOfDay}"/>
-        <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddConversationCommand}" />
+        <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Сохранить" Command="{Binding SaveConversationCommand}" />
     </Grid>
 </Page>
