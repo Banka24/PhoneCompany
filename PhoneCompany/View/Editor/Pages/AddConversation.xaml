@@ -37,7 +37,10 @@
             <DatePicker SelectedDate="{Binding Date}"  Margin="5" VerticalContentAlignment="Center" Height="60"/>
             <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time}"/>
         </StackPanel>
-        <TextBox Name="NumberOfMinutes" Grid.Row="4" Grid.Column="1" Text="{Binding NumberOfMinutes}" />
+        <StackPanel Grid.Row="4" Grid.Column="1"  >
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PhoneNumber}" Foreground="Red" />
+            <TextBox Name="NumberOfMinutes" Text="{Binding NumberOfMinutes, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding TimeOfDayList}" Text="{Binding TimeOfDay}"/>
         <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddConversationCommand}" />
     </Grid>

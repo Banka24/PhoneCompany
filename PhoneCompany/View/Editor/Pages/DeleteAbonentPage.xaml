@@ -26,7 +26,7 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PhoneNumber}" Foreground="Red" />
-            <TextBox Name="PhoneNumber"
+            <TextBox Name="PhoneNumber" 
                      Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
         <Button Grid.Row="2" Grid.ColumnSpan="2" Height="60" Content="Удалить" Command="{Binding DeleteCommand}"/>
