@@ -18,6 +18,9 @@ public static class PageDictionaryHolder
         { "EditCityPage", new EditCityPage() },
         { "DeleteAbonentPage", new DeleteAbonentPage() },
         { "DeleteCityPage", new DeleteCityPage() },
+        { "AddConversationPage", new AddConversation() },
+        { "EditConversationPage", new EditConversation() },
+        { "DeleteConversationPage", new DeleteConversation() },
     };
 
     public static Page GetPage(string namePage)

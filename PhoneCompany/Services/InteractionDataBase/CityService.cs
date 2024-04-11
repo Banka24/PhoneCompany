@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using PhoneCompany.Model.Entities;
 
@@ -25,11 +26,12 @@ public class CityService(CompanyDbContext context)
             return conversation.TimeOfDayId == 1 ? city!.TariffDay : city!.TariffNight;
         }
     }
+
     public async Task<bool> AddCityAsync(string title, decimal tariffDay, decimal tariffNight)
     {
         using (context)
         {
-            context.Cities.Add(new City { Title = title, TariffDay = tariffDay, TariffNight = tariffNight });
+            context.Cities.Add(MakeCity(title, tariffDay, tariffNight));
             return await context.TrySaveChangeAsync();
         }
     }
@@ -43,14 +45,20 @@ public class CityService(CompanyDbContext context)
         }
     }
 
+    public async Task<List<string>> GetCityTitleAsync()
+    {
+        using (context)
+        {
+            return await context.Cities.Select(i => i.Title).ToListAsync();
+        }
+    }
+
     public async Task<bool> EditCityAsync(string title, decimal tariffDay, decimal tariffNight)
     {
         using (context)
         {
             context.Cities.Attach(_lastFoundCity);
-            _lastFoundCity.Title = title;
-            _lastFoundCity.TariffDay = tariffDay;
-            _lastFoundCity.TariffNight = tariffNight;
+            _lastFoundCity = MakeCity(title, tariffDay, tariffNight);
             return await context.TrySaveChangeAsync();
         }
     }
@@ -63,5 +71,10 @@ public class CityService(CompanyDbContext context)
             context.Cities.Remove(city);
             return await context.TrySaveChangeAsync();
         }
+    }
+
+    private static City MakeCity(in string title, in decimal tariffDay, in decimal tariffNight)
+    {
+        return new City { Title = title, TariffDay = tariffDay, TariffNight = tariffNight };
     }
 }

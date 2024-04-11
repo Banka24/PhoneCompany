@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using PhoneCompany.Model.Entities;
 
@@ -10,7 +11,7 @@ public class AbonentService(CompanyDbContext context)
 {
     private static Abonent _lastFoundAbonent;
 
-    public async Task<List<Abonent>> GetDataAsync()
+    public async Task<IEnumerable<Abonent>> GetDataAsync()
     {
         using (context)
         {
@@ -22,12 +23,12 @@ public class AbonentService(CompanyDbContext context)
     {
         using (context)
         {
-            context.Abonents.Add(new Abonent { PhoneNumber = phoneNumber, Inn = inn, Address = address });
+            context.Abonents.Add(MakeAbonent(phoneNumber, inn, address));
             return await context.TrySaveChangeAsync();
         }
     }
 
-    public async Task<Abonent> GetAbonent(string phoneNumber)
+    public async Task<Abonent> GetAbonentAsync(string phoneNumber)
     {
         using (context)
         {
@@ -41,9 +42,7 @@ public class AbonentService(CompanyDbContext context)
         using (context)
         {
             context.Abonents.Attach(_lastFoundAbonent);
-            _lastFoundAbonent.PhoneNumber = phoneNumber;
-            _lastFoundAbonent.Inn = inn;
-            _lastFoundAbonent.Address = address;
+            _lastFoundAbonent = MakeAbonent(phoneNumber, inn, address);
             return await context.TrySaveChangeAsync();
         }
     }
@@ -56,5 +55,17 @@ public class AbonentService(CompanyDbContext context)
             context.Abonents.Remove(abonent);
             return await context.TrySaveChangeAsync();
         }
+    }
+
+    public async Task<List<string>> GetPhoneNumbersAsync()
+    {
+        using (context)
+        {
+            return await context.Abonents.Select(i => i.PhoneNumber).ToListAsync();
+        }
+    }
+    private static Abonent MakeAbonent(in string phoneNumber, in string inn, in string address)
+    {
+        return new Abonent { PhoneNumber = phoneNumber, Inn = inn, Address = address };
     }
 }

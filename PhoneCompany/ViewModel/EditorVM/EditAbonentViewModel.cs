@@ -28,7 +28,7 @@ public class EditAbonentViewModel : AbonentViewModelBase
     private async Task FindAbonentAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var abonent = await service.GetAbonent(MakePhoneNumberToFormat(PhoneNumber));
+        var abonent = await service.GetAbonentAsync(MakePhoneNumberToFormat(PhoneNumber));
         Inn = abonent.Inn;
         Address = abonent.Address;
     }

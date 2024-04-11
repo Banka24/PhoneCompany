@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="60" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ConversationsList}">
             <DataGrid.Columns>
