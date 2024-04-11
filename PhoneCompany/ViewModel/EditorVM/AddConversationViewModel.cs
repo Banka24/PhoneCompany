@@ -1,4 +1,5 @@
-﻿using PhoneCompany.Services.InteractionDataBase;
+﻿using System.Collections.Generic;
+using PhoneCompany.Services.InteractionDataBase;
 using PhoneCompany.Services;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -8,6 +9,7 @@ namespace PhoneCompany.ViewModel.EditorVM;
 
 public class AddConversationViewModel : ConversationViewModelBase
 {
+    public IEnumerable<string> TimeOfDayList { get; set; } = ["День", "Ночь"];
     private ICommand _addConversationCommand;
     public ICommand AddConversationCommand => _addConversationCommand ??= new RelayCommand<Button>(AddConversation);
 
@@ -27,6 +29,6 @@ public class AddConversationViewModel : ConversationViewModelBase
     private async Task AddConversationAsync()
     {
         var service = new ConversationService(new CompanyDbContext());
-        ErrorMessage = await service.AddConversationAsync(PhoneNumber, CityTitle, Data, NumberOfMinutes, TimeOfDay) ? "Успешно" : "Неуспешно";
+        ErrorMessage = await service.AddConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat(), NumberOfMinutes, TimeOfDay) ? "Успешно" : "Неуспешно";
     }
 }

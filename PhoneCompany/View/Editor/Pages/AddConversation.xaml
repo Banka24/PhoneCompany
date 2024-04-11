@@ -23,40 +23,22 @@
             <RowDefinition Height="90"/>
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
+
         <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"/>
         <TextBlock Grid.Row="1" Text="Введите номер телефона"/>
         <TextBlock Grid.Row="2" Text="Введите название города" />
-        <StackPanel VerticalAlignment="Center" Grid.Row="3">
-            <TextBlock Text="Введите дату и время"/>
-            <TextBlock Foreground="Gray" Text="Например - 01/01/0001 00:00:00"/>
-        </StackPanel>
+        <TextBlock Grid.Row="3" Text="Введите дату и время"/>
         <TextBlock Grid.Row="4" Text="Введите время разговора в минутах"/>
-        <StackPanel Grid.Row="5" VerticalAlignment="Center">
-            <TextBlock Text="Введите время суток"/>
-            <TextBlock Foreground="Gray" Text="День/Ночь"/>
+        <TextBlock Grid.Row="5" Text="Введите время суток"/>
+
+        <ComboBox Grid.Row="1" Grid.Column="1" Name="PhoneNumber" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}" />
+        <ComboBox Grid.Column="1" Grid.Row="2" Name="CityTitle" ItemsSource="{Binding CityTitleList}" Text="{Binding CityTitle}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+            <DatePicker SelectedDate="{Binding Date}"  Margin="5" VerticalContentAlignment="Center" Height="60"/>
+            <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time}"/>
         </StackPanel>
-        <ComboBox Grid.Row="1" Grid.Column="1" Name="PhoneNumber" ItemsSource="{Binding PhoneNumberList}"
-                  Text="{Binding PhoneNumber}" />
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=CityTitle}" Foreground="Red" />
-            <ComboBox Name="CityTitle" ItemsSource="{Binding CityTitleList}"
-                     Text="{Binding CityTitle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1">
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=Data}" Foreground="Red" />
-            <TextBox Name="Data"
-                     Text="{Binding Data, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-        </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="1">
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NumberOfMinutes}" Foreground="Red" />
-            <TextBox Name="NumberOfMinutes"
-                     Text="{Binding NumberOfMinutes, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-        </StackPanel>
-        <StackPanel Grid.Row="5" Grid.Column="1">
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TimeOfDay}" Foreground="Red" />
-            <TextBox Name="TimeOfDay"
-                     Text="{Binding TimeOfDay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat={}{0:dd.MM.yy HH:mm}}" />
-        </StackPanel>
+        <TextBox Name="NumberOfMinutes" Grid.Row="4" Grid.Column="1" Text="{Binding NumberOfMinutes}" />
+        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding TimeOfDayList}" Text="{Binding TimeOfDay}"/>
         <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddConversationCommand}" />
     </Grid>
 </Page>

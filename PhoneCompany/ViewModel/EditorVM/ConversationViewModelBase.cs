@@ -62,14 +62,27 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
-    private DateTime _data = DateTime.Now;
+    private DateTime _date = DateTime.Now;
 
-    public DateTime Data
+    public DateTime Date
     {
-        get => _data;
+        get => _date;
         set
         {
-            _data = value;
+            _date = value;
+            ValidateProperty();
+            OnPropertyChanged();
+        }
+    }
+
+    private TimeOnly _time;
+
+    public TimeOnly Time
+    {
+        get => _time;
+        set
+        {
+            _time = value;
             ValidateProperty();
             OnPropertyChanged();
         }
@@ -101,9 +114,9 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
-    protected static string MakePhoneNumberToFormat(string phoneNumber)
+    protected DateTime MakeDateTimeToFormat()
     {
-        return $"+{phoneNumber[0]}({phoneNumber[1..4]}){phoneNumber[4..7]}-{phoneNumber[7..9]}-{phoneNumber[9..]}";
+        return DateTime.Parse($"{Date:dd.MM.yyyy} {Time}");
     }
 
     public override IEnumerable<string> GetErrors(string propertyName)
