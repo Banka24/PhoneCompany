@@ -11,10 +11,17 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ConversationsList}">
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <ComboBox IsEditable="True" Width="300" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}"/>
+            <Button Content="Найти" Command="{Binding FindCommand}"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding ConversationsList}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Номер телефона" Width="320" Binding="{Binding Abonent.PhoneNumber}" />
                 <DataGridTextColumn Header="Город вызова" Width="320" Binding="{Binding City.Title}" />
@@ -25,7 +32,7 @@
                 <DataGridTextColumn Header="Стоимость звонка" Width="320" Binding="{Binding Price}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="1" HorizontalAlignment="Left" Command="{Binding UpdateCommand}">
+        <Button Grid.Row="2" HorizontalAlignment="Left" Command="{Binding UpdateCommand}">
             <Image Source="/Resources/Update.png" />
         </Button>
     </Grid>

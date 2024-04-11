@@ -17,6 +17,13 @@ public class ConversationService(CompanyDbContext context)
         return conversation;
     }
 
+    public async Task<IEnumerable<Conversation>> GetDataAsync(string phoneNumber)
+    {
+        var conversation = await context.Conversations.Where(i => i.Abonent.PhoneNumber == phoneNumber).ToListAsync();
+        context = null;
+        return conversation;
+    }
+
     public async Task<bool> AddConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         using (context)
