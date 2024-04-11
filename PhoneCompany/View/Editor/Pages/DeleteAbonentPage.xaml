@@ -20,15 +20,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding ErrorMessage}" Grid.ColumnSpan="2"/>
-        <StackPanel VerticalAlignment="Center" Grid.Row="1">
-            <TextBlock Text="Введите номер телефона"/>
-            <TextBlock Foreground="Gray" Text="Например, 79000000000"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PhoneNumber}" Foreground="Red" />
-            <TextBox Name="PhoneNumber" Margin="30, 70"
-                     Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-        </StackPanel>
+        <TextBlock  Grid.Row="1" VerticalAlignment="Center" Text="Введите номер телефона"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}"/>
         <Button Grid.Row="2" Grid.ColumnSpan="2" Height="60" Content="Удалить" Command="{Binding DeleteCommand}"/>
     </Grid>
 </Page>

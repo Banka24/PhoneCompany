@@ -26,9 +26,7 @@
         <TextBlock Grid.Row="2" Text="Введите дневной тариф" />
         <TextBlock Grid.Row="3" Text="Введите ночной тариф" />
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TitleCity}" Foreground="Red" />
-            <TextBox Name="TitleCity"
-                     Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            <ComboBox Margin="10" ItemsSource="{Binding CityTitleList}" Text="{Binding Title}"/>
             <Button Content="Найти" Command="{Binding FindCityCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1">
@@ -41,6 +39,6 @@
             <TextBox Name="TariffNight" Margin="10, 40" 
                      Text="{Binding TariffNight, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
-        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding EditCityCommand}" />
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Сохранить" Command="{Binding EditCityCommand}" />
     </Grid>
 </Page>

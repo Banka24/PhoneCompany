@@ -13,7 +13,7 @@ public class DeleteCityViewModel : CityViewModelBase
     
     private async void DeleteCity(Button sender)
     {
-        if (HasErrors)
+        if (Title is null)
         {
             ErrorMessage = "Заполните поля правильно";
             return;

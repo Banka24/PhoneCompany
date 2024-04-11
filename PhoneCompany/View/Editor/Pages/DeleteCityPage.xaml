@@ -21,11 +21,7 @@
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding ErrorMessage}" Grid.ColumnSpan="2"/>
         <TextBlock Grid.Row="1" Text="Введите название города"/>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TitleBox}" Foreground="Red" />
-            <TextBox Name="TitleBox" Margin="30, 70"
-                     Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-        </StackPanel>
+        <ComboBox Margin="10" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CityTitleList}" Text="{Binding Title}"/>
         <Button Grid.Row="2" Grid.ColumnSpan="2" Height="60" Content="Удалить" Command="{Binding DeleteCommand}"/>
     </Grid>
 </Page>
