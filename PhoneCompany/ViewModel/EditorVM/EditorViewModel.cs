@@ -2,7 +2,11 @@
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
-public class EditorViewModel(Page currentPage)
+public class EditorViewModel
 {
-    public Page CurrentPage { get; set; } = currentPage;
+    public static Page CurrentPage { get; set; }
+    public EditorViewModel(Page currentPage)
+    {
+        CurrentPage = currentPage;
+    }
 }

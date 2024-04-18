@@ -1,5 +1,7 @@
 ﻿using PhoneCompany.View.Editor.Windows;
 using System.Text;
+using PhoneCompany.Services.DictionaryHolder;
+using PhoneCompany.ViewModel.EditorVM;
 
 namespace PhoneCompany.Services;
 
@@ -14,7 +16,11 @@ public static class WindowManager
     public static void OpenWindow(in string nameCommand, in string nameCallingPage)
     {
         var pageName = GetPageName(nameCommand, nameCallingPage);
-        var window = new Editor(PageDictionaryHolder.GetPage(pageName));
-        window.ShowDialog();
+        var pageHolder = new EditorPageDictionaryHolder();
+        var window = new Editor(pageHolder.GetPage(pageName));
+        if (window.ShowDialog() is false)
+        {
+            EditorViewModel.CurrentPage = null;
+        }
     }
 }

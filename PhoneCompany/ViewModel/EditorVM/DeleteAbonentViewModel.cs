@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using PhoneCompany.Services;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,22 +8,30 @@ namespace PhoneCompany.ViewModel.EditorVM;
 
 internal class DeleteAbonentViewModel : AbonentViewModelBase
 {
-    public IEnumerable<string> PhoneNumberList { get; set; } = [];
+    private ObservableCollection<string> _phoneNumberList = [];
+    public ObservableCollection<string> PhoneNumberList
+    {
+        get => _phoneNumberList;
+        set
+        {
+            _phoneNumberList = value;
+            OnPropertyChanged();
+        }
+    }
 
     public DeleteAbonentViewModel()
     {
-        Initial();
+        GetPhoneNumbers();
     }
 
-    private async void Initial()
-    {
-        PhoneNumberList = await GetPhoneNumbers();
-    }
-
-    private static async Task<IEnumerable<string>> GetPhoneNumbers()
+    private async void GetPhoneNumbers()
     {
         var service = new AbonentService(new CompanyDbContext());
-        return await service.GetPhoneNumbersAsync();
+        var phoneNumbers = await service.GetPhoneNumbersAsync();
+        foreach (var phoneNumber in phoneNumbers)
+        {
+            PhoneNumberList.Add(phoneNumber);
+        }
     }
 
     private ICommand _deleteCommand;

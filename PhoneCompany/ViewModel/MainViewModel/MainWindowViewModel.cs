@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
+using PhoneCompany.Services.DictionaryHolder;
+using PhoneCompany.View.Main.Windows;
 
 namespace PhoneCompany.ViewModel.MainViewModel;
 
@@ -32,7 +34,8 @@ public class MainWindowViewModel : INotifyPropertyChanged
     }
     private void ChangePage(Button sender)
     {
-        CurrentPage = PageDictionaryHolder.GetPage(sender.Name);
+        var pageHolder = new PageDictionaryHolder();
+        CurrentPage = pageHolder.GetPage(sender.Name);
     }
     
     private void OpenEditor(Button sender)
