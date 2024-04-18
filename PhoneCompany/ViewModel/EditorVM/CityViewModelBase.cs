@@ -1,16 +1,16 @@
 ﻿using PhoneCompany.Services.InteractionDataBase;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace PhoneCompany.ViewModel.EditorVM;
 
 public class CityViewModelBase : EditorPageViewModelBase
 {
-    public IEnumerable<string> CityTitleList { get; set; } = [];
+    public ObservableCollection<string> CityTitleList { get; set; } = [];
 
     public CityViewModelBase()
     {
-        Initial();
+        GetTitles();
     }
     public override bool HasErrors => string.IsNullOrWhiteSpace(Title) || Title!.Length < 2 || Title!.Length > 50 || !char.IsUpper(Title[0]) || TariffDay < 0 || TariffNight < 0;
 
@@ -53,15 +53,14 @@ public class CityViewModelBase : EditorPageViewModelBase
         }
     }
 
-    private async void Initial()
-    {
-        CityTitleList = await GetTitles();
-    }
-
-    private static async Task<IEnumerable<string>> GetTitles()
+    private async void GetTitles()
     {
         var service = new CityService(new CompanyDbContext());
-        return await service.GetCityTitleAsync();
+        var cities = await service.GetCityTitleAsync();
+        foreach (var phoneNumber in cities)
+        {
+            CityTitleList.Add(phoneNumber);
+        }
     }
 
     public override IEnumerable<string> GetErrors(string propertyName)
