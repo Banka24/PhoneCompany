@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using PhoneCompany.Services.InteractionDataBase;
 
@@ -9,8 +10,8 @@ public class ConversationViewModelBase : EditorPageViewModelBase
 {
     public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeOnly.MinValue;
 
-    public IEnumerable<string> PhoneNumberList { get; set; } = [];
-    public IEnumerable<string> CityTitleList { get; set; } = [];
+    public ObservableCollection<string> PhoneNumberList { get; set; } = [];
+    public ObservableCollection<string> CityTitleList { get; set; } = [];
     public IEnumerable<string> TimeOfDayList { get; set; } = ["День", "Ночь"];
 
     public ConversationViewModelBase()
@@ -20,23 +21,31 @@ public class ConversationViewModelBase : EditorPageViewModelBase
 
     private async void Initial()
     {
-        PhoneNumberList = await GetPhoneNumbersAsync();
-        CityTitleList = await GetCityTitleAsync();
+        await GetPhoneNumbersAsync();
+        await GetCityTitleAsync();
     }
 
-    private static async Task<IEnumerable<string>> GetPhoneNumbersAsync()
+    private async Task GetPhoneNumbersAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
-        return await service.GetPhoneNumbersAsync();
+        var numbers = await service.GetPhoneNumbersAsync();
+        foreach (var number in numbers)
+        {
+            PhoneNumberList.Add(number);
+        }
     }
 
-    private static async Task<IEnumerable<string>> GetCityTitleAsync()
+    private async Task GetCityTitleAsync()
     {
         var service = new CityService(new CompanyDbContext());
-        return await service.GetCityTitleAsync();
+        var cityTitles = await service.GetCityTitleAsync();
+        foreach (var cityTitle in cityTitles)
+        {
+            CityTitleList.Add(cityTitle);
+        }
     }
 
-    private string _phoneNumber = "79";
+    private string _phoneNumber = "7";
     public string PhoneNumber
     {
         get => _phoneNumber;
