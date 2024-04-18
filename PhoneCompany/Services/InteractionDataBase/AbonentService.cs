@@ -58,7 +58,7 @@ public class AbonentService(CompanyDbContext context)
         }
     }
 
-    public async Task<List<string>> GetPhoneNumbersAsync()
+    public async Task<IEnumerable<string>> GetPhoneNumbersAsync()
     {
         using (context)
         {
