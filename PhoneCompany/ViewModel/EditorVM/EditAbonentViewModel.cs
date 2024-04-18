@@ -16,7 +16,7 @@ public class EditAbonentViewModel : AbonentViewModelBase
 
     private async void FindCommand(Button button)
     {
-        if (string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith("79"))
+        if (string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith('7'))
         {
             ErrorMessage = "Заполните поля правильно";
             return;

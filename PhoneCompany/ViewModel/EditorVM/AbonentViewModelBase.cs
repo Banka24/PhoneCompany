@@ -4,10 +4,10 @@ namespace PhoneCompany.ViewModel.EditorVM;
 
 public abstract class AbonentViewModelBase : EditorPageViewModelBase
 {
-    public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith("79") ||
+    public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith('7') ||
                                       string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address);
 
-    private string _phoneNumber = "79";
+    private string _phoneNumber = "7";
     public string PhoneNumber
     {
         get => _phoneNumber;
