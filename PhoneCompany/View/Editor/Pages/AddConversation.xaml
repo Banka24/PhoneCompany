@@ -35,7 +35,7 @@
         <ComboBox Grid.Column="1" Grid.Row="2" Name="CityTitle" ItemsSource="{Binding CityTitleList}" Text="{Binding CityTitle}" />
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
             <DatePicker SelectedDate="{Binding Date}"  Margin="5" VerticalContentAlignment="Center" Height="60"/>
-            <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time}"/>
+            <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time, StringFormat={}{0:hh:mm}}" />
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="1"  >
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NumberOfMinutes}" Foreground="Red" />

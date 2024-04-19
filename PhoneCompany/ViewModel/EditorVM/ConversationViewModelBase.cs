@@ -8,7 +8,7 @@ namespace PhoneCompany.ViewModel.EditorVM;
 
 public class ConversationViewModelBase : EditorPageViewModelBase
 {
-    public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeOnly.MinValue;
+    public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeSpan.MinValue;
 
     public ObservableCollection<string> PhoneNumberList { get; set; } = [];
     public ObservableCollection<string> CityTitleList { get; set; } = [];
@@ -83,9 +83,8 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
-    private TimeOnly _time;
-
-    public TimeOnly Time
+    private TimeSpan _time;
+    public TimeSpan Time
     {
         get => _time;
         set
@@ -134,7 +133,7 @@ public class ConversationViewModelBase : EditorPageViewModelBase
             yield return "Вызов не может длиться меньше 0 минут";
         }
 
-        else if (propertyName is nameof(Time) && Time < TimeOnly.MinValue)
+        else if (propertyName is nameof(Time) && Time < TimeSpan.MinValue)
         {
             yield return "Проверьте данн";
         }

@@ -24,8 +24,7 @@ public class AddAbonentViewModel : AbonentViewModelBase
 
     private async Task AddAbonentAsync()
     {
-        PhoneNumber = MakePhoneNumberToFormat(PhoneNumber);
         var service = new AbonentService(new CompanyDbContext());
-        ErrorMessage = await service.AddAbonentAsync(PhoneNumber, Inn, Address) ? "Успешно" : "Неуспешно";
+        ErrorMessage = await service.AddAbonentAsync(MakePhoneNumberToFormat(PhoneNumber), Inn, Address) ? "Успешно" : "Неуспешно";
     }
 }
