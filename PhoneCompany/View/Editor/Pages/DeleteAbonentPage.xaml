@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding ErrorMessage}" Grid.ColumnSpan="2"/>
         <TextBlock  Grid.Row="1" VerticalAlignment="Center" Text="Введите номер телефона"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}"/>
+        <ComboBox Grid.Row="1" IsEditable="True" Grid.Column="1" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}"/>
         <Button Grid.Row="2" Grid.ColumnSpan="2" Height="60" Content="Удалить" Command="{Binding DeleteCommand}"/>
     </Grid>
 </Page>
