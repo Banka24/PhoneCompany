@@ -19,7 +19,6 @@ public class CityPageViewModel : PageViewModelBase
     {
         var service = new CityService(new CompanyDbContext());
         var cities = await service.GetDataAsync();
-
         foreach (var city in cities) CitiesList.Add(city);
     }
 

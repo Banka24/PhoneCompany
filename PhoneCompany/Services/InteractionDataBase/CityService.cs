@@ -15,7 +15,7 @@ public class CityService(CompanyDbContext context)
     {
         using (context)
         {
-            return await context.Cities.ToListAsync();
+            return await context.Cities.OrderBy(i => i.Title).ToListAsync();
         }
     }
     public async Task<decimal> GetTariffAsync(Conversation conversation)
