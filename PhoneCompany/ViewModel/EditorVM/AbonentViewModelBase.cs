@@ -45,28 +45,10 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
         }
     }
 
-    protected static string MakePhoneNumberToFormat(string phoneNumber)
-    {
-        return $"+{phoneNumber[0]}({phoneNumber[1..4]}){phoneNumber[4..7]}-{phoneNumber[7..9]}-{phoneNumber[9..]}";
-    }
-
     public override IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
         {
-            case nameof(PhoneNumber):
-            {
-                if (string.IsNullOrWhiteSpace(PhoneNumber))
-                {
-                    yield return "Это поле обязательно";
-                }
-                else if (PhoneNumber!.Length != 11 || PhoneNumber![0] is not '7')
-                {
-                    yield return "Длина должна быть 11 символов и начинаться на 7";
-                }
-
-                break;
-            }
             case nameof(Inn):
             {
                 if (string.IsNullOrWhiteSpace(Inn))

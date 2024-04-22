@@ -1,4 +1,5 @@
-﻿using PhoneCompany.Services;
+﻿using System.Collections.Generic;
+using PhoneCompany.Services;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +20,34 @@ public class AddCityViewModel : CityViewModelBase
             return;
         }
         await AddCityAsync();
+    }
+
+    public override IEnumerable<string> GetErrors(string propertyName)
+    {
+        switch (propertyName)
+        {
+            case nameof(Title):
+            {
+                if (string.IsNullOrWhiteSpace(Title))
+                {
+                    yield return "Это поле обязательно";
+                }
+                else if (Title!.Length < 2 || Title!.Length > 50)
+                {
+                    yield return "Длина должна быть от 2 до 50 символов";
+                }
+                else if (!char.IsUpper(Title[0]))
+                {
+                    yield return "Напишите город с большой буквы";
+                }
+                break;
+            }
+            default:
+            {
+                base.GetErrors(propertyName);
+                break;
+            }
+        };
     }
 
     private async Task AddCityAsync()
