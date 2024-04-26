@@ -1,0 +1,28 @@
+﻿<Page x:Class="PhoneCompany.Views.Main.Pages.CityPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mainViewModel1="clr-namespace:PhoneCompany.ViewModels.MainViewModel"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance Type=mainViewModel1:CityPageViewModel}"
+      d:DesignHeight="1020" d:DesignWidth="1920"
+      Title="CityPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding CitiesList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название города" Width="640" Binding="{Binding Title}" />
+                <DataGridTextColumn Header="Тариф днём" Width="640" Binding="{Binding TariffDay}" />
+                <DataGridTextColumn Header="Тариф ночью" Width="640" Binding="{Binding TariffNight}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="1" HorizontalAlignment="Left" Command="{Binding UpdateCommand}">
+            <Image Source="/Resources/Update.png" />
+        </Button>
+    </Grid>
+</Page>

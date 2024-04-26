@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using PhoneCompany.Model.Entities;
+using PhoneCompany.Models;
 
 namespace PhoneCompany.Services.InteractionDataBase;
 

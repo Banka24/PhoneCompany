@@ -1,7 +1,7 @@
-﻿using PhoneCompany.View.Editor.Windows;
-using System.Text;
+﻿using System.Text;
 using PhoneCompany.Services.DictionaryHolder;
-using PhoneCompany.ViewModel.EditorVM;
+using PhoneCompany.ViewModels.EditorVM;
+using PhoneCompany.Views.Editor.Windows;
 
 namespace PhoneCompany.Services;
 

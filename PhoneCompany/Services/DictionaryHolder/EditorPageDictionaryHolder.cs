@@ -1,6 +1,6 @@
-﻿using PhoneCompany.View.Editor.Pages;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using PhoneCompany.Views.Editor.Pages;
 
 namespace PhoneCompany.Services.DictionaryHolder;
 

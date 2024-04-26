@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using PhoneCompany.Model.Entities;
+using PhoneCompany.Models;
 
 namespace PhoneCompany.Services.InteractionDataBase;
 
