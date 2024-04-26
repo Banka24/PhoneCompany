@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using PhoneCompany.Services;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -42,12 +43,17 @@ public class AddCityViewModel : CityViewModelBase
                 }
                 break;
             }
-            default:
+            case nameof(TariffDay):
             {
-                base.GetErrors(propertyName);
+                if (TariffDay < 0) yield return "Напишите число больше 0";
                 break;
             }
-        };
+            case nameof(TariffNight):
+            {
+                if (TariffNight < 0) yield return "Напишите число больше 0";
+                break;
+            }
+        }
     }
 
     private async Task AddCityAsync()

@@ -36,7 +36,7 @@ public class CityService(CompanyDbContext context)
         }
     }
 
-    public async Task<City> GetCity(string title)
+    public async Task<City> GetCityAsync(string title)
     {
         using (context)
         {
@@ -45,11 +45,11 @@ public class CityService(CompanyDbContext context)
         }
     }
 
-    public async Task<List<string>> GetCityTitleAsync()
+    public async Task<IList<string>> GetCityTitleAsync()
     {
         using (context)
         {
-            return await context.Cities.Select(i => i.Title).ToListAsync();
+            return await context.Cities.OrderBy(i => i.Title).Select(i => i.Title).ToListAsync();
         }
     }
 

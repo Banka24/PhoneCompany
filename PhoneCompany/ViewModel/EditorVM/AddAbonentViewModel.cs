@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,6 +34,10 @@ public class AddAbonentViewModel : AbonentViewModelBase
                 {
                     yield return "Это поле обязательно";
                 }
+                else if (PhoneNumber.Any(c => !char.IsDigit(c)))
+                {
+                    yield return "В номере должны быть только цифры";
+                }
                 else if (PhoneNumber!.Length != 11 || PhoneNumber![0] is not '7')
                 {
                     yield return "Длина должна быть 11 символов и начинаться на 7";
@@ -40,9 +45,23 @@ public class AddAbonentViewModel : AbonentViewModelBase
 
                 break;
             }
-            default:
-                base.GetErrors(propertyName);
+            case nameof(Inn):
+            {
+                if (string.IsNullOrWhiteSpace(Inn))
+                {
+                    yield return "Это поле обязательно";
+                }
+                else if (Inn!.Length != 10)
+                {
+                    yield return "Длина должна быть 10 символов";
+                }
                 break;
+            }
+            case nameof(Address):
+            {
+                if (string.IsNullOrWhiteSpace(Address)) yield return "Это поле обязательно";
+                break;
+            }
         }
     }
 
