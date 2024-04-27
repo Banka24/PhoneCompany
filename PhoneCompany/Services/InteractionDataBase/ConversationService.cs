@@ -71,10 +71,10 @@ public class ConversationService(CompanyDbContext context)
         var con = new Conversation
         {
             AbonentId = await context.Abonents.Where(i => i.PhoneNumber == phoneNumber).Select(i => i.Id).SingleOrDefaultAsync(),
-            CityId = await context.Cities.Where(i => i.Title == title).Select(i => i.Id).SingleOrDefaultAsync(),
+            CityId = await context.Cities.Where(i => i.Title == title).Select(i => i.Id).FirstOrDefaultAsync(),
             Date = date,
             NumberOfMinutes = numberOfMinutes,
-            TimeOfDayId = await context.TimeOfDays.Where(i => i.Title == timeOfDay).Select(i => i.Id).SingleOrDefaultAsync()
+            TimeOfDayId = await context.TimeOfDays.Where(i => i.Title == timeOfDay).Select(i => i.Id).FirstOrDefaultAsync()
         };
         return con;
     }

@@ -26,7 +26,7 @@
         <TextBlock Grid.Row="2" Text="Введите дневной тариф" />
         <TextBlock Grid.Row="3" Text="Введите ночной тариф" />
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <ComboBox Margin="10" ItemsSource="{Binding CityTitleList}" Text="{Binding Title}"/>
+            <ComboBox Margin="10" IsEditable="True" ItemsSource="{Binding CityTitleList}" Text="{Binding Title}"/>
             <Button Content="Найти" Command="{Binding FindCityCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1">
