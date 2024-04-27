@@ -8,6 +8,14 @@ namespace PhoneCompany.ViewModels.EditorVM;
 
 internal class DeleteAbonentViewModel : AbonentViewModelBase
 {
+    public DeleteAbonentViewModel()
+    {
+        GetPhoneNumbers();
+    }
+
+    private ICommand _deleteCommand;
+    public ICommand DeleteCommand => _deleteCommand ??= new RelayCommand<Button>(DeleteAbonent);
+
     private ObservableCollection<string> _phoneNumberList = [];
     public ObservableCollection<string> PhoneNumberList
     {
@@ -18,25 +26,7 @@ internal class DeleteAbonentViewModel : AbonentViewModelBase
             OnPropertyChanged();
         }
     }
-
-    public DeleteAbonentViewModel()
-    {
-        GetPhoneNumbers();
-    }
-
-    private async void GetPhoneNumbers()
-    {
-        var service = new AbonentService(new CompanyDbContext());
-        var phoneNumbers = await service.GetPhoneNumbersAsync();
-        foreach (var phoneNumber in phoneNumbers)
-        {
-            PhoneNumberList.Add(phoneNumber);
-        }
-    }
-
-    private ICommand _deleteCommand;
-    public ICommand DeleteCommand => _deleteCommand ??= new RelayCommand<Button>(DeleteAbonent);
-
+    
     private async void DeleteAbonent(Button sender)
     {
         if (PhoneNumber is null)
@@ -47,5 +37,14 @@ internal class DeleteAbonentViewModel : AbonentViewModelBase
 
         var service = new AbonentService(new CompanyDbContext());
         ErrorMessage = await service.DeleteAbonentAsync(PhoneNumber) ? "Успешно" : "Неуспешно";
+    }
+    private async void GetPhoneNumbers()
+    {
+        var service = new AbonentService(new CompanyDbContext());
+        var phoneNumbers = await service.GetPhoneNumbersAsync();
+        foreach (var phoneNumber in phoneNumbers)
+        {
+            PhoneNumberList.Add(phoneNumber);
+        }
     }
 }

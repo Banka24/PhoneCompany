@@ -12,16 +12,6 @@ public class AddCityViewModel : CityViewModelBase
     private ICommand _addCityCommand;
     public ICommand AddCityCommand => _addCityCommand ??= new RelayCommand<Button>(AddCity);
 
-    private async void AddCity(Button sender)
-    {
-        if (HasErrors)
-        {
-            ErrorMessage = "Заполните поля правильно";
-            return;
-        }
-        await AddCityAsync();
-    }
-
     public override IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
@@ -54,7 +44,15 @@ public class AddCityViewModel : CityViewModelBase
             }
         }
     }
-
+    private async void AddCity(Button sender)
+    {
+        if (HasErrors)
+        {
+            ErrorMessage = "Заполните поля правильно";
+            return;
+        }
+        await AddCityAsync();
+    }
     private async Task AddCityAsync()
     {
         var service = new CityService(new CompanyDbContext());

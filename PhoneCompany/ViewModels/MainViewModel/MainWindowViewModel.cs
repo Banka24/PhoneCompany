@@ -9,6 +9,8 @@ namespace PhoneCompany.ViewModels.MainViewModel;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler PropertyChanged;
+
     private ICommand _changePageCommand;
     public ICommand ChangePageCommand => _changePageCommand ??= new RelayCommand<Button>(ChangePage);
 
@@ -26,11 +28,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
     private void ChangePage(Button sender)
     {
         var pageHolder = new PageDictionaryHolder();
@@ -39,7 +41,9 @@ public class MainWindowViewModel : INotifyPropertyChanged
     
     private void OpenEditor(Button sender)
     {
-        if (CurrentPage is null) return;
-        WindowManager.OpenWindow(sender.Name, CurrentPage.Title);
+        if (CurrentPage is not null)
+        {
+            WindowManager.OpenEditor(sender.Name, CurrentPage.Title);
+        }
     }
 }

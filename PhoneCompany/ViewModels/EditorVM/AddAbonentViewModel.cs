@@ -13,17 +13,6 @@ public class AddAbonentViewModel : AbonentViewModelBase
     private ICommand _addAbonentCommand;
     public ICommand AddAbonentCommand => _addAbonentCommand ??= new RelayCommand<Button>(AddAbonent);
 
-    private async void AddAbonent(Button sender)
-    {
-        if (HasErrors)
-        {
-            ErrorMessage = "Заполните поля правильно";
-            return;
-        }
-
-        await AddAbonentAsync();
-    }
-
     public override IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
@@ -65,6 +54,16 @@ public class AddAbonentViewModel : AbonentViewModelBase
         }
     }
 
+    private async void AddAbonent(Button sender)
+    {
+        if (HasErrors)
+        {
+            ErrorMessage = "Заполните поля правильно";
+            return;
+        }
+
+        await AddAbonentAsync();
+    }
     private async Task AddAbonentAsync()
     {
         var service = new AbonentService(new CompanyDbContext());

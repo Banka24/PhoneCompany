@@ -8,11 +8,11 @@ namespace PhoneCompany.ViewModels.EditorVM;
 public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
 {
     public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-    public virtual bool HasErrors { get; }
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private string _errorMessage;
+    public virtual bool HasErrors { get; }
 
+    private string _errorMessage;
     public string ErrorMessage
     {
         get => _errorMessage;
@@ -23,6 +23,8 @@ public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyD
         }
     }
 
+    public abstract IEnumerable GetErrors(string propertyName);
+
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -32,6 +34,4 @@ public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyD
     {
         ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
     }
-
-    public abstract IEnumerable GetErrors(string propertyName);
 }

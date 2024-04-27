@@ -9,17 +9,6 @@ namespace PhoneCompany.ViewModels.EditorVM;
 
 public class EditAbonentViewModel : AbonentViewModelBase
 {
-    private ObservableCollection<string> _phoneNumberList = [];
-    public ObservableCollection<string> PhoneNumberList
-    {
-        get => _phoneNumberList;
-        set
-        {
-            _phoneNumberList = value;
-            OnPropertyChanged();
-        }
-    }
-
     public EditAbonentViewModel()
     {
         GetPhoneNumbers();
@@ -30,6 +19,17 @@ public class EditAbonentViewModel : AbonentViewModelBase
 
     private ICommand _editAbonentCommand;
     public ICommand EditAbonentCommand => _editAbonentCommand ??= new RelayCommand<Button>(EditCommand);
+
+    private ObservableCollection<string> _phoneNumberList = [];
+    public ObservableCollection<string> PhoneNumberList
+    {
+        get => _phoneNumberList;
+        set
+        {
+            _phoneNumberList = value;
+            OnPropertyChanged();
+        }
+    }
 
     private async void FindCommand(Button button)
     {

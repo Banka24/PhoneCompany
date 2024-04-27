@@ -9,15 +9,15 @@ namespace PhoneCompany.ViewModels.MainViewModel;
 
 public class ConversationPageViewModel : PageViewModelBase
 {
+    public ConversationPageViewModel()
+    {
+        _ = EnterDataListAsync();
+        _ = GetPhoneNumberList();
+    }
+
     public string PhoneNumber { get; set; }
     public ObservableCollection<Conversation> ConversationsList { get; set; } = [];
     public IEnumerable<string> PhoneNumberList { get; set; } = [];
-
-    public ConversationPageViewModel()
-    {
-        EnterDataListAsync();
-        GetPhoneNumberList();
-    }
 
     protected override async Task EnterDataListAsync()
     {
@@ -43,6 +43,7 @@ public class ConversationPageViewModel : PageViewModelBase
         var tariff = await service.GetTariffAsync(conversation);
         return conversation.NumberOfMinutes * tariff;
     }
+
     private async Task GetPhoneNumberList()
     {
         var service = new AbonentService(new CompanyDbContext());

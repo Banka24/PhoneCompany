@@ -6,7 +6,7 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
 {
     public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith('7') ||
                                       string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address);
-
+    
     private string _phoneNumber = "7";
     public string PhoneNumber
     {
@@ -20,7 +20,6 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
     }
 
     private string _inn;
-
     public string Inn
     {
         get => _inn;
@@ -33,7 +32,6 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
     }
 
     private string _address;
-
     public string Address
     {
         get => _address;
@@ -45,6 +43,11 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
         }
     }
 
+
+    /// <summary>
+    /// Получение списка ошибок
+    /// </summary>
+    /// <returns>Список ошибок</returns>
     public override IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)

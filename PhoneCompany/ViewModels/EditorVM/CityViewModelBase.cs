@@ -6,16 +6,15 @@ namespace PhoneCompany.ViewModels.EditorVM;
 
 public class CityViewModelBase : EditorPageViewModelBase
 {
-    public ObservableCollection<string> CityTitleList { get; set; } = [];
-
     public CityViewModelBase()
     {
         GetTitles();
     }
+
     public override bool HasErrors => string.IsNullOrWhiteSpace(Title) || Title!.Length < 2 || Title!.Length > 50 || !char.IsUpper(Title[0]) || TariffDay < 0 || TariffNight < 0;
-
+    public ObservableCollection<string> CityTitleList { get; set; } = [];
+    
     private string _title;
-
     public string Title
     {
         get => _title;
@@ -28,7 +27,6 @@ public class CityViewModelBase : EditorPageViewModelBase
     }
 
     private decimal _tariffDay;
-
     public decimal TariffDay
     {
         get => _tariffDay;
@@ -41,7 +39,6 @@ public class CityViewModelBase : EditorPageViewModelBase
     }
 
     private decimal _tariffNight;
-
     public decimal TariffNight
     {
         get => _tariffNight;
@@ -50,16 +47,6 @@ public class CityViewModelBase : EditorPageViewModelBase
             _tariffNight = value;
             ValidateProperty();
             OnPropertyChanged();
-        }
-    }
-
-    private async void GetTitles()
-    {
-        var service = new CityService(new CompanyDbContext());
-        var cities = await service.GetCityTitleAsync();
-        foreach (var phoneNumber in cities)
-        {
-            CityTitleList.Add(phoneNumber);
         }
     }
 
@@ -77,6 +64,16 @@ public class CityViewModelBase : EditorPageViewModelBase
                 if (TariffNight < 0) yield return "Напишите число больше 0";
                 break;
             }
+        }
+    }
+
+    private async void GetTitles()
+    {
+        var service = new CityService(new CompanyDbContext());
+        var cities = await service.GetCityTitleAsync();
+        foreach (var phoneNumber in cities)
+        {
+            CityTitleList.Add(phoneNumber);
         }
     }
 }

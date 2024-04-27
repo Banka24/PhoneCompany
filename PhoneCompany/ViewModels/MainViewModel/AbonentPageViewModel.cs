@@ -6,14 +6,14 @@ using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.MainViewModel;
 
-public sealed class AbonentPageViewModel : PageViewModelBase
+public class AbonentPageViewModel : PageViewModelBase
 {
-    public ObservableCollection<Abonent> AbonentsList { get; set; } = [];
-
     public AbonentPageViewModel()
     {
-        EnterDataListAsync();
+        _ = EnterDataListAsync();
     }
+
+    public ObservableCollection<Abonent> AbonentsList { get; set; } = [];
 
     protected override async Task EnterDataListAsync()
     {

@@ -8,13 +8,13 @@ namespace PhoneCompany.ViewModels.MainViewModel;
 
 public class CityPageViewModel : PageViewModelBase
 {
-    public ObservableCollection<City> CitiesList { get; set; } = [];
-
     public CityPageViewModel()
     {
-        EnterDataListAsync();
+        _ = EnterDataListAsync();
     }
 
+    public ObservableCollection<City> CitiesList { get; set; } = [];
+    
     protected override async Task EnterDataListAsync()
     {
         var service = new CityService(new CompanyDbContext());
