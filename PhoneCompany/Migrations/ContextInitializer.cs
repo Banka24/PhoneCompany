@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using PhoneCompany.Models;
+using System.Linq;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.Migrations;
@@ -26,6 +27,18 @@ internal class ContextInitializer : DropCreateDatabaseAlways<CompanyDbContext>
 
     public Task MakeSeed()
     {
-        return Task.Run(() => { Seed(new CompanyDbContext()); });
+        Task.Run(() =>
+        {
+            var context = new CompanyDbContext();
+
+            if (!context.TimeOfDays.Any())
+            {
+                Seed(context);
+            }
+
+            context.Dispose();
+        });
+
+        return Task.CompletedTask;
     }
 }
