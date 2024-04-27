@@ -68,6 +68,7 @@ public class ConversationService(CompanyDbContext context)
         {
             var conversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime) 
                                ?? throw new Exception("Такого элемента нет");
+
             context.Conversations.Remove(conversation);
             return await context.TrySaveChangeAsync();
         }
