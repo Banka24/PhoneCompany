@@ -2,7 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace PhoneCompany.Models;
-
+/// <summary>
+/// Модель описания Город
+/// </summary>
 public class City
 {
     public int Id { get; set; }

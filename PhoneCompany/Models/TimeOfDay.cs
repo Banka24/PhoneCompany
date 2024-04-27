@@ -2,7 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace PhoneCompany.Models;
-
+/// <summary>
+/// Модель описания Время суток
+/// </summary>
 public class TimeOfDay
 {
     public int Id { get; set; }

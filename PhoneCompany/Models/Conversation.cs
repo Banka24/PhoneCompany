@@ -2,7 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PhoneCompany.Models;
-
+/// <summary>
+/// Модель описания Телефонного разговора
+/// </summary>
 public class Conversation
 {
     public int Id { get; set; }

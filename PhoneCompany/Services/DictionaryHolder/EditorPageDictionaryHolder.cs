@@ -19,6 +19,12 @@ public class EditorPageDictionaryHolder : DictionaryHolderBase
         { "DeleteConversationPage", new DeleteConversation() },
     };
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="namePage"></param>
+    /// <returns></returns>
+    /// <exception cref="KeyNotFoundException"></exception>
     public override Page GetPage(string namePage)
     {
         return _pages.TryGetValue(namePage, out var page) ? page : throw new KeyNotFoundException($"Страница с именем {namePage} не была найдена");

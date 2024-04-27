@@ -2,7 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace PhoneCompany.Models;
-
+/// <summary>
+/// Модель описания Абонент
+/// </summary>
 public class Abonent
 {
     public int Id { get; set; }

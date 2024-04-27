@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using PhoneCompany.Models;
 using System.Linq;
-using PhoneCompany.Services.InteractionDataBase;
 
-namespace PhoneCompany.Migrations;
+namespace PhoneCompany.Services.InteractionDataBase;
 
 internal class ContextInitializer : DropCreateDatabaseAlways<CompanyDbContext>
 {
