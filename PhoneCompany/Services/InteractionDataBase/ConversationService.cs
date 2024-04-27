@@ -25,20 +25,9 @@ public class ConversationService(CompanyDbContext context)
     }
 
     /// <summary>
-    /// 
+    /// Асинхронное добавление разговора в базу данных
     /// </summary>
-    /// <returns></returns>
-    public async Task<IEnumerable<Conversation>> GetDataAsync(string phoneNumber)
-    {
-        var conversation = await context.Conversations.Where(i => i.Abonent.PhoneNumber == phoneNumber).ToListAsync();
-        context = null;
-        return conversation;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    /// <returns>Результат успешности выполнения операции</returns>
     public async Task<bool> AddConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         using (context)
@@ -49,25 +38,14 @@ public class ConversationService(CompanyDbContext context)
     }
 
     /// <summary>
-    /// 
+    /// Асинхронное редактирование информации о разговоре
     /// </summary>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public async Task GetConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
-    {
-       _lastFoundConversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime)
-               ?? throw new Exception("Такого номера нет");
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    /// <returns>Результат успешности выполнения операции</returns>
     public async Task<bool> EditConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         using (context)
         {
-            await GetConversationAsync(phoneNumber, title, date);
+            await FindConversationAsync(phoneNumber, title, date);
 
             context.Conversations.Attach(_lastFoundConversation);
             var newConversation = await MakeConversation(phoneNumber, title, date, numberOfMinutes, timeOfDay);
@@ -80,9 +58,9 @@ public class ConversationService(CompanyDbContext context)
     }
 
     /// <summary>
-    /// 
+    /// Асинхронное удаление разговора из базы данных
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Результат успешности выполнения операции</returns>
     /// <exception cref="Exception"></exception>
     public async Task<bool> DeleteConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
     {
@@ -95,9 +73,15 @@ public class ConversationService(CompanyDbContext context)
         }
     }
 
+    private async Task FindConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
+    {
+        _lastFoundConversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime)
+                                 ?? throw new Exception("Такого номера нет");
+    }
+
     private async Task<Conversation> MakeConversation(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
-        var con = new Conversation
+        return new Conversation
         {
             AbonentId = await context.Abonents.Where(i => i.PhoneNumber == phoneNumber).Select(i => i.Id).SingleOrDefaultAsync(),
             CityId = await context.Cities.Where(i => i.Title == title).Select(i => i.Id).FirstOrDefaultAsync(),
@@ -105,6 +89,5 @@ public class ConversationService(CompanyDbContext context)
             NumberOfMinutes = numberOfMinutes,
             TimeOfDayId = await context.TimeOfDays.Where(i => i.Title == timeOfDay).Select(i => i.Id).SingleOrDefaultAsync()
         };
-        return con;
     }
 }
