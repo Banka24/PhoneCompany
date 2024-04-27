@@ -12,7 +12,6 @@ public abstract class DictionaryHolderBase
     /// <summary>
     /// Нахождение страницы по названию в словаре
     /// </summary>
-    /// <param name="namePage">Название страницы</param>
     /// <returns>Страница по полученному названию</returns>
     /// <exception cref="KeyNotFoundException"></exception>
     public Page GetPage(string namePage)

@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using PhoneCompany.Models;
 
 namespace PhoneCompany.Services.InteractionDataBase;
-
+/// <summary>
+/// Сервис работы с таблицей Города
+/// </summary>
 public class CityService(CompanyDbContext context)
 {
     private static City _lastFoundCity;
 
+    /// <summary>
+    /// Получение списка городов
+    /// </summary>
+    /// <returns>Список городов</returns>
     public async Task<IEnumerable<City>> GetDataAsync()
     {
         using (context)
@@ -18,6 +24,11 @@ public class CityService(CompanyDbContext context)
             return await context.Cities.OrderBy(i => i.Title).ToListAsync();
         }
     }
+
+    /// <summary>
+    /// Асинхронное получение тарифа
+    /// </summary>
+    /// <returns>Тариф</returns>
     public async Task<decimal> GetTariffAsync(Conversation conversation)
     {
         using (context)
@@ -27,6 +38,10 @@ public class CityService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// Асинхронное добавление города в базу данных
+    /// </summary>
+    /// <returns>Результат успешности выполнения операции</returns>
     public async Task<bool> AddCityAsync(string title, decimal tariffDay, decimal tariffNight)
     {
         using (context)
@@ -36,7 +51,11 @@ public class CityService(CompanyDbContext context)
         }
     }
 
-    public async Task<City> GetCityAsync(string title)
+    /// <summary>
+    /// Асинхронное нахождение города по названию
+    /// </summary>
+    /// <returns>Город</returns>
+    public async Task<City> FindCityAsync(string title)
     {
         using (context)
         {
@@ -45,7 +64,11 @@ public class CityService(CompanyDbContext context)
         }
     }
 
-    public async Task<IList<string>> GetCityTitleAsync()
+    /// <summary>
+    /// Асинхронное получение название городов по алфавиту
+    /// </summary>
+    /// <returns>Список названий</returns>
+    public async Task<IEnumerable<string>> GetCityTitleAsync()
     {
         using (context)
         {
@@ -53,6 +76,10 @@ public class CityService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// Асинхронное редактирование информации о городе
+    /// </summary>
+    /// <returns>Результат успешности выполнения операции</returns>
     public async Task<bool> EditCityAsync(string title, decimal tariffDay, decimal tariffNight)
     {
         using (context)
@@ -64,6 +91,11 @@ public class CityService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// Асинхронное удаление города из базы данных
+    /// </summary>
+    /// <returns>Результат успешности выполнения операции</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<bool> DeleteCityAsync(string title)
     {
         using (context)

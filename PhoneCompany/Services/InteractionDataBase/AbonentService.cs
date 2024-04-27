@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using PhoneCompany.Models;
 
 namespace PhoneCompany.Services.InteractionDataBase;
-
+/// <summary>
+/// Сервис работы с таблицей Абоненты
+/// </summary>
 public class AbonentService(CompanyDbContext context)
 {
     private static Abonent _lastFoundAbonent;
 
+    /// <summary>
+    /// Получение списка абонентов
+    /// </summary>
+    /// <returns>Список абонентов</returns>
     public async Task<IEnumerable<Abonent>> GetDataAsync()
     {
         using (context)
@@ -19,6 +25,10 @@ public class AbonentService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// Асинхронное добавление абонента в базу данных
+    /// </summary>
+    /// <returns>Результат успешности выполнения операции</returns>
     public async Task<bool> AddAbonentAsync(string phoneNumber, string inn, string address)
     {
         using (context)
@@ -28,7 +38,12 @@ public class AbonentService(CompanyDbContext context)
         }
     }
 
-    public async Task<Abonent> GetAbonentAsync(string phoneNumber)
+    /// <summary>
+    /// Асинхронное нахождение абонента по номеру телефона
+    /// </summary>
+    /// <returns>Найденный абонент</returns>
+    /// <exception cref="ArgumentException"></exception>
+    public async Task<Abonent> FindAbonentAsync(string phoneNumber)
     {
         using (context)
         {
@@ -37,6 +52,10 @@ public class AbonentService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// Асинхронное редактирование информации об абоненте
+    /// </summary>
+    /// <returns>Результат успешности выполнения операции</returns>
     public async Task<bool> EditAbonentAsync(string phoneNumber, string inn, string address)
     {
         using (context)
@@ -48,6 +67,11 @@ public class AbonentService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// Асинхронное удаление абонента из базы данных
+    /// </summary>
+    /// <returns>Результат успешности выполнения операции</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<bool> DeleteAbonentAsync(string phoneNumber)
     {
         using (context)
@@ -58,6 +82,10 @@ public class AbonentService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// Асинхронное получение списка телефонных номеров
+    /// </summary>
+    /// <returns>Список телефонных номеров</returns>
     public async Task<IEnumerable<string>> GetPhoneNumbersAsync()
     {
         using (context)

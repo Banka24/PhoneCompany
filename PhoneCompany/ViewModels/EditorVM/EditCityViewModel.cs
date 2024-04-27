@@ -28,7 +28,7 @@ public class EditCityViewModel : CityViewModelBase
     private async Task FindCityAsync()
     {
         var service = new CityService(new CompanyDbContext());
-        var city = await service.GetCityAsync(Title);
+        var city = await service.FindCityAsync(Title);
         TariffDay = city.TariffDay;
         TariffNight = city.TariffNight;
     }

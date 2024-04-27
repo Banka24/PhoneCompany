@@ -7,7 +7,7 @@ namespace PhoneCompany.Services.InteractionDataBase;
 
 internal class ContextInitializer : DropCreateDatabaseAlways<CompanyDbContext>
 {
-    protected override void Seed(CompanyDbContext context)
+    protected override async void Seed(CompanyDbContext context)
     {
         context.TimeOfDays.AddRange(
         [
@@ -21,7 +21,7 @@ internal class ContextInitializer : DropCreateDatabaseAlways<CompanyDbContext>
             }
         ]);
 
-        context.SaveChanges();
+        await context.TrySaveChangeAsync();
     }
 
     public Task MakeSeed()

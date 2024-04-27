@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 using PhoneCompany.Models;
 
 namespace PhoneCompany.Services.InteractionDataBase;
-
+/// <summary>
+///  Сервис работы с таблицей Переговоры
+/// </summary>
 public class ConversationService(CompanyDbContext context)
 {
     private static Conversation _lastFoundConversation;
+
+    /// <summary>
+    /// Получение списка переговоров
+    /// </summary>
+    /// <returns>Список переговоров</returns>
     public async Task<IEnumerable<Conversation>> GetDataAsync()
     {
         var conversation = await context.Conversations.ToListAsync();
@@ -17,6 +24,10 @@ public class ConversationService(CompanyDbContext context)
         return conversation;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public async Task<IEnumerable<Conversation>> GetDataAsync(string phoneNumber)
     {
         var conversation = await context.Conversations.Where(i => i.Abonent.PhoneNumber == phoneNumber).ToListAsync();
@@ -24,6 +35,10 @@ public class ConversationService(CompanyDbContext context)
         return conversation;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public async Task<bool> AddConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         using (context)
@@ -33,12 +48,21 @@ public class ConversationService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public async Task GetConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
     {
        _lastFoundConversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime)
                ?? throw new Exception("Такого номера нет");
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public async Task<bool> EditConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         using (context)
@@ -55,6 +79,11 @@ public class ConversationService(CompanyDbContext context)
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public async Task<bool> DeleteConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
     {
         using (context)
@@ -74,7 +103,7 @@ public class ConversationService(CompanyDbContext context)
             CityId = await context.Cities.Where(i => i.Title == title).Select(i => i.Id).FirstOrDefaultAsync(),
             Date = date,
             NumberOfMinutes = numberOfMinutes,
-            TimeOfDayId = await context.TimeOfDays.Where(i => i.Title == timeOfDay).Select(i => i.Id).FirstOrDefaultAsync()
+            TimeOfDayId = await context.TimeOfDays.Where(i => i.Title == timeOfDay).Select(i => i.Id).SingleOrDefaultAsync()
         };
         return con;
     }

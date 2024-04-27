@@ -10,7 +10,7 @@ public partial class App
 {
     protected override async void OnActivated(EventArgs e)
     {
-        var con = new ContextInitializer();
-        await con.MakeSeed();
+        var context = new ContextInitializer();
+        await context.MakeSeed();
     }
 }
