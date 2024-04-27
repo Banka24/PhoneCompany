@@ -3,10 +3,15 @@ using System.Windows.Controls;
 using PhoneCompany.Views.Editor.Pages;
 
 namespace PhoneCompany.Services.DictionaryHolder;
-
+/// <summary>
+/// Держатель словаря страниц редактора
+/// </summary>
 public class EditorPageDictionaryHolder : DictionaryHolderBase
 {
-    private readonly Dictionary<string, Page> _pages = new()
+    /// <summary>
+    /// Словарь страниц редактора
+    /// </summary>
+    protected override Dictionary<string, Page> Pages { get; } = new()
     {
         { "AddAbonentPage", new AddAbonentPage() },
         { "AddCityPage", new AddCityPage() },
@@ -16,17 +21,6 @@ public class EditorPageDictionaryHolder : DictionaryHolderBase
         { "DeleteCityPage", new DeleteCityPage() },
         { "AddConversationPage", new AddConversation() },
         { "EditConversationPage", new EditConversation() },
-        { "DeleteConversationPage", new DeleteConversation() },
+        { "DeleteConversationPage", new DeleteConversation() }
     };
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="namePage"></param>
-    /// <returns></returns>
-    /// <exception cref="KeyNotFoundException"></exception>
-    public override Page GetPage(string namePage)
-    {
-        return _pages.TryGetValue(namePage, out var page) ? page : throw new KeyNotFoundException($"Страница с именем {namePage} не была найдена");
-    }
 }

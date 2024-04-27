@@ -3,18 +3,18 @@ using System.Windows.Controls;
 using PhoneCompany.Views.Main.Pages;
 
 namespace PhoneCompany.Services.DictionaryHolder;
-
+/// <summary>
+/// Держатель словаря страниц главного окна
+/// </summary>
 public class PageDictionaryHolder : DictionaryHolderBase
 {
-    private readonly Dictionary<string, Page> _pages = new()
+    /// <summary>
+    /// Словарь страниц главного окна
+    /// </summary>
+    protected override Dictionary<string, Page> Pages { get; } = new()
     {
         { "ConversationPage", new ConversationPage() },
         { "AbonentPage", new AbonentPage() },
         { "CityPage", new CityPage() },
     };
-
-    public override Page GetPage(string namePage)
-    {
-        return _pages.TryGetValue(namePage, out var page) ? page : throw new KeyNotFoundException($"Страница с именем {namePage} не была найдена");
-    }
 }
