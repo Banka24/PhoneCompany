@@ -25,6 +25,6 @@ public class EditConversationViewModel : ConversationViewModelBase
     private async Task SaveConversationAsync()
     {
         var service = new ConversationService(new CompanyDbContext());
-        ErrorMessage = await service.EditConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat(), NumberOfMinutes, TimeOfDay) ? "Успешно" : "Неуспешно";
+        ErrorMessage = await service.EditConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat(), NumberOfMinutes, GetTimeOfDay()) ? "Успешно" : "Неуспешно";
     }
 }

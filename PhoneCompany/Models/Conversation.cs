@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PhoneCompany.Models;
@@ -12,10 +13,9 @@ public class Conversation
     public int CityId { get; set; }
     public DateTime Date { get; set; }
     public int NumberOfMinutes { get; set; }
-    public int TimeOfDayId { get; set; }
+    [MaxLength(4)]public string TimeOfDay { get; set; }
 
     [NotMapped] public decimal Price { get; set; }
-    public virtual TimeOfDay TimeOfDay { get; set; }
     public virtual Abonent Abonent { get; set; }
     public virtual City City { get; set; }
 }

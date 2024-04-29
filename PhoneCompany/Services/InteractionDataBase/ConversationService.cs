@@ -25,6 +25,18 @@ public class ConversationService(CompanyDbContext context)
     }
 
     /// <summary>
+    /// Получить список переговоров по номеру телефона
+    /// </summary>
+    /// <param name="phoneNumber"></param>
+    /// <returns>Список телефонных переговоров</returns>
+    public async Task<IEnumerable<Conversation>> GetDataByPhoneNumberAsync(string phoneNumber)
+    {
+        var conversation = await context.Conversations.Where(i => i.Abonent.PhoneNumber == phoneNumber).ToListAsync();
+        context = null;
+        return conversation;
+    }
+
+    /// <summary>
     /// Асинхронное добавление разговора в базу данных
     /// </summary>
     /// <returns>Результат успешности выполнения операции</returns>
@@ -50,8 +62,8 @@ public class ConversationService(CompanyDbContext context)
             context.Conversations.Attach(_lastFoundConversation);
             var newConversation = await MakeConversation(phoneNumber, title, date, numberOfMinutes, timeOfDay);
 
-            (_lastFoundConversation.AbonentId, _lastFoundConversation.CityId, _lastFoundConversation.Date, _lastFoundConversation.NumberOfMinutes, _lastFoundConversation.TimeOfDayId) =
-                (newConversation.AbonentId, newConversation.CityId, newConversation.Date, newConversation.NumberOfMinutes, newConversation.TimeOfDayId);
+            (_lastFoundConversation.AbonentId, _lastFoundConversation.CityId, _lastFoundConversation.Date, _lastFoundConversation.NumberOfMinutes, _lastFoundConversation.TimeOfDay) =
+                (newConversation.AbonentId, newConversation.CityId, newConversation.Date, newConversation.NumberOfMinutes, newConversation.TimeOfDay);
 
             return await context.TrySaveChangeAsync();
         }
@@ -88,7 +100,7 @@ public class ConversationService(CompanyDbContext context)
             CityId = await context.Cities.Where(i => i.Title == title).Select(i => i.Id).FirstOrDefaultAsync(),
             Date = date,
             NumberOfMinutes = numberOfMinutes,
-            TimeOfDayId = await context.TimeOfDays.Where(i => i.Title == timeOfDay).Select(i => i.Id).SingleOrDefaultAsync()
+            TimeOfDay = timeOfDay
         };
     }
 }

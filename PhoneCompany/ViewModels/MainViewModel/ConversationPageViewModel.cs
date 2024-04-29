@@ -2,7 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using PhoneCompany.Models;
+using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.MainViewModel;
@@ -18,6 +20,21 @@ public class ConversationPageViewModel : PageViewModelBase
     public string PhoneNumber { get; set; }
     public ObservableCollection<Conversation> ConversationsList { get; set; } = [];
     public IEnumerable<string> PhoneNumberList { get; set; } = [];
+
+    private ICommand _findCommand;
+    public ICommand FindCommand => _findCommand ??= new RelayCommand<Button>(GetFilteredList);
+
+    private async void GetFilteredList(Button button)
+    {
+        var service = new ConversationService(new CompanyDbContext());
+        var conversationFilterList = await service.GetDataByPhoneNumberAsync(PhoneNumber);
+        ConversationsList.Clear();
+        foreach (var conversation in conversationFilterList)
+        {
+            conversation.Price = await SetPriceAsync(conversation);
+            ConversationsList.Add(conversation);
+        }
+    }
 
     protected override async Task EnterDataListAsync()
     {

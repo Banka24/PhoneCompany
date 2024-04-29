@@ -28,7 +28,7 @@
                 <DataGridTextColumn Header="Дата/время начала звонка" Width="320"
                                     Binding="{Binding Date, StringFormat={}{0:dd.MM.yy HH:mm}}" />
                 <DataGridTextColumn Header="Длительность разговора" Width="320" Binding="{Binding NumberOfMinutes}" />
-                <DataGridTextColumn Header="Время суток звонка" Width="320" Binding="{Binding TimeOfDay.Title}" />
+                <DataGridTextColumn Header="Время суток звонка" Width="320" Binding="{Binding TimeOfDay}" />
                 <DataGridTextColumn Header="Стоимость звонка" Width="320" Binding="{Binding Price}" />
             </DataGrid.Columns>
         </DataGrid>

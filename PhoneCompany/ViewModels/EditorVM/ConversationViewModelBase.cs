@@ -16,7 +16,6 @@ public class ConversationViewModelBase : EditorPageViewModelBase
     public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeSpan.MinValue;
     public ObservableCollection<string> PhoneNumberList { get; set; } = [];
     public ObservableCollection<string> CityTitleList { get; set; } = [];
-    public IEnumerable<string> TimeOfDayList { get; set; } = ["День", "Ночь"];
 
     private string _phoneNumber = "7";
     public string PhoneNumber
@@ -78,18 +77,6 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
-    private string _timeOfDay;
-    public string TimeOfDay
-    {
-        get => _timeOfDay;
-        set
-        {
-            _timeOfDay = value;
-            ValidateProperty();
-            OnPropertyChanged();
-        }
-    }
-
     public override IEnumerable<string> GetErrors(string propertyName)
     {
         if (propertyName is nameof(NumberOfMinutes) && NumberOfMinutes < 0)
@@ -99,13 +86,18 @@ public class ConversationViewModelBase : EditorPageViewModelBase
 
         else if (propertyName is nameof(Time) && Time < TimeSpan.MinValue)
         {
-            yield return "Проверьте данн";
+            yield return "Проверьте данные";
         }
     }
 
     protected DateTime MakeDateTimeToFormat()
     {
         return DateTime.Parse($"{Date:dd.MM.yyyy} {Time}");
+    }
+
+    protected string GetTimeOfDay()
+    {
+        return Time.Hours is >= 6 and <= 22 ? "День" : "Ночь";
     }
 
     private async void Initial()

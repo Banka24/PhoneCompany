@@ -29,12 +29,18 @@ public class CityService(CompanyDbContext context)
     /// Асинхронное получение тарифа
     /// </summary>
     /// <returns>Тариф</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<decimal> GetTariffAsync(Conversation conversation)
     {
         using (context)
         {
             var city = await context.Cities.FirstOrDefaultAsync(i => i.Id == conversation.CityId);
-            return conversation.TimeOfDayId == 1 ? city!.TariffDay : city!.TariffNight;
+            return conversation.TimeOfDay switch
+            {
+                "День" => city!.TariffDay,
+                "Ночь" => city!.TariffNight,
+                _ => throw new Exception("Такого элемента не существует")
+            };
         }
     }
 

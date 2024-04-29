@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany;
@@ -10,7 +11,12 @@ public partial class App
 {
     protected override async void OnActivated(EventArgs e)
     {
-        var context = new ContextInitializer();
-        await context.MakeSeed();
+        await Task.Run(MakeConnectionDataBase);
+    }
+
+    private static void MakeConnectionDataBase()
+    {
+        using var context = new CompanyDbContext();
+        context.Database.CreateIfNotExists();
     }
 }

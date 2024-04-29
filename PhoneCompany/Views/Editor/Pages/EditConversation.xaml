@@ -20,8 +20,7 @@
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
-            <RowDefinition Height="90"/>
-            <RowDefinition Height="70" />
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"/>
@@ -29,7 +28,6 @@
         <TextBlock Grid.Row="2" Text="Введите название города" />
         <TextBlock Grid.Row="3" Text="Введите дату и время"/>
         <TextBlock Grid.Row="4" Text="Введите время разговора в минутах"/>
-        <TextBlock Grid.Row="5" Text="Введите время суток"/>
 
         <ComboBox Grid.Row="1" IsEditable="True" Grid.Column="1" Name="PhoneNumber" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}" />
         <ComboBox Grid.Column="1" IsEditable="True" Grid.Row="2" Name="CityTitle" ItemsSource="{Binding CityTitleList}" Text="{Binding CityTitle}" />
@@ -38,7 +36,6 @@
             <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time}"/>
         </StackPanel>
         <TextBox Name="NumberOfMinutes" Grid.Row="4" Grid.Column="1" Text="{Binding NumberOfMinutes}" />
-        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding TimeOfDayList}" Text="{Binding TimeOfDay}"/>
         <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Сохранить" Command="{Binding SaveConversationCommand}" />
     </Grid>
 </Page>

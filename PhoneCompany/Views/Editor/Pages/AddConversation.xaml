@@ -20,8 +20,7 @@
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
-            <RowDefinition Height="90"/>
-            <RowDefinition Height="70" />
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"/>
@@ -29,7 +28,6 @@
         <TextBlock Grid.Row="2" Text="Введите название города" />
         <TextBlock Grid.Row="3" Text="Введите дату и время"/>
         <TextBlock Grid.Row="4" Text="Введите время разговора в минутах"/>
-        <TextBlock Grid.Row="5" Text="Введите время суток"/>
 
         <ComboBox Grid.Row="1" Grid.Column="1" IsEditable="True" Name="PhoneNumber" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}" />
         <ComboBox Grid.Column="1" Grid.Row="2" IsEditable="True" Name="CityTitle" ItemsSource="{Binding CityTitleList}" Text="{Binding CityTitle}" />
@@ -41,7 +39,6 @@
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NumberOfMinutes}" Foreground="Red" />
             <TextBox Name="NumberOfMinutes" Text="{Binding NumberOfMinutes, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
-        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding TimeOfDayList}" Text="{Binding TimeOfDay}"/>
         <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddConversationCommand}" />
     </Grid>
 </Page>

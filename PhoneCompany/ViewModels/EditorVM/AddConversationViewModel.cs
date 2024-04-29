@@ -25,6 +25,6 @@ public class AddConversationViewModel : ConversationViewModelBase
     private async Task AddConversationAsync()
     {
         var service = new ConversationService(new CompanyDbContext());
-        ErrorMessage = await service.AddConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat(), NumberOfMinutes, TimeOfDay) ? "Успешно" : "Неуспешно";
+        ErrorMessage = await service.AddConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat(), NumberOfMinutes, GetTimeOfDay()) ? "Успешно" : "Неуспешно";
     }
 }
