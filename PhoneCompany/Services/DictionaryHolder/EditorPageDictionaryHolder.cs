@@ -4,13 +4,10 @@ using PhoneCompany.Views.Editor.Pages;
 
 namespace PhoneCompany.Services.DictionaryHolder;
 /// <summary>
-/// Держатель словаря страниц редактора
+/// Словаря страниц редактора
 /// </summary>
 public class EditorPageDictionaryHolder : DictionaryHolderBase
 {
-    /// <summary>
-    /// Словарь страниц редактора
-    /// </summary>
     protected override Dictionary<string, Page> Pages { get; } = new()
     {
         { "AddAbonentPage", new AddAbonentPage() },
