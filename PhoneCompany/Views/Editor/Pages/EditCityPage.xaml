@@ -39,6 +39,6 @@
             <TextBox Name="TariffNight" Margin="10, 40" 
                      Text="{Binding TariffNight, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
-        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Сохранить" Command="{Binding EditCityCommand}" />
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Сохранить" IsEnabled="{Binding IsButtonEnable}" Command="{Binding EditCityCommand}" />
     </Grid>
 </Page>

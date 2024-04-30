@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhoneCompany.Models;
 using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
@@ -19,6 +21,18 @@ public class EditAbonentViewModel : AbonentViewModelBase
 
     private ICommand _editAbonentCommand;
     public ICommand EditAbonentCommand => _editAbonentCommand ??= new RelayCommand<Button>(EditCommand);
+
+    private bool _isButtonEnable;
+
+    public bool IsButtonEnable
+    {
+        get => _isButtonEnable;
+        set
+        {
+            _isButtonEnable = value;
+            OnPropertyChanged();
+        }
+    }
 
     private ObservableCollection<string> _phoneNumberList = [];
     public ObservableCollection<string> PhoneNumberList
@@ -39,15 +53,29 @@ public class EditAbonentViewModel : AbonentViewModelBase
             return;
         }
 
-        await FindAbonentAsync();
+        if (await FindAbonentAsync())
+        {
+            IsButtonEnable = true;
+        }
     }
 
-    private async Task FindAbonentAsync()
+    private async Task<bool> FindAbonentAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var abonent = await service.FindAbonentAsync(PhoneNumber);
+        Abonent abonent;
+        try
+        {
+            abonent = await service.FindAbonentAsync(PhoneNumber);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
         Inn = abonent.Inn;
         Address = abonent.Address;
+
+        return true;
     }
 
     private async void EditCommand(Button button)

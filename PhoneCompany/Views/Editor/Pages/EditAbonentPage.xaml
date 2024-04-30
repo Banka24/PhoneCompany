@@ -41,6 +41,6 @@
             <TextBox Name="AddressNumber" Margin="10, 40"
                      Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
-        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Сохранить" Command="{Binding EditAbonentCommand}" />
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Сохранить" IsEnabled="{Binding IsButtonEnable}" Command="{Binding EditAbonentCommand}" />
     </Grid>
 </Page>

@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhoneCompany.Models;
 using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
@@ -14,23 +17,47 @@ public class EditCityViewModel : CityViewModelBase
     private ICommand _editCityCommand;
     public ICommand EditCityCommand => _editCityCommand ??= new RelayCommand<Button>(EditCommand);
 
+    private bool _isButtonEnable;
+
+    public bool IsButtonEnable
+    {
+        get => _isButtonEnable;
+        set
+        {
+            _isButtonEnable = value;
+            OnPropertyChanged();
+        }
+    }
+
     private async void FindCommand(Button button)
     {
-        if (string.IsNullOrWhiteSpace(Title) || Title!.Length < 2 || Title!.Length > 50 || !char.IsUpper(Title[0]))
+        if (!HasErrors)
         {
             ErrorMessage = "Заполните поля правильно";
             return;
         }
 
-        await FindCityAsync();
+        if (await FindCityAsync())
+        {
+            IsButtonEnable = true;
+        }
     }
 
-    private async Task FindCityAsync()
+    private async Task<bool> FindCityAsync()
     {
         var service = new CityService(new CompanyDbContext());
-        var city = await service.FindCityAsync(Title);
+        City city;
+        try
+        {
+            city = await service.FindCityAsync(Title);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
         TariffDay = city.TariffDay;
         TariffNight = city.TariffNight;
+        return true;
     }
 
     private async void EditCommand(Button button)
