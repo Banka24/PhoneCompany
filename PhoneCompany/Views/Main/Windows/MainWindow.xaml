@@ -10,25 +10,32 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
-            <RowDefinition/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <StackPanel Margin="150, 0" HorizontalAlignment="Left" Orientation="Horizontal">
             <Button Name="ConversationPage" Content="Переговоры" Command="{Binding ChangePageCommand}"
-                    CommandParameter="{Binding ElementName=ConversationPage}" />
+                    CommandParameter="{Binding ElementName=ConversationPage}" IsEnabled="{Binding IsButtonsEnabled}" />
             <Button Name="AbonentPage" Content="Абоненты" Command="{Binding ChangePageCommand}"
-                    CommandParameter="{Binding ElementName=AbonentPage}" />
+                    CommandParameter="{Binding ElementName=AbonentPage}" IsEnabled="{Binding IsButtonsEnabled}" />
             <Button Name="CityPage" Content="Города" Command="{Binding ChangePageCommand}"
-                    CommandParameter="{Binding ElementName=CityPage}" />
+                    CommandParameter="{Binding ElementName=CityPage}" IsEnabled="{Binding IsButtonsEnabled}" />
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="150, 0" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Name="Add" Content="Добавить" Command="{Binding OpenEditorCommand}" CommandParameter="{Binding ElementName=Add}"/>
-            <Button Name="Edit" Content="Редактировать" Command="{Binding OpenEditorCommand}" CommandParameter="{Binding ElementName=Edit}"/>
-            <Button Name="Delete" Content="Удалить" Command="{Binding OpenEditorCommand}" CommandParameter="{Binding ElementName=Delete}"/>
+            <Button Name="Add" Content="Добавить" Command="{Binding OpenEditorCommand}"
+                    CommandParameter="{Binding ElementName=Add}" IsEnabled="{Binding IsButtonsEnabled}" />
+            <Button Name="Edit" Content="Редактировать" Command="{Binding OpenEditorCommand}"
+                    CommandParameter="{Binding ElementName=Edit}" IsEnabled="{Binding IsButtonsEnabled}" />
+            <Button Name="Delete" Content="Удалить" Command="{Binding OpenEditorCommand}"
+                    CommandParameter="{Binding ElementName=Delete}" IsEnabled="{Binding IsButtonsEnabled}" />
         </StackPanel>
-        <Frame Grid.ColumnSpan="2" Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
+        <StatusBar HorizontalAlignment="Center" Width="Auto" Background="White" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding ConnectionText, Mode=OneWay}" />
+        </StatusBar>
+        <Frame Grid.ColumnSpan="2" Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"
+               Content="{Binding CurrentPage}" />
     </Grid>
 </Window>

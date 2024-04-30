@@ -28,6 +28,37 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
+    private bool _isDatabaseConnected;
+    public bool IsDatabaseConnected
+    {
+        get => _isDatabaseConnected;
+        set
+        {
+            _isDatabaseConnected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsButtonsEnabled => IsDatabaseConnected;
+
+    public void SetIsDatabaseConnected(bool isConnected)
+    {
+        IsDatabaseConnected = isConnected;
+        OnPropertyChanged(nameof(IsDatabaseConnected));
+        OnPropertyChanged(nameof(IsButtonsEnabled));
+    }
+
+    private string _connectionText;
+    public string ConnectionText
+    {
+        get => _connectionText;
+        set
+        {
+            _connectionText = value;
+            OnPropertyChanged();
+        }
+    }
+
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
