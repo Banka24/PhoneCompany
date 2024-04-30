@@ -23,7 +23,6 @@ public class EditAbonentViewModel : AbonentViewModelBase
     public ICommand EditAbonentCommand => _editAbonentCommand ??= new RelayCommand<Button>(EditCommand);
 
     private bool _isButtonEnable;
-
     public bool IsButtonEnable
     {
         get => _isButtonEnable;

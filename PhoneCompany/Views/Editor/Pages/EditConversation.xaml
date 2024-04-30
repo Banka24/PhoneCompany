@@ -36,6 +36,9 @@
             <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time}"/>
         </StackPanel>
         <TextBox Name="NumberOfMinutes" Grid.Row="4" Grid.Column="1" Text="{Binding NumberOfMinutes}" />
-        <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Сохранить" Command="{Binding SaveConversationCommand}" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2">
+            <Button Width="250" Content="Сохранить" IsEnabled="{Binding IsButtonEnable}" Command="{Binding SaveConversationCommand}" />
+            <Button Width="250" Content="Найти" Command="{Binding FindConversationCommand}" />
+        </StackPanel>
     </Grid>
 </Page>

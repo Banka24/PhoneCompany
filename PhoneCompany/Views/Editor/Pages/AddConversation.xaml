@@ -39,6 +39,6 @@
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NumberOfMinutes}" Foreground="Red" />
             <TextBox Name="NumberOfMinutes" Text="{Binding NumberOfMinutes, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
-        <Button Grid.Row="6" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddConversationCommand}" />
+        <Button Grid.Row="5" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddConversationCommand}" />
     </Grid>
 </Page>

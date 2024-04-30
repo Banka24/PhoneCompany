@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhoneCompany.Models;
 using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
@@ -10,7 +12,53 @@ public class EditConversationViewModel : ConversationViewModelBase
 {
     private ICommand _saveConversationCommand;
     public ICommand SaveConversationCommand => _saveConversationCommand ??= new RelayCommand<Button>(SaveCommand);
-    
+
+    private ICommand _findConversationCommand;
+    public ICommand FindConversationCommand => _findConversationCommand ??= new RelayCommand<Button>(FindCommand);
+
+    private bool _isButtonEnable;
+    public bool IsButtonEnable
+    {
+        get => _isButtonEnable;
+        set
+        {
+            _isButtonEnable = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private async void FindCommand(Button button)
+    {
+        if (PhoneNumber is null || CityTitle is null)
+        {
+            ErrorMessage = "Заполните поля правильно";
+            return;
+        }
+
+        if (await FindConversationAsync())
+        {
+            IsButtonEnable = true;
+        }
+    }
+
+    private async Task<bool> FindConversationAsync()
+    {
+        var service = new ConversationService(new CompanyDbContext());
+        Conversation conversation;
+        try
+        {
+            conversation = await service.FindConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat());
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+        NumberOfMinutes = conversation.NumberOfMinutes;
+
+        return true;
+    }
+
     private async void SaveCommand(Button button)
     {
         if (HasErrors)
