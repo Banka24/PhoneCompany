@@ -23,6 +23,10 @@ public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyD
         }
     }
 
+    /// <summary>
+    /// Получение списка ошибок
+    /// </summary>
+    /// <returns>Список ошибок</returns>
     public abstract IEnumerable GetErrors(string propertyName);
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

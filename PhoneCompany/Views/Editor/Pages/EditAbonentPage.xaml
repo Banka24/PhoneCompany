@@ -28,7 +28,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PhoneNumber}" Foreground="Red" />
             <ComboBox Name="PhoneNumber" IsEditable="True" ItemsSource="{Binding PhoneNumberList}"
-                      Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                      SelectedItem="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             <Button Content="Найти" Command="{Binding FindAbonentCommand}" />
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1">

@@ -29,8 +29,8 @@
         <TextBlock Grid.Row="3" Text="Введите дату и время"/>
         <TextBlock Grid.Row="4" Text="Введите время разговора в минутах"/>
 
-        <ComboBox Grid.Row="1" Grid.Column="1" IsEditable="True" Name="PhoneNumber" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}" />
-        <ComboBox Grid.Column="1" Grid.Row="2" IsEditable="True" Name="CityTitle" ItemsSource="{Binding CityTitleList}" Text="{Binding CityTitle}" />
+        <ComboBox Grid.Row="1" Grid.Column="1" IsEditable="True" Name="PhoneNumber" ItemsSource="{Binding PhoneNumberList}" SelectedItem="{Binding PhoneNumber}" />
+        <ComboBox Grid.Column="1" Grid.Row="2" IsEditable="True" Name="CityTitle" ItemsSource="{Binding CityTitleList}" SelectedItem="{Binding CityTitle}" />
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
             <DatePicker SelectedDate="{Binding Date}"  Margin="5" VerticalContentAlignment="Center" Height="60"/>
             <TextBox Width="150" HorizontalContentAlignment="Center" Text="{Binding Time}" />

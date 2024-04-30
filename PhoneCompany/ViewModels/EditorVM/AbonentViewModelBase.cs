@@ -43,11 +43,6 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
         }
     }
 
-
-    /// <summary>
-    /// Получение списка ошибок
-    /// </summary>
-    /// <returns>Список ошибок</returns>
     public override IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)

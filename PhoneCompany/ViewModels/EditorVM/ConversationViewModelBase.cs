@@ -10,7 +10,11 @@ public class ConversationViewModelBase : EditorPageViewModelBase
 {
     public ConversationViewModelBase()
     {
-        Initial();
+        Task.Run(async () =>
+        {
+            await GetPhoneNumbersAsync();
+            await GetCityTitleAsync();
+        });
     }
 
     public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeSpan.MinValue;
@@ -98,12 +102,6 @@ public class ConversationViewModelBase : EditorPageViewModelBase
     protected string GetTimeOfDay()
     {
         return Time.Hours is >= 6 and <= 22 ? "День" : "Ночь";
-    }
-
-    private async void Initial()
-    {
-        await GetPhoneNumbersAsync();
-        await GetCityTitleAsync();
     }
 
     private async Task GetPhoneNumbersAsync()
