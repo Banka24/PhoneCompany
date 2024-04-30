@@ -6,12 +6,12 @@ namespace PhoneCompany.Services.InteractionDataBase
 {
     public static class DatabaseService
     {
-        public static void UpdateStatus(object element)
+        public static async Task UpdateStatus(object element)
         {
-            if (element is not MainWindowViewModel viewModel) return;
+            if(element is not MainWindowViewModel viewModel) return;
             viewModel!.SetIsDatabaseConnected(true);
             viewModel.ConnectionText = "Подключено";
-            Task.Delay(3000);
+            await Task.Delay(1500);
             viewModel.ConnectionText = string.Empty;
         }
 
