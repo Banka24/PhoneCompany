@@ -12,7 +12,7 @@ public partial class App : Application
 {
     protected override async void OnActivated(EventArgs e)
     {
-        if (!await Task.Run(DatabaseService.MakeConnectionDataBase)) return;
+        await Task.Run(DatabaseService.MakeConnectionDataBase);
         await DatabaseService.UpdateStatus(Current.MainWindow?.DataContext);
     }
 }
