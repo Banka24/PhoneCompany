@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -30,16 +31,18 @@ public class AddCityViewModel : CityViewModelBase
                 {
                     yield return "Напишите город с большой буквы";
                 }
+                else if(Title.Any(c => !char.IsLetter(c)))
+                {
+                    yield return "В названии города допустимы только буквы";
+                }
                 break;
             }
-            case nameof(TariffDay):
+            default:
             {
-                if (TariffDay < 0) yield return "Напишите число больше 0";
-                break;
-            }
-            case nameof(TariffNight):
-            {
-                if (TariffNight < 0) yield return "Напишите число больше 0";
+                foreach (var error in base.GetErrors(propertyName))
+                {
+                    yield return error;
+                }
                 break;
             }
         }

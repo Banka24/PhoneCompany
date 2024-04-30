@@ -34,21 +34,12 @@ public class AddAbonentViewModel : AbonentViewModelBase
 
                 break;
             }
-            case nameof(Inn):
+            default:
             {
-                if (string.IsNullOrWhiteSpace(Inn))
+                foreach (var error in base.GetErrors(propertyName))
                 {
-                    yield return "Это поле обязательно";
+                    yield return error;
                 }
-                else if (Inn!.Length != 10)
-                {
-                    yield return "Длина должна быть 10 символов";
-                }
-                break;
-            }
-            case nameof(Address):
-            {
-                if (string.IsNullOrWhiteSpace(Address)) yield return "Это поле обязательно";
                 break;
             }
         }

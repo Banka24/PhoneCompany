@@ -32,9 +32,7 @@
             <Button Name="Delete" Content="Удалить" Command="{Binding OpenEditorCommand}"
                     CommandParameter="{Binding ElementName=Delete}" IsEnabled="{Binding IsButtonsEnabled}" />
         </StackPanel>
-        <StatusBar HorizontalAlignment="Center" Width="Auto" Background="White" Grid.ColumnSpan="2">
-            <TextBlock Text="{Binding ConnectionText, Mode=OneWay}" />
-        </StatusBar>
+        <TextBlock Grid.ColumnSpan="2" Text="{Binding ConnectionText, Mode=OneWay}" />
         <Frame Grid.ColumnSpan="2" Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"
                Content="{Binding CurrentPage}" />
     </Grid>

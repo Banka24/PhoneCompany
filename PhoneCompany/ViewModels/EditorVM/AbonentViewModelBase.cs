@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
 public abstract class AbonentViewModelBase : EditorPageViewModelBase
 {
     public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith('7') ||
-                                      string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address);
-    
+                                      string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address) || Inn.Any(c => !char.IsDigit(c));
+
+
     private string _phoneNumber = "7";
     public string PhoneNumber
     {
@@ -56,6 +58,10 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
                 else if (Inn!.Length != 10)
                 {
                     yield return "Длина должна быть 10 символов";
+                }
+                else if (Inn.Any(c => !char.IsDigit(c)))
+                {
+                    yield return "В ИНН должны быть только цифры";
                 }
                 break;
             }

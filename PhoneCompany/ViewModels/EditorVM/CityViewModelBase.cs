@@ -11,7 +11,7 @@ public class CityViewModelBase : EditorPageViewModelBase
         GetTitles();
     }
 
-    public override bool HasErrors => string.IsNullOrWhiteSpace(Title) || Title!.Length < 2 || Title!.Length > 50 || !char.IsUpper(Title[0]) || TariffDay < 0 || TariffNight < 0;
+    public override bool HasErrors => string.IsNullOrWhiteSpace(Title) || Title!.Length < 2 || Title!.Length > 50 || !char.IsUpper(Title[0]) || TariffDay <= 0 || TariffNight <= 0;
     public ObservableCollection<string> CityTitleList { get; set; } = [];
     
     private string _title;
@@ -56,12 +56,18 @@ public class CityViewModelBase : EditorPageViewModelBase
         {
             case nameof(TariffDay):
             {
-                if (TariffDay < 0) yield return "Напишите число больше 0";
+                if (TariffDay <= 0)
+                {
+                    yield return "Напишите число больше 0";
+                }
                 break;
             }
             case nameof(TariffNight):
             {
-                if (TariffNight < 0) yield return "Напишите число больше 0";
+                if (TariffNight <= 0)
+                {
+                    yield return "Напишите число больше 0";
+                }
                 break;
             }
         }
