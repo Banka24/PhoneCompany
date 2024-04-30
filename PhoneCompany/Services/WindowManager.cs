@@ -13,8 +13,6 @@ public static class WindowManager
     /// <summary>
     /// Открытие редактора по названию команды и названию с вызываемой страницы
     /// </summary>
-    /// <param name="nameCommand">Название команды редактора</param>
-    /// <param name="nameCallingPage">Название страницы, с которой было открыто окно</param>
     public static void OpenEditor(in string nameCommand, in string nameCallingPage)
     {
         var window = new Editor(OpenPage(nameCommand, nameCallingPage));
