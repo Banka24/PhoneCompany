@@ -36,19 +36,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
         {
             _isDatabaseConnected = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(IsButtonsEnabled));
         }
     }
 
-    public bool IsButtonsEnabled => IsDatabaseConnected;
-
-    public void SetIsDatabaseConnected(bool isConnected)
-    {
-        IsDatabaseConnected = isConnected;
-        OnPropertyChanged(nameof(IsDatabaseConnected));
-        OnPropertyChanged(nameof(IsButtonsEnabled));
-    }
-
-    private string _connectionText;
+    private string _connectionText = "Подключение к БД";
     public string ConnectionText
     {
         get => _connectionText;
@@ -57,6 +49,13 @@ public class MainWindowViewModel : INotifyPropertyChanged
             _connectionText = value;
             OnPropertyChanged();
         }
+    }
+   
+    public bool IsButtonsEnabled => IsDatabaseConnected;
+    
+    public void SetIsDatabaseConnected(bool isConnected)
+    {
+        IsDatabaseConnected = isConnected;
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
