@@ -97,7 +97,7 @@ public class ConversationService(CompanyDbContext context)
         using (context)
         {
             _lastFoundConversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime)
-                                     ?? throw new Exception("Такого номера нет");
+                                     ?? throw new Exception("Такого вызова нет");
             return _lastFoundConversation;
         }
     }

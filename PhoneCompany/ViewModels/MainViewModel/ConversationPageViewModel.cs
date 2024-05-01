@@ -13,7 +13,6 @@ public class ConversationPageViewModel : PageViewModelBase
 {
     public ConversationPageViewModel()
     {
-        _ = EnterDataListAsync();
         _ = GetPhoneNumberList();
     }
 
@@ -40,7 +39,7 @@ public class ConversationPageViewModel : PageViewModelBase
     {
         var service = new ConversationService(new CompanyDbContext());
         var conversations = await service.GetDataAsync();
-
+        
         foreach (var conversation in conversations)
         {
             conversation.Price = await SetPriceAsync(conversation);

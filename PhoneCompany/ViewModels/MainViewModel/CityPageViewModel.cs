@@ -8,11 +8,6 @@ namespace PhoneCompany.ViewModels.MainViewModel;
 
 public class CityPageViewModel : PageViewModelBase
 {
-    public CityPageViewModel()
-    {
-        _ = EnterDataListAsync();
-    }
-
     public ObservableCollection<City> CitiesList { get; set; } = [];
     
     protected override async Task EnterDataListAsync()

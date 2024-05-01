@@ -49,8 +49,9 @@ public class EditConversationViewModel : ConversationViewModelBase
         {
             conversation = await service.FindConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat());
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            ErrorMessage = e.Message;
             return false;
         }
 

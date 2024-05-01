@@ -51,8 +51,9 @@ public class EditCityViewModel : CityViewModelBase
         {
             city = await service.FindCityAsync(Title);
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            ErrorMessage = e.Message;
             return false;
         }
         TariffDay = city.TariffDay;

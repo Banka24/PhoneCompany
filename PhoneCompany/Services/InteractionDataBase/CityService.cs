@@ -61,11 +61,12 @@ public class CityService(CompanyDbContext context)
     /// Асинхронное нахождение города по названию
     /// </summary>
     /// <returns>Город</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<City> FindCityAsync(string title)
     {
         using (context)
         {
-            _lastFoundCity = await context.Cities.FirstOrDefaultAsync(city => city.Title == title);
+            _lastFoundCity = await context.Cities.FirstOrDefaultAsync(city => city.Title == title) ?? throw new Exception("Такого города нет");
             return _lastFoundCity;
         }
     }

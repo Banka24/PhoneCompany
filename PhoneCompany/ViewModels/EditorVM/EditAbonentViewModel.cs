@@ -66,8 +66,9 @@ public class EditAbonentViewModel : AbonentViewModelBase
         {
             abonent = await service.FindAbonentAsync(PhoneNumber);
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            ErrorMessage = e.Message;
             return false;
         }
 

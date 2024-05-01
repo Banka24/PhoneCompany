@@ -8,11 +8,6 @@ namespace PhoneCompany.ViewModels.MainViewModel;
 
 public class AbonentPageViewModel : PageViewModelBase
 {
-    public AbonentPageViewModel()
-    {
-        _ = EnterDataListAsync();
-    }
-
     public ObservableCollection<Abonent> AbonentsList { get; set; } = [];
 
     protected override async Task EnterDataListAsync()
