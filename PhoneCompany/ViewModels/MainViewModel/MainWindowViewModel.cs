@@ -45,7 +45,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         get => _connectionText;
         set
-        {
+        { 
             _connectionText = value;
             OnPropertyChanged();
         }
@@ -53,6 +53,9 @@ public class MainWindowViewModel : INotifyPropertyChanged
    
     public bool IsButtonsEnabled => IsDatabaseConnected;
     
+    /// <summary>
+    /// Сообщить о состоянии подключения к Базе Данных
+    /// </summary>
     public void SetIsDatabaseConnected(bool isConnected)
     {
         IsDatabaseConnected = isConnected;
