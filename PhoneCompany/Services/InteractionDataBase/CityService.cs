@@ -108,8 +108,16 @@ public class CityService(CompanyDbContext context)
     {
         using (context)
         {
-            var city = await context.Cities.FirstOrDefaultAsync(i => i.Title == title) ?? throw new Exception("Такого элемента нет");
-            context.Cities.Remove(city);
+            try
+            {
+                var city = await context.Cities.FirstOrDefaultAsync(i => i.Title == title) ?? throw new Exception("Такого элемента нет");
+                context.Cities.Remove(city);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
             return await context.TrySaveChangeAsync();
         }
     }

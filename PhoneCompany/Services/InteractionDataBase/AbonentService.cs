@@ -77,8 +77,16 @@ public class AbonentService(CompanyDbContext context)
     {
         using (context)
         {
-            var abonent = await context.Abonents.FirstOrDefaultAsync(i => i.PhoneNumber == phoneNumber) ?? throw new Exception("Такого элемента нет");
-            context.Abonents.Remove(abonent);
+            try
+            {
+                var abonent = await context.Abonents.FirstOrDefaultAsync(i => i.PhoneNumber == phoneNumber) ?? throw new Exception("Такого элемента нет");
+                context.Abonents.Remove(abonent);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
             return await context.TrySaveChangeAsync();
         }
     }

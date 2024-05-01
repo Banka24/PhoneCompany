@@ -73,17 +73,16 @@ public class ConversationService(CompanyDbContext context)
     {
         using (context)
         {
-            Conversation conversation;
             try
             {
-                conversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime);
+                var conversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime);
+                context.Conversations.Remove(conversation!);
             }
             catch (Exception)
             {
                 return false;
             }
-
-            context.Conversations.Remove(conversation!);
+           
             return await context.TrySaveChangeAsync();
         }
     }
