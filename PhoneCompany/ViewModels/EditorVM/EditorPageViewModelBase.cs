@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
+/// <summary>
+/// Базовый класс для всех ViewModel страниц редактора
+/// </summary>
 public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
 {
     public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;

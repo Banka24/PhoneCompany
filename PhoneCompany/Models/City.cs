@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace PhoneCompany.Models;
+
 /// <summary>
 /// Модель описания Город
 /// </summary>

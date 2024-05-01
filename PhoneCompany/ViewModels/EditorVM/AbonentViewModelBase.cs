@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
+/// <summary>
+/// Базовый класс для всех ViewModel связанных с редактированием абонента
+/// </summary>
 public abstract class AbonentViewModelBase : EditorPageViewModelBase
 {
     public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith('7') ||

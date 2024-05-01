@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using PhoneCompany.Views.Main.Pages;
 
 namespace PhoneCompany.Services.DictionaryHolder;
+
 /// <summary>
 /// Словарь страниц главного окна
 /// </summary>

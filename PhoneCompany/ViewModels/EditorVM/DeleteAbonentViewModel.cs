@@ -38,6 +38,7 @@ internal class DeleteAbonentViewModel : AbonentViewModelBase
         var service = new AbonentService(new CompanyDbContext());
         ErrorMessage = await service.DeleteAbonentAsync(PhoneNumber) ? "Успешно" : "Неуспешно";
     }
+
     private async void GetPhoneNumbers()
     {
         var service = new AbonentService(new CompanyDbContext());

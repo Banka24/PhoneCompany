@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 
 namespace PhoneCompany.Services.DictionaryHolder;
+
 /// <summary>
 /// Базовый класс для Держателей словарей
 /// </summary>

@@ -6,6 +6,9 @@ using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
+/// <summary>
+/// Базовый класс для всех ViewModel связанных с редактированием телефонного разговора
+/// </summary>
 public class ConversationViewModelBase : EditorPageViewModelBase
 {
     public ConversationViewModelBase()
@@ -94,11 +97,19 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
+    /// <summary>
+    /// Форматирование даты
+    /// </summary>
+    /// <returns>Дата по формату день месяц год</returns>
     protected DateTime MakeDateTimeToFormat()
     {
         return DateTime.Parse($"{Date:dd.MM.yyyy} {Time}");
     }
 
+    /// <summary>
+    /// Получение времени суток
+    /// </summary>
+    /// <returns>Время суток</returns>
     protected string GetTimeOfDay()
     {
         return Time.Hours is >= 6 and <= 22 ? "День" : "Ночь";

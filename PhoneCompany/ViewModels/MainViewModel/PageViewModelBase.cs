@@ -5,6 +5,9 @@ using PhoneCompany.Services;
 
 namespace PhoneCompany.ViewModels.MainViewModel;
 
+/// <summary>
+/// Базовый класс для всех страниц просмотра данных из таблиц Базы Данных
+/// </summary>
 public abstract class PageViewModelBase
 {
     private ICommand _updateCommand;

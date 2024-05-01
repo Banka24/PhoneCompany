@@ -2,6 +2,7 @@
 using PhoneCompany.ViewModels.MainViewModel;
 
 namespace PhoneCompany.Services.InteractionDataBase;
+
 /// <summary>
 /// Сервис для Базы Данных
 /// </summary>

@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using PhoneCompany.Views.Editor.Pages;
 
 namespace PhoneCompany.Services.DictionaryHolder;
+
 /// <summary>
 /// Словаря страниц редактора
 /// </summary>

@@ -4,6 +4,9 @@ using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
+/// <summary>
+/// Базовый класс для всех ViewModel связанных с редактированием города
+/// </summary>
 public class CityViewModelBase : EditorPageViewModelBase
 {
     public CityViewModelBase()

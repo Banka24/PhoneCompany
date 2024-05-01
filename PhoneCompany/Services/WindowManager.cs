@@ -5,8 +5,9 @@ using PhoneCompany.ViewModels.EditorVM;
 using PhoneCompany.Views.Editor.Windows;
 
 namespace PhoneCompany.Services;
+
 /// <summary>
-/// Управление окна
+/// Менеджер по управлению окнами
 /// </summary>
 public static class WindowManager
 {

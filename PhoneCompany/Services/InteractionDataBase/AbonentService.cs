@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PhoneCompany.Models;
 
 namespace PhoneCompany.Services.InteractionDataBase;
+
 /// <summary>
 /// Сервис работы с таблицей Абоненты
 /// </summary>
