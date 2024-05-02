@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Редактор" Height="600" Width="800" ResizeMode="NoResize" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+        Title="Редактор" Height="600" Width="800" ResizeMode="NoResize" WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
+        <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}" />
     </Grid>
 </Window>

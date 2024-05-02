@@ -6,25 +6,28 @@
       xmlns:mainViewModel1="clr-namespace:PhoneCompany.ViewModels.MainViewModel"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance Type=mainViewModel1:AbonentPageViewModel}"
-      d:DesignHeight="1020" d:DesignWidth="1920"
+      d:DesignHeight="1000" d:DesignWidth="1500"
       Title="AbonentPage">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
+
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding AbonentsList}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Номер телефона" Width="640" Binding="{Binding PhoneNumber  }" />
-                <DataGridTextColumn Header="ИНН" Width="640" Binding="{Binding Inn}" />
-                <DataGridTextColumn Header="Адрес" Width="640" Binding="{Binding Address}" />
+                <DataGridTextColumn Header="Номер телефона" Width="*" Binding="{Binding PhoneNumber  }" />
+                <DataGridTextColumn Header="ИНН" Width="*" Binding="{Binding Inn}" />
+                <DataGridTextColumn Header="Адрес" Width="*" Binding="{Binding Address}" />
             </DataGrid.Columns>
         </DataGrid>
+
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button HorizontalAlignment="Left" Command="{Binding UpdateCommand}">
+            <Button HorizontalAlignment="Left" Style="{StaticResource BtnImage}" Command="{Binding UpdateCommand}">
                 <Image Source="/Resources/Update.png" />
             </Button>
         </StackPanel>
+
     </Grid>
 </Page>

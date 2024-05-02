@@ -14,6 +14,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -21,25 +22,31 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+
         <TextBlock Grid.ColumnSpan="2" Text="{Binding ErrorMessage}" />
         <TextBlock Grid.Row="1" Text="Введите название города" />
         <TextBlock Grid.Row="2" Text="Введите дневной тариф" />
         <TextBlock Grid.Row="3" Text="Введите ночной тариф" />
+
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TitleCity}" Foreground="Red" />
             <TextBox Name="TitleCity" Margin="20"
                      Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
+        </StackPanel>
+
         <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TariffDay}" Foreground="Red" />
             <TextBox Name="TariffDay" Margin="20"
                      Text="{Binding TariffDay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
+
         <StackPanel Grid.Row="3" Grid.Column="1">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TariffNight}" Foreground="Red" />
             <TextBox Name="TariffNight" Margin="20"
                      Text="{Binding TariffNight, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         </StackPanel>
+
         <Button Grid.Row="4" Grid.ColumnSpan="2" Width="250" Content="Добавить" Command="{Binding AddCityCommand}" />
+
     </Grid>
 </Page>

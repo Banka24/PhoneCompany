@@ -9,7 +9,7 @@ namespace PhoneCompany.ViewModels.EditorVM;
 public abstract class AbonentViewModelBase : EditorPageViewModelBase
 {
     public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith('7') ||
-                                      string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 10 || string.IsNullOrWhiteSpace(Address) || Inn.Any(c => !char.IsDigit(c));
+                                      string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 13 || string.IsNullOrWhiteSpace(Address) || Inn.Any(c => !char.IsDigit(c));
 
 
     private string _phoneNumber = "7";
@@ -58,9 +58,9 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
                 {
                     yield return "Это поле обязательно";
                 }
-                else if (Inn!.Length != 10)
+                else if (Inn!.Length != 13)
                 {
-                    yield return "Длина должна быть 10 символов";
+                    yield return "Длина должна быть 13 символов";
                 }
                 else if (Inn.Any(c => !char.IsDigit(c)))
                 {

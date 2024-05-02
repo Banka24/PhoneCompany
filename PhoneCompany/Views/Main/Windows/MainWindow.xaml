@@ -6,17 +6,16 @@
         xmlns:mainViewModel1="clr-namespace:PhoneCompany.ViewModels.MainViewModel"
         d:DataContext="{d:DesignInstance Type=mainViewModel1:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="Телефонная компания" Height="1080" Width="1920" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Телефонная компания" Height="1000" Width="1500" WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <StackPanel Margin="150, 0" HorizontalAlignment="Left" Orientation="Horizontal">
+
+        <StackPanel Orientation="Horizontal">
             <Button Name="ConversationPage" Content="Переговоры" Command="{Binding ChangePageCommand}"
                     CommandParameter="{Binding ElementName=ConversationPage}" IsEnabled="{Binding IsButtonsEnabled}" />
             <Button Name="AbonentPage" Content="Абоненты" Command="{Binding ChangePageCommand}"
@@ -24,16 +23,25 @@
             <Button Name="CityPage" Content="Города" Command="{Binding ChangePageCommand}"
                     CommandParameter="{Binding ElementName=CityPage}" IsEnabled="{Binding IsButtonsEnabled}" />
         </StackPanel>
-        <StackPanel Grid.Column="1" Margin="150, 0" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Name="Add" Content="Добавить" Command="{Binding OpenEditorCommand}"
-                    CommandParameter="{Binding ElementName=Add}" IsEnabled="{Binding IsButtonsEnabled}" />
-            <Button Name="Edit" Content="Редактировать" Command="{Binding OpenEditorCommand}"
-                    CommandParameter="{Binding ElementName=Edit}" IsEnabled="{Binding IsButtonsEnabled}" />
-            <Button Name="Delete" Content="Удалить" Command="{Binding OpenEditorCommand}"
-                    CommandParameter="{Binding ElementName=Delete}" IsEnabled="{Binding IsButtonsEnabled}" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Name="Add" Command="{Binding OpenEditorCommand}" Style="{StaticResource BtnImage}"
+                    CommandParameter="{Binding ElementName=Add}" IsEnabled="{Binding IsButtonsEnabled}">
+                <Image Source="/Resources/Add.png" />
+            </Button>
+            <Button Name="Edit" Command="{Binding OpenEditorCommand}" Style="{StaticResource BtnImage}"
+                    CommandParameter="{Binding ElementName=Edit}" IsEnabled="{Binding IsButtonsEnabled}">
+                <Image Source="/Resources/Edit.png" />
+            </Button>
+            <Button Name="Delete" Command="{Binding OpenEditorCommand}" Style="{StaticResource BtnImage}"
+                    CommandParameter="{Binding ElementName=Delete}" IsEnabled="{Binding IsButtonsEnabled}">
+                <Image Source="/Resources/Delete.png" />
+            </Button>
         </StackPanel>
-        <TextBlock Grid.ColumnSpan="2" Text="{Binding ConnectionText, Mode=OneWay}" />
-        <Frame Grid.ColumnSpan="2" Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"
+
+        <TextBlock Text="{Binding ConnectionText, Mode=OneWay}" />
+
+        <Frame Name="MainFrame" Grid.Row="2" NavigationUIVisibility="Hidden"
                Content="{Binding CurrentPage}" />
     </Grid>
 </Window>

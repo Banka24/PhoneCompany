@@ -6,7 +6,7 @@
       xmlns:mainViewModel1="clr-namespace:PhoneCompany.ViewModels.MainViewModel"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance Type=mainViewModel1:ConversationPageViewModel}"
-      d:DesignHeight="1020" d:DesignWidth="1920"
+      d:DesignHeight="1000" d:DesignWidth="1500"
       Title="ConversationPage">
 
     <Grid>
@@ -17,23 +17,27 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <ComboBox IsEditable="True" Width="300" ItemsSource="{Binding PhoneNumberList}" Text="{Binding PhoneNumber}"/>
-            <Button Content="Найти" Command="{Binding FindCommand}"/>
+            <ComboBox IsEditable="True" Width="300" ItemsSource="{Binding PhoneNumberList}"
+                      Text="{Binding PhoneNumber}" />
+            <Button Content="Найти" Width="200" Height="50" Command="{Binding FindCommand}" />
         </StackPanel>
 
         <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding ConversationsList}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Номер телефона" Width="320" Binding="{Binding Abonent.PhoneNumber}" />
-                <DataGridTextColumn Header="Город вызова" Width="320" Binding="{Binding City.Title}" />
-                <DataGridTextColumn Header="Дата/время начала звонка" Width="320"
+                <DataGridTextColumn Header="Номер телефона" Width="*" Binding="{Binding Abonent.PhoneNumber}" />
+                <DataGridTextColumn Header="Город вызова" Width="*" Binding="{Binding City.Title}" />
+                <DataGridTextColumn Header="Дата/время начала звонка" Width="*"
                                     Binding="{Binding Date, StringFormat={}{0:dd.MM.yy HH:mm}}" />
-                <DataGridTextColumn Header="Длительность разговора" Width="320" Binding="{Binding NumberOfMinutes}" />
-                <DataGridTextColumn Header="Время суток звонка" Width="320" Binding="{Binding TimeOfDay}" />
-                <DataGridTextColumn Header="Стоимость звонка" Width="320" Binding="{Binding Price}" />
+                <DataGridTextColumn Header="Длительность разговора" Width="*" Binding="{Binding NumberOfMinutes}" />
+                <DataGridTextColumn Header="Время суток звонка" Width="*" Binding="{Binding TimeOfDay}" />
+                <DataGridTextColumn Header="Стоимость звонка" Width="*" Binding="{Binding Price}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="2" HorizontalAlignment="Left" Command="{Binding UpdateCommand}">
+
+        <Button Grid.Row="2" HorizontalAlignment="Left" Command="{Binding UpdateCommand}"
+                Style="{StaticResource BtnImage}">
             <Image Source="/Resources/Update.png" />
         </Button>
+
     </Grid>
 </Page>
