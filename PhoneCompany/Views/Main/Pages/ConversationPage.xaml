@@ -27,7 +27,7 @@
                 <DataGridTextColumn Header="Номер телефона" Width="*" Binding="{Binding Abonent.PhoneNumber}" />
                 <DataGridTextColumn Header="Город вызова" Width="*" Binding="{Binding City.Title}" />
                 <DataGridTextColumn Header="Дата/время начала звонка" Width="*"
-                                    Binding="{Binding Date, StringFormat={}{0:dd.MM.yy HH:mm}}" />
+                                    Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                 <DataGridTextColumn Header="Длительность разговора" Width="*" Binding="{Binding NumberOfMinutes}" />
                 <DataGridTextColumn Header="Время суток звонка" Width="*" Binding="{Binding TimeOfDay}" />
                 <DataGridTextColumn Header="Стоимость звонка" Width="*" Binding="{Binding Price}" />
