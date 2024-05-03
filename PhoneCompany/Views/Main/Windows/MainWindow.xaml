@@ -44,7 +44,7 @@
 
         <TextBlock Text="{Binding ConnectionText, Mode=OneWay}" FontSize="24" />
 
-        <Frame x:Name="MainFrame" Grid.Row="2" NavigationUIVisibility="Hidden"
+        <Frame Name="MainFrame" Grid.Row="2" NavigationUIVisibility="Hidden"
                Content="{Binding CurrentPage}" />
     </Grid>
 </Window>
