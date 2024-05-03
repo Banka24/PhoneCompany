@@ -6,8 +6,8 @@
         xmlns:mainViewModel1="clr-namespace:PhoneCompany.ViewModels.MainViewModel"
         d:DataContext="{d:DesignInstance Type=mainViewModel1:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="Телефонная компания" Height="1000" Width="1500" WindowStyle="ToolWindow"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        d:DesignWidth="1500" d:DesignHeight="1000"
+        Title="Телефонная компания" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -22,6 +22,9 @@
                     CommandParameter="{Binding ElementName=AbonentPage}" IsEnabled="{Binding IsButtonsEnabled}" />
             <Button Name="CityPage" Content="Города" Command="{Binding ChangePageCommand}"
                     CommandParameter="{Binding ElementName=CityPage}" IsEnabled="{Binding IsButtonsEnabled}" />
+            <Button Name="Exit" Style="{StaticResource BtnImage}" Command="{Binding ExitCommand}">
+                <Image Source="/Resources/Exit.png" />
+            </Button>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
@@ -39,9 +42,9 @@
             </Button>
         </StackPanel>
 
-        <TextBlock Text="{Binding ConnectionText, Mode=OneWay}" />
+        <TextBlock Text="{Binding ConnectionText, Mode=OneWay}" FontSize="24" />
 
-        <Frame Name="MainFrame" Grid.Row="2" NavigationUIVisibility="Hidden"
+        <Frame x:Name="MainFrame" Grid.Row="2" NavigationUIVisibility="Hidden"
                Content="{Binding CurrentPage}" />
     </Grid>
 </Window>
