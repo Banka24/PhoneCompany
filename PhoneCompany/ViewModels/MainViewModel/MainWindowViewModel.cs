@@ -18,9 +18,6 @@ public class MainWindowViewModel(Window window) : INotifyPropertyChanged
     private ICommand _openEditorCommand;
     public ICommand OpenEditorCommand => _openEditorCommand ??= new RelayCommand<Button>(OpenEditor);
 
-    private ICommand _refreshCommand;
-    public ICommand RefreshCommand => _refreshCommand ??= new RelayCommand<Button>(OpenEditor);
-
     private ICommand _exitCommand;
     public ICommand ExitCommand => _exitCommand ??= new RelayCommand<Button>(CloseApp);
 
@@ -86,11 +83,6 @@ public class MainWindowViewModel(Window window) : INotifyPropertyChanged
             WindowManager.OpenEditor(sender.Name, CurrentPage.Title);
         }
     }
-
-    //private void RefreshPage(Button sender)
-    //{
-    //    CurrentPage.Ite
-    //}
 
     private void CloseApp(Button sender)
     {
