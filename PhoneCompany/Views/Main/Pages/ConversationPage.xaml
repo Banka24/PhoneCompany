@@ -30,7 +30,7 @@
                                     Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
                 <DataGridTextColumn Header="Длительность разговора" Width="*" Binding="{Binding NumberOfMinutes}" />
                 <DataGridTextColumn Header="Время суток звонка" Width="*" Binding="{Binding TimeOfDay}" />
-                <DataGridTextColumn Header="Стоимость звонка" Width="*" Binding="{Binding Price}" />
+                <DataGridTextColumn Header="Стоимость звонка" Width="*" Binding="{Binding Price, StringFormat={}{0:0.00₽}}" />
             </DataGrid.Columns>
         </DataGrid>
 
