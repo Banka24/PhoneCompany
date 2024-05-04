@@ -18,8 +18,8 @@
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding CitiesList}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название города" Width="*" Binding="{Binding Title}" />
-                <DataGridTextColumn Header="Тариф днём" Width="*" Binding="{Binding TariffDay}" />
-                <DataGridTextColumn Header="Тариф ночью" Width="*" Binding="{Binding TariffNight}" />
+                <DataGridTextColumn Header="Тариф днём" Width="*" Binding="{Binding TariffDay, StringFormat={}{0:0.00₽}}" />
+                <DataGridTextColumn Header="Тариф ночью" Width="*" Binding="{Binding TariffNight, StringFormat={}{0:0.00₽}}" />
             </DataGrid.Columns>
         </DataGrid>
 
