@@ -15,9 +15,9 @@ public class CompanyDbContext() : DbContext("PhoneCompany")
     public DbSet<Conversation> Conversations { get; set; }
 
     /// <summary>
-    /// Попытка сохранения данных в БД
+    /// Асинхронная попытка сохранения данных в БД
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось сохранить изменения, false если произошла ошибка</returns>
     public async Task<bool> TrySaveChangeAsync()
     {
         try

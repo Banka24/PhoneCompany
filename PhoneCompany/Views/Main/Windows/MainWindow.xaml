@@ -6,8 +6,8 @@
         xmlns:mainViewModel1="clr-namespace:PhoneCompany.ViewModels.MainViewModel"
         d:DataContext="{d:DesignInstance Type=mainViewModel1:MainWindowViewModel}"
         mc:Ignorable="d"
-        d:DesignWidth="1500" d:DesignHeight="1000"
-        Title="Телефонная компания" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized">
+        d:DesignWidth="1300" d:DesignHeight="900"
+        Title="Телефонная компания" MinHeight="900" MinWidth="1700" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />

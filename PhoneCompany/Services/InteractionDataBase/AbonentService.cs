@@ -29,7 +29,7 @@ public class AbonentService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное добавление абонента в базу данных
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось добавить, false если произошла ошибка</returns>
     public async Task<bool> AddAbonentAsync(string phoneNumber, string inn, string address)
     {
         using (context)
@@ -56,7 +56,7 @@ public class AbonentService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное редактирование информации об абоненте
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось изменить и сохранить, false если произошла ошибка</returns>
     public async Task<bool> EditAbonentAsync(string phoneNumber, string inn, string address)
     {
         using (context)
@@ -71,7 +71,7 @@ public class AbonentService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное удаление абонента из базы данных
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось удалить, false если произошла ошибка</returns>
     /// <exception cref="Exception"></exception>
     public async Task<bool> DeleteAbonentAsync(string phoneNumber)
     {

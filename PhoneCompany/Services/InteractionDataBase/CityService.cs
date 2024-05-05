@@ -48,7 +48,7 @@ public class CityService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное добавление города в базу данных
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось добавить, false если произошла ошибка</returns>
     public async Task<bool> AddCityAsync(string title, decimal tariffDay, decimal tariffNight)
     {
         using (context)
@@ -87,7 +87,7 @@ public class CityService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное редактирование информации о городе
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось изменить и сохранить, false если произошла ошибка</returns>
     public async Task<bool> EditCityAsync(string title, decimal tariffDay, decimal tariffNight)
     {
         using (context)
@@ -102,7 +102,7 @@ public class CityService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное удаление города из базы данных
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось удалить, false если произошла ошибка</returns>
     /// <exception cref="Exception"></exception>
     public async Task<bool> DeleteCityAsync(string title)
     {
@@ -120,6 +120,15 @@ public class CityService(CompanyDbContext context)
             
             return await context.TrySaveChangeAsync();
         }
+    }
+
+    /// <summary>
+    /// Проверяет, есть ли город с таким же названием
+    /// </summary>
+    /// <returns> Вернёт true если город с таким название есть, false, если такого города нет</returns>
+    public async Task<bool> CheckIsNewCity(string title)
+    {
+        return await context.Cities.AnyAsync(city => city.Title == title);
     }
 
     private static City MakeCity(in string title, in decimal tariffDay, in decimal tariffNight)

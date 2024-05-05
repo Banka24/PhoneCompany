@@ -54,11 +54,18 @@ public class AddCityViewModel : CityViewModelBase
             ErrorMessage = "Заполните поля правильно";
             return;
         }
-        await AddCityAsync();
-    }
-    private async Task AddCityAsync()
-    {
+
         var service = new CityService(new CompanyDbContext());
+        if (await service.CheckIsNewCity(Title))
+        {
+            ErrorMessage = "Такой город уже есть";
+            return;
+        }
+
+        await AddCityAsync(service);
+    }
+    private async Task AddCityAsync(CityService service)
+    {
         ErrorMessage = await service.AddCityAsync(Title, TariffDay, TariffNight) ? "Успешно" : "Неуспешно";
     }
 }

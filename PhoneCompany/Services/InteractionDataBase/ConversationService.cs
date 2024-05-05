@@ -39,7 +39,7 @@ public class ConversationService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное добавление разговора в базу данных
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось добавить, false если произошла ошибка</returns>
     public async Task<bool> AddConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         using (context)
@@ -52,7 +52,7 @@ public class ConversationService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное редактирование информации о разговоре
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось изменить и сохранить, false если произошла ошибка</returns>
     public async Task<bool> EditConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         context.Conversations.Attach(_lastFoundConversation);
@@ -67,7 +67,7 @@ public class ConversationService(CompanyDbContext context)
     /// <summary>
     /// Асинхронное удаление разговора из базы данных
     /// </summary>
-    /// <returns>Результат успешности выполнения операции</returns>
+    /// <returns>Вернёт true если получилось удалить, false если произошла ошибка</returns>
     /// <exception cref="Exception"></exception>
     public async Task<bool> DeleteConversationAsync(string phoneNumber, string titleCity, DateTime dateTime)
     {
