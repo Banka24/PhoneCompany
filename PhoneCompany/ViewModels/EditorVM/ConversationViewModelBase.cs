@@ -97,10 +97,6 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
-    /// <summary>
-    /// Форматирование даты
-    /// </summary>
-    /// <returns>Дата по формату день месяц год</returns>
     protected DateTime MakeDateTimeToFormat()
     {
         return DateTime.Parse($"{Date:dd.MM.yyyy} {Time}");

@@ -18,7 +18,7 @@ public class ConversationService(CompanyDbContext context)
     /// Получение списка переговоров
     /// </summary>
     /// <returns>Список переговоров</returns>
-    public async Task<IEnumerable<Conversation>> GetDataAsync()
+    public async Task<List<Conversation>> GetDataAsync()
     {
         var conversation = await context.Conversations.ToListAsync();
         return conversation;
@@ -27,9 +27,8 @@ public class ConversationService(CompanyDbContext context)
     /// <summary>
     /// Получить список переговоров по номеру телефона
     /// </summary>
-    /// <param name="phoneNumber"></param>
     /// <returns>Список телефонных переговоров</returns>
-    public async Task<IEnumerable<Conversation>> GetDataByPhoneNumberAsync(string phoneNumber)
+    public async Task<List<Conversation>> GetDataByPhoneNumberAsync(string phoneNumber)
     {
         var conversation = await context.Conversations.Where(i => i.Abonent.PhoneNumber == phoneNumber).ToListAsync();
         context = null;

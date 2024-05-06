@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,22 +17,10 @@ public class ConversationPageViewModel : PageViewModelBase
 
     public string PhoneNumber { get; set; }
     public ObservableCollection<Conversation> ConversationsList { get; set; } = [];
-    public IEnumerable<string> PhoneNumberList { get; set; } = [];
+    public ObservableCollection<string> PhoneNumberList { get; set; } = [];
 
     private ICommand _findCommand;
     public ICommand FindCommand => _findCommand ??= new RelayCommand<Button>(GetFilteredList);
-
-    private async void GetFilteredList(Button button)
-    {
-        var service = new ConversationService(new CompanyDbContext());
-        var conversationFilterList = await service.GetDataByPhoneNumberAsync(PhoneNumber);
-        ConversationsList.Clear();
-        foreach (var conversation in conversationFilterList)
-        {
-            conversation.Price = await SetPriceAsync(conversation);
-            ConversationsList.Add(conversation);
-        }
-    }
 
     protected override async Task EnterDataListAsync()
     {
@@ -53,6 +40,20 @@ public class ConversationPageViewModel : PageViewModelBase
         await EnterDataListAsync();
     }
 
+    private async void GetFilteredList(Button button)
+    {
+        if(string.IsNullOrWhiteSpace(PhoneNumber)) return;
+
+        var service = new ConversationService(new CompanyDbContext());
+        var conversationFilterList = await service.GetDataByPhoneNumberAsync(PhoneNumber);
+        ConversationsList.Clear();
+        foreach (var conversation in conversationFilterList)
+        {
+            conversation.Price = await SetPriceAsync(conversation);
+            ConversationsList.Add(conversation);
+        }
+    }
+
     private static async Task<decimal> SetPriceAsync(Conversation conversation)
     {
         var service = new CityService(new CompanyDbContext());
@@ -63,6 +64,11 @@ public class ConversationPageViewModel : PageViewModelBase
     private async Task GetPhoneNumberList()
     {
         var service = new AbonentService(new CompanyDbContext());
-        PhoneNumberList = await service.GetPhoneNumbersAsync();
+        var phoneNumbers = await service.GetPhoneNumbersAsync();
+
+        foreach (var number in phoneNumbers)
+        {
+            PhoneNumberList.Add(number);
+        }
     }
 }

@@ -18,12 +18,23 @@ public class AbonentService(CompanyDbContext context)
     /// Получение списка абонентов
     /// </summary>
     /// <returns>Список абонентов</returns>
-    public async Task<IEnumerable<Abonent>> GetDataAsync()
+    public async Task<List<Abonent>> GetDataAsync()
     {
         using (context)
         {
             return await context.Abonents.ToListAsync();
         }
+    }
+
+    /// <summary>
+    /// Асинхронное получение списка абонентов с одинаковым ИНН
+    /// </summary>
+    /// <returns>Список абонентов</returns>
+    public async Task<List<Abonent>> GetDataByInnAsync(string inn)
+    {
+        var abonents = await context.Abonents.Where(i => i.Inn == inn).ToListAsync();
+        context = null;
+        return abonents;
     }
 
     /// <summary>
@@ -95,11 +106,23 @@ public class AbonentService(CompanyDbContext context)
     /// Асинхронное получение списка телефонных номеров
     /// </summary>
     /// <returns>Список телефонных номеров</returns>
-    public async Task<IEnumerable<string>> GetPhoneNumbersAsync()
+    public async Task<List<string>> GetPhoneNumbersAsync()
     {
         using (context)
         {
             return await context.Abonents.Select(i => i.PhoneNumber).ToListAsync();
+        }
+    }
+
+    /// <summary>
+    /// Асинхронное получение списка ИНН
+    /// </summary>
+    /// <returns>Список ИНН</returns>
+    public async Task<List<string>> GetInnAsync()
+    {
+        using (context)
+        {
+            return await context.Abonents.Select(i => i.Inn).Distinct().ToListAsync();
         }
     }
 

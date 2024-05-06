@@ -18,11 +18,23 @@ public class CityService(CompanyDbContext context)
     /// Получение списка городов
     /// </summary>
     /// <returns>Список городов</returns>
-    public async Task<IEnumerable<City>> GetDataAsync()
+    public async Task<List<City>> GetDataAsync()
     {
         using (context)
         {
             return await context.Cities.OrderBy(i => i.Title).ToListAsync();
+        }
+    }
+
+    /// <summary>
+    /// Асинхронное информации о городе по его названию
+    /// </summary>
+    /// <returns>Город</returns>
+    public async Task<City> GetDataByTitleAsync(string title)
+    {
+        using (context)
+        {
+            return await context.Cities.Where(i => i.Title == title).FirstAsync();
         }
     }
 
@@ -76,7 +88,7 @@ public class CityService(CompanyDbContext context)
     /// Асинхронное получение название городов по алфавиту
     /// </summary>
     /// <returns>Список названий</returns>
-    public async Task<IEnumerable<string>> GetCityTitleAsync()
+    public async Task<List<string>> GetCityTitleAsync()
     {
         using (context)
         {
