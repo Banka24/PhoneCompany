@@ -29,7 +29,7 @@ public class AbonentPageViewModel : PageViewModelBase
         foreach (var abonent in abonents) AbonentsList.Add(abonent);
     }
 
-    protected override async void UpdatePageAsync(Button sender)
+    protected override async void UpdateDataGridAsync(Button sender)
     {
         AbonentsList.Clear();
         await EnterDataListAsync();

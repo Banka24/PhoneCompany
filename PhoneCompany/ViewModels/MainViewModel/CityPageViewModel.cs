@@ -32,7 +32,7 @@ public class CityPageViewModel : PageViewModelBase
         }
     }
 
-    protected override async void UpdatePageAsync(Button sender)
+    protected override async void UpdateDataGridAsync(Button sender)
     {
         CitiesList.Clear();
         await EnterDataListAsync();

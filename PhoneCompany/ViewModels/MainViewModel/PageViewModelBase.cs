@@ -11,7 +11,7 @@ namespace PhoneCompany.ViewModels.MainViewModel;
 public abstract class PageViewModelBase
 {
     private ICommand _updateCommand;
-    public ICommand UpdateCommand => _updateCommand ??= new RelayCommand<Button>(UpdatePageAsync);
+    public ICommand UpdateCommand => _updateCommand ??= new RelayCommand<Button>(UpdateDataGridAsync);
 
     protected PageViewModelBase()
     {
@@ -27,5 +27,5 @@ public abstract class PageViewModelBase
     /// <summary>
     /// Обновление страницы
     /// </summary>
-    protected abstract void UpdatePageAsync(Button sender);
+    protected abstract void UpdateDataGridAsync(Button sender);
 }
