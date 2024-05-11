@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using PhoneCompany.Models;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -11,10 +8,10 @@ namespace PhoneCompany.ViewModels.EditorVM;
 public class EditConversationViewModel : ConversationViewModelBase
 {
     private ICommand _saveConversationCommand;
-    public ICommand SaveConversationCommand => _saveConversationCommand ??= new RelayCommand<Button>(SaveCommand);
+    public ICommand SaveConversationCommand => _saveConversationCommand ??= new Services.RelayCommand<Button>(SaveCommand);
 
     private ICommand _findConversationCommand;
-    public ICommand FindConversationCommand => _findConversationCommand ??= new RelayCommand<Button>(FindCommand);
+    public ICommand FindConversationCommand => _findConversationCommand ??= new Services.RelayCommand<Button>(FindCommand);
 
     private bool _isButtonEnable;
     public bool IsButtonEnable
@@ -44,12 +41,12 @@ public class EditConversationViewModel : ConversationViewModelBase
     private async Task<bool> FindConversationAsync()
     {
         var service = new ConversationService(new CompanyDbContext());
-        Conversation conversation;
+        Models.Conversation conversation;
         try
         {
             conversation = await service.FindConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat());
         }
-        catch (Exception e)
+        catch (System.Exception e)
         {
             ErrorMessage = e.Message;
             return false;

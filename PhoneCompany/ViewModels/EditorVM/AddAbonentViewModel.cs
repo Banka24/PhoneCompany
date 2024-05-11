@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Input;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
 public class AddAbonentViewModel : AbonentViewModelBase
 {
-    private ICommand _addAbonentCommand;
-    public ICommand AddAbonentCommand => _addAbonentCommand ??= new RelayCommand<Button>(AddAbonent);
+    private System.Windows.Input.ICommand _addAbonentCommand;
+    public System.Windows.Input.ICommand AddAbonentCommand => _addAbonentCommand ??= new Services.RelayCommand<Button>(AddAbonent);
 
-    public override IEnumerable<string> GetErrors(string propertyName)
+    public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
         {

@@ -1,9 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Input;
 using PhoneCompany.Models;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.MainViewModel;
@@ -16,17 +13,14 @@ public class AbonentPageViewModel : PageViewModelBase
     }
 
     public string Inn { get; set; }
-    public ObservableCollection<Abonent> AbonentsList { get; set; } = [];
-    public ObservableCollection<string> InnList { get; set; } = [];
 
-    private ICommand _findCommand;
-    public ICommand FindCommand => _findCommand ??= new RelayCommand<Button>(GetFilteredList);
+    public System.Collections.ObjectModel.ObservableCollection<Abonent> AbonentsList { get; set; } = [];
+    public System.Collections.ObjectModel.ObservableCollection<string> InnList { get; set; } = [];
 
     protected override async Task EnterDataListAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var abonents = await service.GetDataAsync();
-        foreach (var abonent in abonents) AbonentsList.Add(abonent);
+        await FillDataGrid(AbonentsList, await service.GetDataAsync());
     }
 
     protected override async void UpdateDataGridAsync(Button sender)
@@ -35,28 +29,18 @@ public class AbonentPageViewModel : PageViewModelBase
         await EnterDataListAsync();
     }
 
-    private async void GetFilteredList(Button button)
+    protected override async void GetFilteredList(Button button)
     {
         if(string.IsNullOrWhiteSpace(Inn)) return;
 
         var service = new AbonentService(new CompanyDbContext());
-        var abonentsFilterList = await service.GetDataByInnAsync(Inn);
         AbonentsList.Clear();
-        
-        foreach (var abonent in abonentsFilterList)
-        {
-            AbonentsList.Add(abonent);
-        }
+        await FillDataGrid(AbonentsList, await service.GetDataByInnAsync(Inn));
     }
 
     private async Task GetInnsList()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var inns = await service.GetInnAsync();
-        
-        foreach (var inn in inns)
-        {
-            InnList.Add(inn);
-        }
+        await FillDataGrid(InnList, await service.GetInnAsync());
     }
 }

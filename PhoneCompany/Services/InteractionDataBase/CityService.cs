@@ -30,7 +30,7 @@ public class CityService(CompanyDbContext context)
     /// Асинхронное информации о городе по его названию
     /// </summary>
     /// <returns>Город</returns>
-    public async Task<City> GetDataByTitleAsync(string title)
+    public async Task<City> GetCityByTitleAsync(string title)
     {
         using (context)
         {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using PhoneCompany.Services.InteractionDataBase;
+﻿using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
@@ -15,7 +13,7 @@ public class CityViewModelBase : EditorPageViewModelBase
     }
 
     public override bool HasErrors => string.IsNullOrWhiteSpace(Title) || Title!.Length < 2 || Title!.Length > 50 || !char.IsUpper(Title[0]) || TariffDay <= 0 || TariffNight <= 0;
-    public ObservableCollection<string> CityTitleList { get; set; } = [];
+    public System.Collections.ObjectModel.ObservableCollection<string> CityTitleList { get; set; } = [];
     
     private string _title;
     public string Title
@@ -53,7 +51,7 @@ public class CityViewModelBase : EditorPageViewModelBase
         }
     }
 
-    public override IEnumerable<string> GetErrors(string propertyName)
+    public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
         {
@@ -79,10 +77,6 @@ public class CityViewModelBase : EditorPageViewModelBase
     private async void GetTitles()
     {
         var service = new CityService(new CompanyDbContext());
-        var cities = await service.GetCityTitleAsync();
-        foreach (var phoneNumber in cities)
-        {
-            CityTitleList.Add(phoneNumber);
-        }
+        await FillComboBox(CityTitleList, await service.GetCityTitleAsync());
     }
 }

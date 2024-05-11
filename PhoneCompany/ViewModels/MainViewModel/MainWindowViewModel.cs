@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
-using PhoneCompany.Services.DictionaryHolder;
 
 namespace PhoneCompany.ViewModels.MainViewModel;
 
-public class MainWindowViewModel(Window window) : INotifyPropertyChanged
+public class MainWindowViewModel(System.Windows.Window window) : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -65,14 +62,14 @@ public class MainWindowViewModel(Window window) : INotifyPropertyChanged
         IsDatabaseConnected = isConnected;
     }
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private void ChangePage(Button sender)
     {
-        var pageHolder = new PageDictionaryHolder();
+        var pageHolder = new Services.DictionaryHolder.PageDictionaryHolder();
         CurrentPage = pageHolder.GetPage(sender.Name);
     }
     

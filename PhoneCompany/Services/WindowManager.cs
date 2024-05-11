@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Windows.Controls;
-using PhoneCompany.Services.DictionaryHolder;
-using PhoneCompany.ViewModels.EditorVM;
+﻿using System.Windows.Controls;
 using PhoneCompany.Views.Editor.Windows;
 
 namespace PhoneCompany.Services;
@@ -19,20 +16,20 @@ public static class WindowManager
         var window = new Editor(OpenPage(nameCommand, nameCallingPage));
         if (window.ShowDialog() is false)
         {
-            EditorViewModel.CurrentPage = null;
+            ViewModels.EditorVM.EditorViewModel.CurrentPage = null;
         }
     }
 
     private static Page OpenPage(in string nameCommand, in string nameCallingPage)
     {
         var pageName = GetNamePageToOpen(nameCommand, nameCallingPage);
-        var pageHolder = new EditorPageDictionaryHolder();
+        var pageHolder = new DictionaryHolder.EditorPageDictionaryHolder();
         return pageHolder.GetPage(pageName);
     }
 
     private static string GetNamePageToOpen(in string nameCommand, in string nameCallingPage)
     {
-        var sb = new StringBuilder(nameCommand);
+        var sb = new System.Text.StringBuilder(nameCommand);
         return $"{sb.Append(nameCallingPage)}";
     }
 }

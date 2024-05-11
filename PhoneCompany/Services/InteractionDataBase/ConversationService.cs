@@ -20,8 +20,7 @@ public class ConversationService(CompanyDbContext context)
     /// <returns>Список переговоров</returns>
     public async Task<List<Conversation>> GetDataAsync()
     {
-        var conversation = await context.Conversations.ToListAsync();
-        return conversation;
+        return await context.Conversations.ToListAsync();
     }
 
     /// <summary>

@@ -1,9 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Input;
 using PhoneCompany.Models;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.MainViewModel;
@@ -16,22 +13,14 @@ public class ConversationPageViewModel : PageViewModelBase
     }
 
     public string PhoneNumber { get; set; }
-    public ObservableCollection<Conversation> ConversationsList { get; set; } = [];
-    public ObservableCollection<string> PhoneNumberList { get; set; } = [];
 
-    private ICommand _findCommand;
-    public ICommand FindCommand => _findCommand ??= new RelayCommand<Button>(GetFilteredList);
+    public System.Collections.ObjectModel.ObservableCollection<Conversation> ConversationsList { get; set; } = [];
+    public System.Collections.ObjectModel.ObservableCollection<string> PhoneNumberList { get; set; } = [];
 
     protected override async Task EnterDataListAsync()
     {
         var service = new ConversationService(new CompanyDbContext());
-        var conversations = await service.GetDataAsync();
-        
-        foreach (var conversation in conversations)
-        {
-            conversation.Price = await SetPriceAsync(conversation);
-            ConversationsList.Add(conversation);
-        }
+        await FillDataGridAsync(await service.GetDataAsync());
     }
 
     protected override async void UpdateDataGridAsync(Button sender)
@@ -40,14 +29,18 @@ public class ConversationPageViewModel : PageViewModelBase
         await EnterDataListAsync();
     }
 
-    private async void GetFilteredList(Button button)
+    protected override async void GetFilteredList(Button button)
     {
-        if(string.IsNullOrWhiteSpace(PhoneNumber)) return;
+        if (string.IsNullOrWhiteSpace(PhoneNumber)) return;
 
         var service = new ConversationService(new CompanyDbContext());
-        var conversationFilterList = await service.GetDataByPhoneNumberAsync(PhoneNumber);
-        ConversationsList.Clear();
-        foreach (var conversation in conversationFilterList)
+        ConversationsList.Clear();        
+        await FillDataGrid(ConversationsList, await service.GetDataByPhoneNumberAsync(PhoneNumber));
+    }
+
+    private async Task FillDataGridAsync(System.Collections.Generic.IEnumerable<Conversation> conversations)
+    {
+        foreach (var conversation in conversations)
         {
             conversation.Price = await SetPriceAsync(conversation);
             ConversationsList.Add(conversation);
@@ -57,18 +50,12 @@ public class ConversationPageViewModel : PageViewModelBase
     private static async Task<decimal> SetPriceAsync(Conversation conversation)
     {
         var service = new CityService(new CompanyDbContext());
-        var tariff = await service.GetTariffAsync(conversation);
-        return conversation.NumberOfMinutes * tariff;
+        return conversation.NumberOfMinutes * await service.GetTariffAsync(conversation);
     }
 
     private async Task GetPhoneNumberList()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var phoneNumbers = await service.GetPhoneNumbersAsync();
-
-        foreach (var number in phoneNumbers)
-        {
-            PhoneNumberList.Add(number);
-        }
+        await FillDataGrid(PhoneNumberList, await service.GetPhoneNumbersAsync());
     }
 }

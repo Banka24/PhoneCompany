@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.Windows.Input;
-using PhoneCompany.Services;
+﻿using System.Windows.Controls;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -13,11 +10,11 @@ internal class DeleteAbonentViewModel : AbonentViewModelBase
         GetPhoneNumbers();
     }
 
-    private ICommand _deleteCommand;
-    public ICommand DeleteCommand => _deleteCommand ??= new RelayCommand<Button>(DeleteAbonent);
+    private System.Windows.Input.ICommand _deleteCommand;
+    public System.Windows.Input.ICommand DeleteCommand => _deleteCommand ??= new Services.RelayCommand<Button>(DeleteAbonent);
 
-    private ObservableCollection<string> _phoneNumberList = [];
-    public ObservableCollection<string> PhoneNumberList
+    private System.Collections.ObjectModel.ObservableCollection<string> _phoneNumberList = [];
+    public System.Collections.ObjectModel.ObservableCollection<string> PhoneNumberList
     {
         get => _phoneNumberList;
         set
@@ -42,10 +39,6 @@ internal class DeleteAbonentViewModel : AbonentViewModelBase
     private async void GetPhoneNumbers()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var phoneNumbers = await service.GetPhoneNumbersAsync();
-        foreach (var phoneNumber in phoneNumbers)
-        {
-            PhoneNumberList.Add(phoneNumber);
-        }
+        await FillComboBox(PhoneNumberList, await service.GetPhoneNumbersAsync());
     }
 }

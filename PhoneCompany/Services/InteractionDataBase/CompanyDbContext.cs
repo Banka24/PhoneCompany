@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using PhoneCompany.Models;
 
@@ -24,7 +23,7 @@ public class CompanyDbContext() : DbContext("PhoneCompany")
         {
             await SaveChangesAsync();
         }
-        catch (Exception)
+        catch (System.Exception)
         {
             return false;
         }

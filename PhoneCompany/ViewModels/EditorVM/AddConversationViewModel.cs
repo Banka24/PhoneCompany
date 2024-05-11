@@ -1,15 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Input;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
 public class AddConversationViewModel : ConversationViewModelBase
 {
-    private ICommand _addConversationCommand;
-    public ICommand AddConversationCommand => _addConversationCommand ??= new RelayCommand<Button>(AddConversation);
+    private System.Windows.Input.ICommand _addConversationCommand;
+    public System.Windows.Input.ICommand AddConversationCommand => _addConversationCommand ??= new Services.RelayCommand<Button>(AddConversation);
 
     private async void AddConversation(Button sender)
     {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using PhoneCompany.Services.InteractionDataBase;
 
@@ -21,8 +19,8 @@ public class ConversationViewModelBase : EditorPageViewModelBase
     }
 
     public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeSpan.MinValue;
-    public ObservableCollection<string> PhoneNumberList { get; set; } = [];
-    public ObservableCollection<string> CityTitleList { get; set; } = [];
+    public System.Collections.ObjectModel.ObservableCollection<string> PhoneNumberList { get; set; } = [];
+    public System.Collections.ObjectModel.ObservableCollection<string> CityTitleList { get; set; } = [];
 
     private string _phoneNumber = "7";
     public string PhoneNumber
@@ -84,7 +82,7 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
-    public override IEnumerable<string> GetErrors(string propertyName)
+    public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
     {
         if (propertyName is nameof(NumberOfMinutes) && NumberOfMinutes < 0)
         {
@@ -114,20 +112,12 @@ public class ConversationViewModelBase : EditorPageViewModelBase
     private async Task GetPhoneNumbersAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var numbers = await service.GetPhoneNumbersAsync();
-        foreach (var number in numbers)
-        {
-            PhoneNumberList.Add(number);
-        }
+        await FillComboBox(PhoneNumberList, await service.GetPhoneNumbersAsync());
     }
 
     private async Task GetCityTitleAsync()
     {
         var service = new CityService(new CompanyDbContext());
-        var cityTitles = await service.GetCityTitleAsync();
-        foreach (var cityTitle in cityTitles)
-        {
-            CityTitleList.Add(cityTitle);
-        }
+        await FillComboBox(CityTitleList, await service.GetCityTitleAsync());
     }
 }

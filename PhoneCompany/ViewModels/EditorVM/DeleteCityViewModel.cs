@@ -1,15 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Input;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
 public class DeleteCityViewModel : CityViewModelBase
 {
-    private ICommand _deleteCommand;
-    public ICommand DeleteCommand => _deleteCommand ??= new RelayCommand<Button>(DeleteCity);
+    private System.Windows.Input.ICommand _deleteCommand;
+    public System.Windows.Input.ICommand DeleteCommand => _deleteCommand ??= new Services.RelayCommand<Button>(DeleteCity);
     
     private async void DeleteCity(Button sender)
     {

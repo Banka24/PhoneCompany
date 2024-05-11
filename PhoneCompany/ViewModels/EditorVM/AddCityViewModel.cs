@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Input;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
 public class AddCityViewModel : CityViewModelBase
 {
-    private ICommand _addCityCommand;
-    public ICommand AddCityCommand => _addCityCommand ??= new RelayCommand<Button>(AddCity);
+    private System.Windows.Input.ICommand _addCityCommand;
+    public System.Windows.Input.ICommand AddCityCommand => _addCityCommand ??= new Services.RelayCommand<Button>(AddCity);
 
-    public override IEnumerable<string> GetErrors(string propertyName)
+    public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
         {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
@@ -10,8 +9,7 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
 {
     public override bool HasErrors => string.IsNullOrWhiteSpace(PhoneNumber) || PhoneNumber!.Length != 11 || !PhoneNumber.StartsWith('7') ||
                                       string.IsNullOrWhiteSpace(Inn) || Inn!.Length != 13 || string.IsNullOrWhiteSpace(Address) || Inn.Any(c => !char.IsDigit(c));
-
-
+    
     private string _phoneNumber = "7";
     public string PhoneNumber
     {
@@ -48,7 +46,7 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
         }
     }
 
-    public override IEnumerable<string> GetErrors(string propertyName)
+    public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
         {
@@ -70,7 +68,10 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
             }
             case nameof(Address):
             {
-                if (string.IsNullOrWhiteSpace(Address)) yield return "Это поле обязательно";
+                if (string.IsNullOrWhiteSpace(Address))
+                {
+                    yield return "Это поле обязательно";
+                }
                 break;
             }
         }

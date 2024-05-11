@@ -1,10 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using PhoneCompany.Models;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -12,10 +8,10 @@ namespace PhoneCompany.ViewModels.EditorVM;
 public class EditCityViewModel : CityViewModelBase
 {
     private ICommand _findCityCommand;
-    public ICommand FindCityCommand => _findCityCommand ??= new RelayCommand<Button>(FindCommand);
+    public ICommand FindCityCommand => _findCityCommand ??= new Services.RelayCommand<Button>(FindCommand);
 
     private ICommand _editCityCommand;
-    public ICommand EditCityCommand => _editCityCommand ??= new RelayCommand<Button>(EditCommand);
+    public ICommand EditCityCommand => _editCityCommand ??= new Services.RelayCommand<Button>(EditCommand);
 
     private bool _isButtonEnable;
 
@@ -46,12 +42,12 @@ public class EditCityViewModel : CityViewModelBase
     private async Task<bool> FindCityAsync()
     {
         var service = new CityService(new CompanyDbContext());
-        City city;
+        Models.City city;
         try
         {
             city = await service.FindCityAsync(Title);
         }
-        catch (Exception e)
+        catch (System.Exception e)
         {
             ErrorMessage = e.Message;
             return false;

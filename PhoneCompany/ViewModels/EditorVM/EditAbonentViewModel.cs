@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using PhoneCompany.Models;
-using PhoneCompany.Services;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -17,10 +13,10 @@ public class EditAbonentViewModel : AbonentViewModelBase
     }
 
     private ICommand _findAbonentCommand;
-    public ICommand FindAbonentCommand => _findAbonentCommand ??= new RelayCommand<Button>(FindCommand);
+    public ICommand FindAbonentCommand => _findAbonentCommand ??= new Services.RelayCommand<Button>(FindCommand);
 
     private ICommand _editAbonentCommand;
-    public ICommand EditAbonentCommand => _editAbonentCommand ??= new RelayCommand<Button>(EditCommand);
+    public ICommand EditAbonentCommand => _editAbonentCommand ??= new Services.RelayCommand<Button>(EditCommand);
 
     private bool _isButtonEnable;
     public bool IsButtonEnable
@@ -33,8 +29,8 @@ public class EditAbonentViewModel : AbonentViewModelBase
         }
     }
 
-    private ObservableCollection<string> _phoneNumberList = [];
-    public ObservableCollection<string> PhoneNumberList
+    private System.Collections.ObjectModel.ObservableCollection<string> _phoneNumberList = [];
+    public System.Collections.ObjectModel.ObservableCollection<string> PhoneNumberList
     {
         get => _phoneNumberList;
         set
@@ -61,12 +57,12 @@ public class EditAbonentViewModel : AbonentViewModelBase
     private async Task<bool> FindAbonentAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
-        Abonent abonent;
+        Models.Abonent abonent;
         try
         {
             abonent = await service.FindAbonentAsync(PhoneNumber);
         }
-        catch (Exception e)
+        catch (System.Exception e)
         {
             ErrorMessage = e.Message;
             return false;
@@ -83,13 +79,10 @@ public class EditAbonentViewModel : AbonentViewModelBase
         var service = new AbonentService(new CompanyDbContext());
         ErrorMessage = await service.EditAbonentAsync(PhoneNumber, Inn, Address) ? "Успешно" : "Неуспешно";
     }
+
     private async void GetPhoneNumbers()
     {
         var service = new AbonentService(new CompanyDbContext());
-        var phoneNumbers = await service.GetPhoneNumbersAsync();
-        foreach (var phoneNumber in phoneNumbers)
-        {
-            PhoneNumberList.Add(phoneNumber);
-        }
+        await FillComboBox(PhoneNumberList, await service.GetPhoneNumbersAsync());
     }
 }
