@@ -1,17 +1,16 @@
 ﻿using System.Windows.Controls;
 using PhoneCompany.ViewModels.EditorVM;
 
-namespace PhoneCompany.Views.Editor.Pages
+namespace PhoneCompany.Views.Editor.Pages;
+
+/// <summary>
+///     Логика взаимодействия для AddCityPage.xaml
+/// </summary>
+public partial class AddCityPage : Page
 {
-    /// <summary>
-    /// Логика взаимодействия для AddCityPage.xaml
-    /// </summary>
-    public partial class AddCityPage : Page
+    public AddCityPage()
     {
-        public AddCityPage()
-        {
-            InitializeComponent();
-            DataContext = new AddCityViewModel();
-        }
+        InitializeComponent();
+        DataContext = new AddCityViewModel();
     }
 }

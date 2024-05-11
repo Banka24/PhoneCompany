@@ -1,17 +1,16 @@
 ﻿using System.Windows.Controls;
 using PhoneCompany.ViewModels.EditorVM;
 
-namespace PhoneCompany.Views.Editor.Pages
+namespace PhoneCompany.Views.Editor.Pages;
+
+/// <summary>
+///     Логика взаимодействия для DeleteCityPage.xaml
+/// </summary>
+public partial class DeleteCityPage : Page
 {
-    /// <summary>
-    /// Логика взаимодействия для DeleteCityPage.xaml
-    /// </summary>
-    public partial class DeleteCityPage : Page
+    public DeleteCityPage()
     {
-        public DeleteCityPage()
-        {
-            InitializeComponent();
-            DataContext = new DeleteCityViewModel();
-        }
+        InitializeComponent();
+        DataContext = new DeleteCityViewModel();
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System.Windows.Controls;
 using PhoneCompany.ViewModels.EditorVM;
 
-namespace PhoneCompany.Views.Editor.Pages
+namespace PhoneCompany.Views.Editor.Pages;
+
+/// <summary>
+///     Логика взаимодействия для DeleteConversation.xaml
+/// </summary>
+public partial class DeleteConversation : Page
 {
-    /// <summary>
-    /// Логика взаимодействия для DeleteConversation.xaml
-    /// </summary>
-    public partial class DeleteConversation : Page
+    public DeleteConversation()
     {
-        public DeleteConversation()
-        {
-            InitializeComponent();
-            DataContext = new DeleteConversationViewModel();
-        }
+        InitializeComponent();
+        DataContext = new DeleteConversationViewModel();
     }
 }
