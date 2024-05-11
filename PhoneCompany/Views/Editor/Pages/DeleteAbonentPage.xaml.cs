@@ -1,17 +1,16 @@
 ﻿using System.Windows.Controls;
 using PhoneCompany.ViewModels.EditorVM;
 
-namespace PhoneCompany.Views.Editor.Pages
+namespace PhoneCompany.Views.Editor.Pages;
+
+/// <summary>
+///     Логика взаимодействия для DeleteAbonentPage.xaml
+/// </summary>
+public partial class DeleteAbonentPage : Page
 {
-    /// <summary>
-    /// Логика взаимодействия для DeleteAbonentPage.xaml
-    /// </summary>
-    public partial class DeleteAbonentPage : Page
+    public DeleteAbonentPage()
     {
-        public DeleteAbonentPage()
-        {
-            InitializeComponent();
-            DataContext = new DeleteAbonentViewModel();
-        }
+        InitializeComponent();
+        DataContext = new DeleteAbonentViewModel();
     }
 }
