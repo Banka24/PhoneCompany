@@ -32,10 +32,7 @@ public class EditConversationViewModel : ConversationViewModelBase
             return;
         }
 
-        if (await FindConversationAsync())
-        {
-            IsButtonEnable = true;
-        }
+        IsButtonEnable = await FindConversationAsync();
     }
 
     private async Task<bool> FindConversationAsync()

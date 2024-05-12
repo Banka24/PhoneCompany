@@ -33,10 +33,7 @@ public class EditCityViewModel : CityViewModelBase
             return;
         }
 
-        if (await FindCityAsync())
-        {
-            IsButtonEnable = true;
-        }
+        IsButtonEnable = await FindCityAsync();
     }
 
     private async Task<bool> FindCityAsync()

@@ -48,10 +48,7 @@ public class EditAbonentViewModel : AbonentViewModelBase
             return;
         }
 
-        if (await FindAbonentAsync())
-        {
-            IsButtonEnable = true;
-        }
+        IsButtonEnable = await FindAbonentAsync();
     }
 
     private async Task<bool> FindAbonentAsync()
