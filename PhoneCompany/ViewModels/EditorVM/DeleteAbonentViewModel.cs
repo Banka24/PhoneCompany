@@ -5,7 +5,7 @@ using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
-internal class DeleteAbonentViewModel : AbonentViewModelBase
+public class DeleteAbonentViewModel : AbonentViewModelBase
 {
     public DeleteAbonentViewModel()
     {
