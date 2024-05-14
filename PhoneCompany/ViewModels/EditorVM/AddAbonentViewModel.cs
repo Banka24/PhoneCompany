@@ -1,14 +1,15 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
 public class AddAbonentViewModel : AbonentViewModelBase
 {
-    private System.Windows.Input.ICommand _addAbonentCommand;
-    public System.Windows.Input.ICommand AddAbonentCommand => _addAbonentCommand ??= new Services.RelayCommand<Button>(AddAbonent);
+    private ICommand _addAbonentCommand;
+    public ICommand AddAbonentCommand => _addAbonentCommand ??= new Services.RelayCommand<Button>(AddAbonent);
 
     public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
     {
@@ -28,7 +29,6 @@ public class AddAbonentViewModel : AbonentViewModelBase
                 {
                     yield return "Длина должна быть 11 символов и начинаться на 7";
                 }
-
                 break;
             }
             default:

@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
 public class DeleteConversationViewModel : ConversationViewModelBase
 {
-    private System.Windows.Input.ICommand _saveConversationCommand;
-    public System.Windows.Input.ICommand SaveConversationCommand => _saveConversationCommand ??= new Services.RelayCommand<Button>(DeleteCommand);
+    private ICommand _saveConversationCommand;
+    public ICommand SaveConversationCommand => _saveConversationCommand ??= new Services.RelayCommand<Button>(DeleteCommand);
 
     private async void DeleteCommand(Button button)
     {

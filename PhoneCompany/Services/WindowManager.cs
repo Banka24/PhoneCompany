@@ -1,35 +1,38 @@
-﻿using System.Windows.Controls;
+﻿using System.Text;
+using System.Windows.Controls;
+using PhoneCompany.Services.DictionaryHolder;
+using PhoneCompany.ViewModels.EditorVM;
 using PhoneCompany.Views.Editor.Windows;
 
 namespace PhoneCompany.Services;
 
 /// <summary>
-/// Менеджер по управлению окнами
+///     Менеджер по управлению окнами
 /// </summary>
 public static class WindowManager
 {
     /// <summary>
-    /// Открытие редактора по названию команды и названию с вызываемой страницы
+    ///     Открытие редактора по названию команды и названию с вызываемой страницы
     /// </summary>
     public static void OpenEditor(in string nameCommand, in string nameCallingPage)
     {
         var window = new Editor(OpenPage(nameCommand, nameCallingPage));
         if (window.ShowDialog() is false)
         {
-            ViewModels.EditorVM.EditorViewModel.CurrentPage = null;
+            EditorViewModel.CurrentPage = null;
         }
     }
 
     private static Page OpenPage(in string nameCommand, in string nameCallingPage)
     {
         var pageName = GetNamePageToOpen(nameCommand, nameCallingPage);
-        var pageHolder = new DictionaryHolder.EditorPageDictionaryHolder();
+        var pageHolder = new EditorPageDictionaryHolder();
         return pageHolder.GetPage(pageName);
     }
 
     private static string GetNamePageToOpen(in string nameCommand, in string nameCallingPage)
     {
-        var sb = new System.Text.StringBuilder(nameCommand);
+        var sb = new StringBuilder(nameCommand);
         return $"{sb.Append(nameCallingPage)}";
     }
 }

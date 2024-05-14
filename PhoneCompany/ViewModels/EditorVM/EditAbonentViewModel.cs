@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -29,8 +30,8 @@ public class EditAbonentViewModel : AbonentViewModelBase
         }
     }
 
-    private System.Collections.ObjectModel.ObservableCollection<string> _phoneNumberList = [];
-    public System.Collections.ObjectModel.ObservableCollection<string> PhoneNumberList
+    private ObservableCollection<string> _phoneNumberList = [];
+    public ObservableCollection<string> PhoneNumberList
     {
         get => _phoneNumberList;
         set

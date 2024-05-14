@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PhoneCompany.Services;
+using PhoneCompany.Services.DictionaryHolder;
 
 namespace PhoneCompany.ViewModels.MainViewModel;
 
-public class MainWindowViewModel(System.Windows.Window window) : INotifyPropertyChanged
+public class MainWindowViewModel(Window window) : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,6 +22,7 @@ public class MainWindowViewModel(System.Windows.Window window) : INotifyProperty
     public ICommand ExitCommand => _exitCommand ??= new RelayCommand<Button>(CloseApp);
 
     private Page _currentPage;
+
     public Page CurrentPage
     {
         get => _currentPage;
@@ -30,6 +34,7 @@ public class MainWindowViewModel(System.Windows.Window window) : INotifyProperty
     }
 
     private bool _isDatabaseConnected;
+
     public bool IsDatabaseConnected
     {
         get => _isDatabaseConnected;
@@ -42,43 +47,41 @@ public class MainWindowViewModel(System.Windows.Window window) : INotifyProperty
     }
 
     private string _connectionText = "Подключение к БД";
+
     public string ConnectionText
     {
         get => _connectionText;
         set
-        { 
+        {
             _connectionText = value;
             OnPropertyChanged();
         }
     }
-   
+
     public bool IsButtonsEnabled => IsDatabaseConnected;
-    
+
     /// <summary>
-    /// Сообщить о состоянии подключения к Базе Данных
+    ///     Сообщить о состоянии подключения к Базе Данных
     /// </summary>
     public void SetIsDatabaseConnected(bool isConnected)
     {
         IsDatabaseConnected = isConnected;
     }
 
-    protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private void ChangePage(Button sender)
     {
-        var pageHolder = new Services.DictionaryHolder.PageDictionaryHolder();
+        var pageHolder = new PageDictionaryHolder();
         CurrentPage = pageHolder.GetPage(sender.Name);
     }
-    
+
     private void OpenEditor(Button sender)
     {
-        if (CurrentPage is not null)
-        {
-            WindowManager.OpenEditor(sender.Name, CurrentPage.Title);
-        }
+        if (CurrentPage is not null) WindowManager.OpenEditor(sender.Name, CurrentPage.Title);
     }
 
     private void CloseApp(Button sender)

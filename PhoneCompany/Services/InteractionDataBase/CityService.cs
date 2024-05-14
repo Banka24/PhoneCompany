@@ -80,8 +80,9 @@ public class CityService(CompanyDbContext context)
         using (context)
         {
             _lastFoundCity = await context.Cities.FirstOrDefaultAsync(city => city.Title == title) ?? throw new Exception("Такого города нет");
-            return _lastFoundCity;
         }
+        
+        return _lastFoundCity;
     }
 
     /// <summary>
@@ -102,10 +103,11 @@ public class CityService(CompanyDbContext context)
     /// <returns>Вернёт true если получилось изменить и сохранить, false если произошла ошибка</returns>
     public async Task<bool> EditCityAsync(string title, decimal tariffDay, decimal tariffNight)
     {
+        var newCity = MakeCity(title, tariffDay, tariffNight);
+
         using (context)
         {
             context.Cities.Attach(_lastFoundCity);
-            var newCity = MakeCity(title, tariffDay, tariffNight);
             (_lastFoundCity.Title, _lastFoundCity.TariffDay, _lastFoundCity.TariffNight) = (newCity.Title, newCity.TariffDay, newCity.TariffNight);
             return await context.TrySaveChangeAsync();
         }

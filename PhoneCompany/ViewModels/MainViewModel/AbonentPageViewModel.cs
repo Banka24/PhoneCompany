@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using PhoneCompany.Models;
 using PhoneCompany.Services.InteractionDataBase;
@@ -14,8 +15,8 @@ public class AbonentPageViewModel : PageViewModelBase
 
     public string Inn { get; set; }
 
-    public System.Collections.ObjectModel.ObservableCollection<Abonent> AbonentsList { get; set; } = [];
-    public System.Collections.ObjectModel.ObservableCollection<string> InnList { get; set; } = [];
+    public ObservableCollection<Abonent> AbonentsList { get; set; } = [];
+    public ObservableCollection<string> InnList { get; set; } = [];
 
     protected override async Task EnterDataListAsync()
     {
@@ -31,7 +32,7 @@ public class AbonentPageViewModel : PageViewModelBase
 
     protected override async void GetFilteredList(Button button)
     {
-        if(string.IsNullOrWhiteSpace(Inn)) return;
+        if (string.IsNullOrWhiteSpace(Inn)) return;
 
         var service = new AbonentService(new CompanyDbContext());
         AbonentsList.Clear();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace PhoneCompany.ViewModels.EditorVM;
 
 /// <summary>
-/// Базовый класс для всех ViewModel страниц редактора
+///     Базовый класс для всех ViewModel страниц редактора
 /// </summary>
 public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
 {
@@ -18,6 +19,7 @@ public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyD
     public virtual bool HasErrors { get; }
 
     private string _errorMessage;
+
     public string ErrorMessage
     {
         get => _errorMessage;
@@ -29,7 +31,7 @@ public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyD
     }
 
     /// <summary>
-    /// Получение списка ошибок
+    ///     Получение списка ошибок
     /// </summary>
     /// <returns>Список ошибок</returns>
     public abstract IEnumerable GetErrors(string propertyName);
@@ -45,15 +47,12 @@ public abstract class EditorPageViewModelBase : INotifyPropertyChanged, INotifyD
     }
 
     /// <summary>
-    /// Заполнение ComboBox данными из списка
+    ///     Заполнение ComboBox данными из списка
     /// </summary>
     /// <returns>Список данных</returns>
-    protected virtual Task FillComboBox<T>(ObservableCollection<T> dataGridName, in System.Collections.Generic.IEnumerable<T> dataList) where T : class
+    protected virtual Task FillComboBox<T>(ObservableCollection<T> dataGridName, in IEnumerable<T> dataList) where T : class
     {
-        foreach (var item in dataList)
-        {
-            dataGridName.Add(item);
-        }
+        foreach (var item in dataList) dataGridName.Add(item);
 
         return Task.CompletedTask;
     }

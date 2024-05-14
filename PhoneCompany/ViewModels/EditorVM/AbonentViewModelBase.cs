@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 
 namespace PhoneCompany.ViewModels.EditorVM;
 
@@ -46,7 +47,7 @@ public abstract class AbonentViewModelBase : EditorPageViewModelBase
         }
     }
 
-    public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
+    public override IEnumerable<string> GetErrors(string propertyName)
     {
         switch (propertyName)
         {

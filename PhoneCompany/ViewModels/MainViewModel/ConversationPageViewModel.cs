@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using PhoneCompany.Models;
 using PhoneCompany.Services.InteractionDataBase;
@@ -14,8 +16,8 @@ public class ConversationPageViewModel : PageViewModelBase
 
     public string PhoneNumber { get; set; }
 
-    public System.Collections.ObjectModel.ObservableCollection<Conversation> ConversationsList { get; set; } = [];
-    public System.Collections.ObjectModel.ObservableCollection<string> PhoneNumberList { get; set; } = [];
+    public ObservableCollection<Conversation> ConversationsList { get; set; } = [];
+    public ObservableCollection<string> PhoneNumberList { get; set; } = [];
 
     protected override async Task EnterDataListAsync()
     {
@@ -34,11 +36,11 @@ public class ConversationPageViewModel : PageViewModelBase
         if (string.IsNullOrWhiteSpace(PhoneNumber)) return;
 
         var service = new ConversationService(new CompanyDbContext());
-        ConversationsList.Clear();        
+        ConversationsList.Clear();
         await FillDataGrid(ConversationsList, await service.GetDataByPhoneNumberAsync(PhoneNumber));
     }
 
-    private async Task FillDataGridAsync(System.Collections.Generic.IEnumerable<Conversation> conversations)
+    private async Task FillDataGridAsync(IEnumerable<Conversation> conversations)
     {
         foreach (var conversation in conversations)
         {

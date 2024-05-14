@@ -32,9 +32,10 @@ public class AbonentService(CompanyDbContext context)
     /// <returns>Список абонентов</returns>
     public async Task<List<Abonent>> GetDataByInnAsync(string inn)
     {
-        var abonents = await context.Abonents.Where(i => i.Inn == inn).ToListAsync();
-        context = null;
-        return abonents;
+        using (context)
+        {
+            return await context.Abonents.Where(i => i.Inn == inn).ToListAsync();
+        }
     }
 
     /// <summary>
@@ -60,8 +61,9 @@ public class AbonentService(CompanyDbContext context)
         using (context)
         {
             _lastFoundAbonent = await context.Abonents.FirstOrDefaultAsync(i => i.PhoneNumber == phoneNumber) ?? throw new Exception("Такого номера нет");
-            return _lastFoundAbonent;
         }
+        
+        return _lastFoundAbonent;
     }
 
     /// <summary>
@@ -70,10 +72,11 @@ public class AbonentService(CompanyDbContext context)
     /// <returns>Вернёт true если получилось изменить и сохранить, false если произошла ошибка</returns>
     public async Task<bool> EditAbonentAsync(string phoneNumber, string inn, string address)
     {
+        var newAbonent = MakeAbonent(phoneNumber, inn, address);
+
         using (context)
         {
             context.Abonents.Attach(_lastFoundAbonent);
-            var newAbonent = MakeAbonent(phoneNumber, inn, address);
             (_lastFoundAbonent.PhoneNumber, _lastFoundAbonent.Inn, _lastFoundAbonent.Address) = (newAbonent.PhoneNumber, newAbonent.Inn, newAbonent.Address);
             return await context.TrySaveChangeAsync();
         }

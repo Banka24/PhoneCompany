@@ -20,7 +20,11 @@ public class ConversationService(CompanyDbContext context)
     /// <returns>Список переговоров</returns>
     public async Task<List<Conversation>> GetDataAsync()
     {
-        return await context.Conversations.ToListAsync();
+        using (context)
+        {
+            return await context.Conversations.Include(c => c.Abonent)
+                .Include(c => c.City).ToListAsync();
+        }
     }
 
     /// <summary>
@@ -29,9 +33,11 @@ public class ConversationService(CompanyDbContext context)
     /// <returns>Список телефонных переговоров</returns>
     public async Task<List<Conversation>> GetDataByPhoneNumberAsync(string phoneNumber)
     {
-        var conversation = await context.Conversations.Where(i => i.Abonent.PhoneNumber == phoneNumber).ToListAsync();
-        context = null;
-        return conversation;
+        using (context)
+        {
+            return await context.Conversations.Where(i => i.Abonent.PhoneNumber == phoneNumber).Include(c => c.Abonent)
+                .Include(c => c.City).ToListAsync();
+        }
     }
 
     /// <summary>
@@ -53,13 +59,17 @@ public class ConversationService(CompanyDbContext context)
     /// <returns>Вернёт true если получилось изменить и сохранить, false если произошла ошибка</returns>
     public async Task<bool> EditConversationAsync(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
-        context.Conversations.Attach(_lastFoundConversation);
         var newConversation = await MakeConversation(phoneNumber, title, date, numberOfMinutes, timeOfDay);
 
-        (_lastFoundConversation.AbonentId, _lastFoundConversation.CityId, _lastFoundConversation.Date, _lastFoundConversation.NumberOfMinutes, _lastFoundConversation.TimeOfDay) =
-            (newConversation.AbonentId, newConversation.CityId, newConversation.Date, newConversation.NumberOfMinutes, newConversation.TimeOfDay);
+        using (context)
+        {
+            context.Conversations.Attach(_lastFoundConversation);
 
-        return await context.TrySaveChangeAsync();
+            (_lastFoundConversation.AbonentId, _lastFoundConversation.CityId, _lastFoundConversation.Date, _lastFoundConversation.NumberOfMinutes, _lastFoundConversation.TimeOfDay) =
+                (newConversation.AbonentId, newConversation.CityId, newConversation.Date, newConversation.NumberOfMinutes, newConversation.TimeOfDay);
+
+            return await context.TrySaveChangeAsync();
+        }
     }
 
     /// <summary>
@@ -96,15 +106,16 @@ public class ConversationService(CompanyDbContext context)
         {
             _lastFoundConversation = await context.Conversations.FirstOrDefaultAsync(i => i.Abonent.PhoneNumber == phoneNumber && i.City.Title == titleCity && i.Date == dateTime)
                                      ?? throw new Exception("Такого вызова нет");
-            return _lastFoundConversation;
         }
+        
+        return _lastFoundConversation;
     }
 
     private async Task<Conversation> MakeConversation(string phoneNumber, string title, DateTime date, int numberOfMinutes, string timeOfDay)
     {
         return new Conversation
         {
-            AbonentId = await context.Abonents.Where(i => i.PhoneNumber == phoneNumber).Select(i => i.Id).SingleOrDefaultAsync(),
+            AbonentId = await context.Abonents.Where(i => i.PhoneNumber == phoneNumber).Select(i => i.Id).FirstOrDefaultAsync(),
             CityId = await context.Cities.Where(i => i.Title == title).Select(i => i.Id).FirstOrDefaultAsync(),
             Date = date,
             NumberOfMinutes = numberOfMinutes,

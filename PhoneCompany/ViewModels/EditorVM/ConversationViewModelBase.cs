@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -19,8 +21,8 @@ public class ConversationViewModelBase : EditorPageViewModelBase
     }
 
     public override bool HasErrors => NumberOfMinutes < 0 || Time < TimeSpan.MinValue;
-    public System.Collections.ObjectModel.ObservableCollection<string> PhoneNumberList { get; set; } = [];
-    public System.Collections.ObjectModel.ObservableCollection<string> CityTitleList { get; set; } = [];
+    public ObservableCollection<string> PhoneNumberList { get; set; } = [];
+    public ObservableCollection<string> CityTitleList { get; set; } = [];
 
     private string _phoneNumber = "7";
     public string PhoneNumber
@@ -82,7 +84,7 @@ public class ConversationViewModelBase : EditorPageViewModelBase
         }
     }
 
-    public override System.Collections.Generic.IEnumerable<string> GetErrors(string propertyName)
+    public override IEnumerable<string> GetErrors(string propertyName)
     {
         if (propertyName is nameof(NumberOfMinutes) && NumberOfMinutes < 0)
         {
