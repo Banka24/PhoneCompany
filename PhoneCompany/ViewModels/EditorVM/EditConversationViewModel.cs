@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhoneCompany.Models;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -38,7 +39,7 @@ public class EditConversationViewModel : ConversationViewModelBase
     private async Task<bool> FindConversationAsync()
     {
         var service = new ConversationService(new CompanyDbContext());
-        Models.Conversation conversation;
+        Conversation conversation;
         try
         {
             conversation = await service.FindConversationAsync(PhoneNumber, CityTitle, MakeDateTimeToFormat());
