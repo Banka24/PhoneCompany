@@ -14,7 +14,7 @@ public class Conversation
     public int CityId { get; set; }
     public DateTime Date { get; set; }
     public int NumberOfMinutes { get; set; }
-    [MaxLength(4)]public string TimeOfDay { get; set; }
+    [MaxLength(4), Required]public string TimeOfDay { get; set; }
 
     [NotMapped] public decimal Price { get; set; }
     public virtual Abonent Abonent { get; set; }
