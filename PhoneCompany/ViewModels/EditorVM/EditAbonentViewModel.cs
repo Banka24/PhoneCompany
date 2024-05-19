@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using PhoneCompany.Models;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -55,7 +56,7 @@ public class EditAbonentViewModel : AbonentViewModelBase
     private async Task<bool> FindAbonentAsync()
     {
         var service = new AbonentService(new CompanyDbContext());
-        Models.Abonent abonent;
+        Abonent abonent;
         try
         {
             abonent = await service.FindAbonentAsync(PhoneNumber);

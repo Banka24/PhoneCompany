@@ -37,7 +37,7 @@ public abstract class PageViewModelBase
     /// <summary>
     ///     Заполнение DataGrid данными из списка
     /// </summary>
-    protected virtual Task FillDataGrid<T>(ObservableCollection<T> dataGridName, in IEnumerable<T> dataList) where T : class
+    protected virtual Task FillDataGrid<T>(ICollection<T> dataGridName, in IEnumerable<T> dataList) where T : class
     {
         foreach (var item in dataList) dataGridName.Add(item);
 

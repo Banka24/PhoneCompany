@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhoneCompany.Models;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany.ViewModels.EditorVM;
@@ -39,7 +40,7 @@ public class EditCityViewModel : CityViewModelBase
     private async Task<bool> FindCityAsync()
     {
         var service = new CityService(new CompanyDbContext());
-        Models.City city;
+        City city;
         try
         {
             city = await service.FindCityAsync(Title);
