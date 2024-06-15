@@ -17,7 +17,7 @@ public static class DatabaseService
         viewModel!.SetIsDatabaseConnected(true);
         viewModel.ConnectionText = "Подключено";
         await Task.Delay(1500);
-        viewModel.ConnectionText = "Выполнил студент 225 группы Наумов Артём";
+        viewModel.ConnectionText = string.Empty;
     }
 
     /// <summary>
