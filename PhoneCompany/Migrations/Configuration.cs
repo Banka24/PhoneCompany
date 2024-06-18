@@ -8,6 +8,7 @@
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "PhoneCompany.Services.InteractionDataBase.CompanyDbContext";
+            AutomaticMigrationDataLossAllowed = true;
         }
     }
 }

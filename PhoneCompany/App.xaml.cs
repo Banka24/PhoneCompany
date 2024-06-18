@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows;
 using PhoneCompany.Services.InteractionDataBase;
 
 namespace PhoneCompany;
@@ -8,7 +7,7 @@ namespace PhoneCompany;
 /// <summary>
 ///     Логика взаимодействия для App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App
 {
     protected override async void OnActivated(EventArgs e)
     {
